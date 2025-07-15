@@ -41,6 +41,13 @@ export const OFFGIGS_PRODUCT: Product = {
 // Fonction pour créer une session de paiement
 export async function createCheckoutSession(product: Product) {
   try {
+    console.log('🟡 Creating Stripe checkout session...')
+    console.log('💰 Product details:', {
+      name: product.name,
+      price: product.price,
+      currency: product.currency
+    })
+    
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
       line_items: [
@@ -66,9 +73,17 @@ export async function createCheckoutSession(product: Product) {
       customer_creation: 'always',
     })
 
+    console.log('✅ Stripe session created successfully:', session.id)
     return session
-  } catch (error) {
-    console.error('Error creating checkout session:', error)
+  } catch (error: any) {
+    console.error('❌ Error creating checkout session:', error)
+    console.error('❌ Stripe error details:', {
+      message: error.message,
+      type: error.type,
+      code: error.code,
+      decline_code: error.decline_code,
+      payment_intent: error.payment_intent
+    })
     throw error
   }
 }
