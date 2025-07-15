@@ -1,0 +1,212 @@
+import { motion } from 'framer-motion';
+import { TrendingUp, TrendingDown, RefreshCw } from 'lucide-react';
+import { ProgressBar } from './ProgressBar';
+import { Button } from './button';
+import { SpotifyIcon, TikTokIcon, InstagramIcon } from '@/components/icons/brand-icons';
+
+interface SocialStatsProps {
+  stats: {
+    spotify: {
+      current: string;
+      trend: string;
+      label: string;
+    };
+    tiktok: {
+      current: string;
+      trend: string;
+      label: string;
+    };
+    instagram: {
+      current: string;
+      trend: string;
+      label: string;
+    };
+  };
+  onUpdateStats?: () => void;
+}
+
+export function SocialStats({ stats, onUpdateStats }: SocialStatsProps) {
+  const getPlatformConfig = (platform: string) => {
+    switch (platform.toLowerCase()) {
+      case 'spotify':
+        return {
+          icon: SpotifyIcon,
+          color: 'from-green-400 via-emerald-500 to-green-600',
+          bgColor: 'bg-green-500/10',
+          borderColor: 'border-green-500/20',
+          textColor: 'text-green-400',
+          iconColor: 'text-[#1DB954]',
+          progress: 75, // Exemple de progression
+        };
+      case 'tiktok':
+        return {
+          icon: TikTokIcon,
+          color: 'from-pink-400 via-rose-500 to-pink-600',
+          bgColor: 'bg-pink-500/10',
+          borderColor: 'border-pink-500/20',
+          textColor: 'text-pink-400',
+          iconColor: 'text-[#FE2C55]',
+          progress: 60, // Exemple de progression
+        };
+      case 'instagram':
+        return {
+          icon: InstagramIcon,
+          color: 'from-purple-400 via-violet-500 to-purple-600',
+          bgColor: 'bg-purple-500/10',
+          borderColor: 'border-purple-500/20',
+          textColor: 'text-purple-400',
+          iconColor: 'text-[#E4405F]',
+          progress: 85, // Exemple de progression
+        };
+      default:
+        return {
+          icon: TrendingUp,
+          color: 'from-violet-400 via-fuchsia-500 to-pink-500',
+          bgColor: 'bg-violet-500/10',
+          borderColor: 'border-violet-500/20',
+          textColor: 'text-violet-400',
+          iconColor: 'text-violet-400',
+          progress: 50,
+        };
+    }
+  };
+
+  const isPositiveTrend = (trend: string) => trend.startsWith('+');
+
+  return (
+    <div className="p-8 space-y-8">
+      <div className="flex items-center gap-3 mb-6">
+        <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500 via-fuchsia-500 to-violet-600 flex items-center justify-center shadow-[0_8px_32px_rgba(139,92,246,0.3),0_3px_16px_rgba(139,92,246,0.2)] border border-white/10">
+          <TrendingUp className="w-6 h-6 text-gray-900 dark:text-white drop-shadow-sm" />
+        </div>
+        <h3 className="text-2xl font-semibold text-gray-900 dark:text-white tracking-wide">
+          Social Statistics
+        </h3>
+      </div>
+
+      <div className="space-y-6">
+        {Object.entries(stats).map(([platform, data], index) => {
+          const config = getPlatformConfig(platform);
+          const IconComponent = config.icon;
+          const isPositive = isPositiveTrend(data.trend);
+
+          return (
+            <motion.div
+              key={platform}
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              className={`p-6 rounded-2xl ${config.bgColor} border ${config.borderColor} hover:scale-105 transition-all duration-300 cursor-pointer group`}
+            >
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center gap-4">
+                  <motion.div
+                    className="p-3 rounded-xl bg-white shadow-lg border border-white/20 group-hover:scale-110 transition-transform duration-200"
+                    whileHover={{ rotate: 10 }}
+                  >
+                    <IconComponent className={`w-6 h-6 ${config.iconColor}`} />
+                  </motion.div>
+                  <div>
+                    <h4 className={`text-lg font-bold ${config.textColor}`}>
+                      {data.label}
+                    </h4>
+                    <p className="text-gray-600 dark:text-white/60 text-sm">
+                      {platform === 'spotify' ? 'Monthly listeners' : 
+                       platform === 'tiktok' ? 'Followers' : 'Followers'}
+                    </p>
+                  </div>
+                </div>
+                
+                <div className="text-right">
+                  <div className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
+                    {data.current}
+                  </div>
+                  <div className={`flex items-center gap-1 text-sm font-medium ${
+                    isPositive ? 'text-green-400' : 'text-red-400'
+                  }`}>
+                    {isPositive ? (
+                      <TrendingUp className="w-4 h-4" />
+                    ) : (
+                      <TrendingDown className="w-4 h-4" />
+                    )}
+                    {data.trend}
+                  </div>
+                </div>
+              </div>
+
+              {/* Progress Bar */}
+              <div className="space-y-2">
+                <div className="flex justify-between items-center text-xs">
+                  <span className="text-gray-600 dark:text-white/60">Monthly goal</span>
+                  <span className={`font-medium ${config.textColor}`}>
+                    {config.progress}%
+                  </span>
+                </div>
+                <ProgressBar 
+                  progress={config.progress}
+                  className="h-3"
+                  color={config.color}
+                  animated={true}
+                  glowEffect={true}
+                />
+              </div>
+
+              {/* Détails additionnels */}
+              <div className="mt-4 pt-4 border-t border-white/10">
+                <div className="flex justify-between items-center text-xs text-gray-600 dark:text-white/60">
+                                      <span>This week</span>
+                  <span className={`font-medium ${isPositive ? 'text-green-400' : 'text-red-400'}`}>
+                    {isPositive ? '+' : ''}{Math.abs(parseFloat(data.trend.replace('%', '')) * 0.3).toFixed(1)}%
+                  </span>
+                </div>
+              </div>
+            </motion.div>
+          );
+        })}
+      </div>
+
+      {/* Bouton de mise à jour */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.3 }}
+        className="flex justify-center"
+      >
+        <Button
+          onClick={onUpdateStats}
+          variant="outline"
+          className="hover:scale-105 transition-transform duration-200 bg-white/[0.02] border-white/20 text-gray-900 dark:text-white hover:bg-white/[0.05] hover:border-white/30"
+          leftIcon={<RefreshCw className="w-4 h-4" />}
+        >
+          Update my stats
+        </Button>
+      </motion.div>
+
+      {/* Résumé global */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className="p-6 rounded-2xl bg-gradient-to-br from-violet-500/10 to-fuchsia-500/10 border border-violet-500/20"
+      >
+        <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-3">
+                      Global Growth
+        </h4>
+        <div className="space-y-2">
+          <div className="flex justify-between items-center text-sm">
+            <span className="text-gray-600 dark:text-white/60">Average growth</span>
+            <span className="text-green-400 font-bold">+6.9%</span>
+          </div>
+          <ProgressBar 
+            progress={69}
+            className="h-3"
+            color="from-violet-400 via-fuchsia-500 to-pink-500"
+            showValue={true}
+            animated={true}
+            glowEffect={true}
+          />
+        </div>
+      </motion.div>
+    </div>
+  );
+} 

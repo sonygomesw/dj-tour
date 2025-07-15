@@ -1,0 +1,72 @@
+'use client'
+
+import { useState, useEffect } from 'react'
+import { DJSidebar } from '@/components/ui/DJSidebar'
+import { EnhancedDJPlan } from '@/components/ui/EnhancedDJPlan'
+import { PageTransition } from '@/components/ui/PageTransition'
+import { SectionTitle } from '@/components/ui/SectionTitle'
+import { supabase } from '@/lib/supabase'
+import { User } from '@supabase/supabase-js'
+
+export default function MyDJPlanPage() {
+  const [user, setUser] = useState<User | null>(null)
+  const [djLevel, setDjLevel] = useState<string>('beginner')
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const getUser = async () => {
+      const { data: { user } } = await supabase.auth.getUser()
+      setUser(user)
+      
+      if (user) {
+        // Get DJ level from profile
+        const { data: profile } = await supabase
+          .from('profiles')
+          .select('dj_level, experience_level')
+          .eq('id', user.id)
+          .single()
+        
+        if (profile) {
+          setDjLevel(profile.dj_level || profile.experience_level || 'beginner')
+        }
+      }
+      setLoading(false)
+    }
+
+    getUser()
+  }, [])
+
+  if (loading) {
+    return (
+      <div className="flex min-h-screen bg-white">
+        <DJSidebar />
+        <div className="flex-1 ml-96 p-8">
+          <div className="flex items-center justify-center min-h-screen">
+            <div className="text-xl text-gray-900">Loading your DJ plan...</div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  return (
+    <PageTransition>
+      <div className="flex min-h-screen bg-white">
+        <DJSidebar />
+        <div className="flex-1 ml-96 p-8">
+          <div className="container mx-auto max-w-7xl">
+              <SectionTitle className="mb-8">
+                My DJ Plan
+              </SectionTitle>
+              <p className="text-gray-600 mb-8">Your personalized 90-day roadmap to DJ success</p>
+              
+              <EnhancedDJPlan 
+                djLevel={djLevel}
+                userId={user?.id}
+              />
+            </div>
+          </div>
+        </div>
+    </PageTransition>
+  )
+} 
