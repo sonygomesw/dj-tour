@@ -14,6 +14,7 @@ export default function ProfileSetupPage() {
   const [uploading, setUploading] = useState(false)
   const [message, setMessage] = useState('')
   const [user, setUser] = useState<any>(null)
+  const [paymentConfirmed, setPaymentConfirmed] = useState(false)
   const [formData, setFormData] = useState({
     dj_name: '',
     location: '',
@@ -38,6 +39,21 @@ export default function ProfileSetupPage() {
       }
     }
     getUser()
+  }, [router])
+
+  // Vérifier si l'utilisateur vient du paiement Stripe
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search)
+    const sessionId = searchParams.get('session_id')
+    const success = searchParams.get('success')
+    
+    if (sessionId && success === 'true') {
+      console.log('✅ Paiement Stripe confirmé, session_id:', sessionId)
+      setPaymentConfirmed(true)
+      setMessage('🎉 Payment confirmed! Please complete your profile setup.')
+      // Nettoyer l'URL après avoir récupéré les paramètres
+      router.replace('/profile-setup')
+    }
   }, [router])
 
   const uploadAvatar = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -246,14 +262,26 @@ export default function ProfileSetupPage() {
               </GlassContainer>
             </div>
 
-            {/* Error message */}
-            {message && (
-              <div className="lg:col-span-2">
-                <div className="p-4 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-200">
-                  {message}
-                </div>
+                    {/* Payment confirmation message */}
+        {paymentConfirmed && (
+          <div className="lg:col-span-2">
+            <div className="p-4 rounded-2xl bg-green-500/10 border border-green-500/20 text-green-200 flex items-center gap-3">
+              <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
+                <span className="text-white text-sm">✓</span>
               </div>
-            )}
+              Payment confirmed! Please complete your profile setup to access DJ Tour Pro.
+            </div>
+          </div>
+        )}
+
+        {/* Error message */}
+        {message && !paymentConfirmed && (
+          <div className="lg:col-span-2">
+            <div className="p-4 rounded-2xl bg-red-500/10 border border-red-500/20 text-red-200">
+              {message}
+            </div>
+          </div>
+        )}
 
             {/* Informations personnelles */}
             <GlassContainer className="p-8">

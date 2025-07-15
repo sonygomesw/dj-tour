@@ -84,10 +84,24 @@ export default function AuthPage() {
               handleCheckoutAfterSignup()
             }, 1000)
           } else {
-            // Sinon, rediriger vers dashboard
-            setTimeout(() => {
-              router.push('/dashboard')
-            }, 500)
+            // Vérifier si l'utilisateur a un profil complet
+            const { data: profileData, error: profileError } = await supabase
+              .from('profiles')
+              .select('dj_name, location')
+              .eq('id', data.user.id)
+              .single()
+            
+            if (profileError || !profileData?.dj_name) {
+              // Profil incomplet, rediriger vers profile-setup
+              setTimeout(() => {
+                router.push('/profile-setup')
+              }, 500)
+            } else {
+              // Profil complet, rediriger vers dashboard
+              setTimeout(() => {
+                router.push('/dashboard')
+              }, 500)
+            }
           }
         }
       } else {
