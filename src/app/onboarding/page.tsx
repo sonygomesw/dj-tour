@@ -111,7 +111,7 @@ export default function OnboardingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background py-16 px-4">
+    <div className="min-h-screen bg-background py-16 px-4 scale-50 origin-top-left">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
