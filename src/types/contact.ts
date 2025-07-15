@@ -12,7 +12,7 @@ export interface Contact {
   country?: string;
   city?: string;
   instagram?: string;
-  status: 'new' | 'contacted' | 'responded' | 'booked' | 'rejected';
+  status: "new" | "contacted" | "responded" | "booked" | "rejected";
   dateAdded?: string;
   lastContacted?: string;
   notes?: string;
@@ -24,4 +24,4 @@ export interface ContactStats {
   responded: number;
   booked: number;
   rejected: number;
-} 
+}

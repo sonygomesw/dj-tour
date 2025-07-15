@@ -32,4 +32,4 @@ export interface SpeechRecognitionErrorEvent {
   message: string;
 }
 
-export {}; 
+export {};

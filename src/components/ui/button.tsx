@@ -1,17 +1,20 @@
-import * as React from "react"
-import { Slot } from "@radix-ui/react-slot"
-import { cva, type VariantProps } from "class-variance-authority"
-import { cn } from "@/lib/utils"
+import * as React from "react";
+import { Slot } from "@radix-ui/react-slot";
+import { cva, type VariantProps } from "class-variance-authority";
+import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
   "inline-flex items-center justify-center whitespace-nowrap rounded-lg text-sm font-medium transition-all duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50",
   {
     variants: {
       variant: {
-        default: "bg-primary text-gray-900 dark:text-white hover:bg-primary/90 shadow-lg hover:shadow-xl",
-        gradient: "bg-gradient-to-r from-primary to-primary-dark text-gray-900 dark:text-white hover:from-primary/90 hover:to-primary-dark/90 shadow-lg hover:shadow-xl",
-        destructive: "bg-danger text-gray-900 dark:text-white hover:bg-danger/90",
-        outline: "border border-white/[0.1] bg-white/[0.05] text-foreground hover:bg-primary/[0.1] hover:border-primary/50",
+        default:
+          "bg-primary text-white hover:bg-primary/90 shadow-lg hover:shadow-xl",
+        gradient:
+          "bg-gradient-to-r from-primary to-primary-darker text-white hover:from-primary/90 hover:to-primary-darker/90 shadow-lg hover:shadow-xl",
+        destructive: "bg-danger text-white hover:bg-danger/90",
+        outline:
+          "border border-white/[0.1] bg-white/[0.05] text-foreground hover:bg-primary/[0.1] hover:border-primary/50",
         secondary: "bg-white/[0.05] text-foreground hover:bg-primary/[0.1]",
         ghost: "text-foreground hover:bg-primary/[0.1] hover:text-primary",
         link: "text-primary underline-offset-4 hover:underline",
@@ -27,20 +30,32 @@ const buttonVariants = cva(
       variant: "default",
       size: "default",
     },
-  }
-)
+  },
+);
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
     VariantProps<typeof buttonVariants> {
-  asChild?: boolean
-  leftIcon?: React.ReactNode
-  rightIcon?: React.ReactNode
+  asChild?: boolean;
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, leftIcon, rightIcon, children, ...props }, ref) => {
-    const Comp = asChild ? Slot : "button"
+  (
+    {
+      className,
+      variant,
+      size,
+      asChild = false,
+      leftIcon,
+      rightIcon,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
+    const Comp = asChild ? Slot : "button";
     return (
       <Comp
         className={cn(buttonVariants({ variant, size, className }))}
@@ -51,9 +66,10 @@ const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
         {children}
         {rightIcon && <span className="ml-2">{rightIcon}</span>}
       </Comp>
-    )
-  }
-)
-Button.displayName = "Button"
+    );
+  },
+);
 
-export { Button, buttonVariants }
+Button.displayName = "Button";
+
+export { Button, buttonVariants };

@@ -1,35 +1,22 @@
-'use client'
-
-import { FC, ReactNode } from 'react'
-
 interface GradientBackgroundProps {
-  children: ReactNode
-  className?: string
+  children: React.ReactNode;
+  className?: string;
 }
 
-export const GradientBackground: FC<GradientBackgroundProps> = ({ children, className = '' }) => {
+export function GradientBackground({ children, className = "" }: GradientBackgroundProps) {
   return (
-    <div className={`min-h-screen bg-[#121212] relative ${className}`}>
-      {/* Gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-[#1A1A1A] via-[#121212] to-black opacity-5" />
+    <div className={`relative min-h-screen ${className}`}>
+      {/* Gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-indigo-50 via-white to-purple-50 -z-10" />
       
-      {/* Grid pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.03)_1px,transparent_1px)] bg-[size:32px_32px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_50%,black,transparent)]" />
-
-      {/* Hero banner image */}
-      <div className="absolute inset-0 opacity-10">
-        <div className="absolute inset-0 bg-gradient-to-b from-[#1A1A1A] to-[#121212]" />
-        <img
-          src="/fond.jpeg"
-          alt="DJ Background"
-          className="w-full h-full object-cover opacity-30 mix-blend-overlay"
-        />
+      {/* Subtle animated gradients */}
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute top-0 -left-4 w-72 h-72 bg-purple-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob"></div>
+        <div className="absolute top-0 -right-4 w-72 h-72 bg-yellow-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-2000"></div>
+        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-pink-300 rounded-full mix-blend-multiply filter blur-xl opacity-70 animate-blob animation-delay-4000"></div>
       </div>
-
-      {/* Content */}
-      <div className="relative z-10">
-        {children}
-      </div>
+      
+      {children}
     </div>
-  )
-} 
+  );
+}

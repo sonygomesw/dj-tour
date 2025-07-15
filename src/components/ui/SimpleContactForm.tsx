@@ -1,67 +1,97 @@
-'use client'
+"use client";
 
-import { useState } from 'react'
-import { X, Plus, User, Mail, Instagram, Building2, MapPin, Briefcase, Check } from 'lucide-react'
-import { GlassContainer } from './GlassContainer'
-import { Button } from './button'
-import { useContacts } from '@/contexts/ContactContext'
-import { Contact } from '@/types/contact'
+import { useState } from "react";
+import {
+  X,
+  Plus,
+  User,
+  Mail,
+  Instagram,
+  Building2,
+  MapPin,
+  Briefcase,
+  Check,
+} from "lucide-react";
+import { GlassContainer } from "./GlassContainer";
+import { Button } from "./button";
+import { useContacts } from "@/contexts/ContactContext";
+import { Contact } from "@/types/contact";
 
 interface SimpleContactFormProps {
-  onClose: () => void
+  onClose: () => void;
 }
 
 export function SimpleContactForm({ onClose }: SimpleContactFormProps) {
-  const { contacts, addContact } = useContacts()
+  const { contacts, addContact } = useContacts();
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    instagram: '',
-    role: '',
-    club: '',
-    city: '',
-    country: ''
-  })
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [successMessage, setSuccessMessage] = useState('')
+    firstName: "",
+    lastName: "",
+    email: "",
+    instagram: "",
+    role: "",
+    club: "",
+    city: "",
+    country: "",
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [successMessage, setSuccessMessage] = useState("");
 
   const countries = [
-    'France', 'Spain', 'United Kingdom', 'Germany', 'Italy', 'Netherlands', 
-    'Belgium', 'Switzerland', 'Portugal', 'United States', 'Canada', 'Australia'
-  ]
+    "France",
+    "Spain",
+    "United Kingdom",
+    "Germany",
+    "Italy",
+    "Netherlands",
+    "Belgium",
+    "Switzerland",
+    "Portugal",
+    "United States",
+    "Canada",
+    "Australia",
+  ];
 
   const roles = [
-    'Talent Buyer', 'Booking Manager', 'Music Director', 'Event Manager', 
-    'Club Owner', 'Promoter', 'A&R', 'DJ Resident'
-  ]
+    "Talent Buyer",
+    "Booking Manager",
+    "Music Director",
+    "Event Manager",
+    "Club Owner",
+    "Promoter",
+    "A&R",
+    "DJ Resident",
+  ];
 
   const getContinent = (country: string) => {
     const continentMap: { [key: string]: string } = {
-      'France': 'Europe',
-      'Spain': 'Europe',
-      'United Kingdom': 'Europe',
-      'Germany': 'Europe',
-      'Italy': 'Europe',
-      'Netherlands': 'Europe',
-      'Belgium': 'Europe',
-      'Switzerland': 'Europe',
-      'Portugal': 'Europe',
-      'United States': 'America',
-      'Canada': 'America',
-      'Australia': 'Oceania'
-    }
-    return continentMap[country] || 'Other'
-  }
+      France: "Europe",
+      Spain: "Europe",
+      "United Kingdom": "Europe",
+      Germany: "Europe",
+      Italy: "Europe",
+      Netherlands: "Europe",
+      Belgium: "Europe",
+      Switzerland: "Europe",
+      Portugal: "Europe",
+      "United States": "America",
+      Canada: "America",
+      Australia: "Oceania",
+    };
+    return continentMap[country] || "Other";
+  };
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault()
-    
-    if (!formData.firstName || !formData.lastName || !formData.club || !formData.role) {
-      return
+    e.preventDefault();
+    if (
+      !formData.firstName ||
+      !formData.lastName ||
+      !formData.club ||
+      !formData.role
+    ) {
+      return;
     }
 
-    setIsSubmitting(true)
+    setIsSubmitting(true);
 
     const newContact: Contact = {
       id: `contact-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
@@ -75,40 +105,40 @@ export function SimpleContactForm({ onClose }: SimpleContactFormProps) {
       city: formData.city || undefined,
       country: formData.country || undefined,
       continent: formData.country ? getContinent(formData.country) : undefined,
-      status: 'new',
-      dateAdded: new Date().toISOString()
-    }
+      status: "new",
+      dateAdded: new Date().toISOString(),
+    };
 
-    console.log('SimpleContactForm: Adding contact:', newContact)
-    addContact(newContact)
+    console.log("SimpleContactForm: Adding contact:", newContact);
+    addContact(newContact);
 
     // Reset form
     setFormData({
-      firstName: '',
-      lastName: '',
-      email: '',
-      instagram: '',
-      role: '',
-      club: '',
-      city: '',
-      country: ''
-    })
+      firstName: "",
+      lastName: "",
+      email: "",
+      instagram: "",
+      role: "",
+      club: "",
+      city: "",
+      country: "",
+    });
 
-    setSuccessMessage(`Contact ${newContact.name} added successfully!`)
-    setIsSubmitting(false)
+    setSuccessMessage(`Contact ${newContact.name} added successfully!`);
+    setIsSubmitting(false);
 
     // Clear success message and close modal after 2 seconds
     setTimeout(() => {
-      setSuccessMessage('')
-      onClose()
-    }, 2000)
-  }
+      setSuccessMessage("");
+      onClose();
+    }, 2000);
+  };
 
   return (
     <GlassContainer className="relative max-w-4xl mx-auto rounded-[28px] overflow-hidden shadow-2xl border-white/20">
       {/* Header */}
       <div className="relative h-16 flex items-center justify-center border-b border-white/10 bg-white/5">
-        <button 
+        <button
           onClick={onClose}
           className="absolute left-4 text-white/60 hover:text-white transition-colors"
         >
@@ -133,15 +163,21 @@ export function SimpleContactForm({ onClose }: SimpleContactFormProps) {
         {/* Stats */}
         <div className="mb-8 grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="bg-white/5 rounded-xl p-4 text-center">
-            <div className="text-2xl font-bold text-white">{contacts.length}</div>
+            <div className="text-2xl font-bold text-white">
+              {contacts.length}
+            </div>
             <div className="text-white/60 text-sm">Added contacts</div>
           </div>
           <div className="bg-white/5 rounded-xl p-4 text-center">
-            <div className="text-2xl font-bold text-blue-400">{contacts.filter(c => c.status === 'contacted').length}</div>
+            <div className="text-2xl font-bold text-blue-400">
+              {contacts.filter((c) => c.status === "contacted").length}
+            </div>
             <div className="text-white/60 text-sm">Contacted</div>
           </div>
           <div className="bg-white/5 rounded-xl p-4 text-center">
-            <div className="text-2xl font-bold text-green-400">{contacts.filter(c => c.status === 'responded').length}</div>
+            <div className="text-2xl font-bold text-green-400">
+              {contacts.filter((c) => c.status === "responded").length}
+            </div>
             <div className="text-white/60 text-sm">Responses</div>
           </div>
         </div>
@@ -160,7 +196,9 @@ export function SimpleContactForm({ onClose }: SimpleContactFormProps) {
                   type="text"
                   required
                   value={formData.firstName}
-                  onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, firstName: e.target.value })
+                  }
                   placeholder="Ex: John"
                   className="w-full bg-white/10 border border-white/30 rounded-xl py-3 pl-12 pr-4 text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all duration-200"
                 />
@@ -176,7 +214,9 @@ export function SimpleContactForm({ onClose }: SimpleContactFormProps) {
                 type="text"
                 required
                 value={formData.lastName}
-                onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, lastName: e.target.value })
+                }
                 placeholder="Ex: Smith"
                 className="w-full bg-white/10 border border-white/30 rounded-xl py-3 px-4 text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all duration-200"
               />
@@ -192,7 +232,9 @@ export function SimpleContactForm({ onClose }: SimpleContactFormProps) {
                 <input
                   type="email"
                   value={formData.email}
-                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, email: e.target.value })
+                  }
                   placeholder="email@club.com"
                   className="w-full bg-white/10 border border-white/30 rounded-xl py-3 pl-12 pr-4 text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all duration-200"
                 />
@@ -209,7 +251,9 @@ export function SimpleContactForm({ onClose }: SimpleContactFormProps) {
                 <input
                   type="text"
                   value={formData.instagram}
-                  onChange={(e) => setFormData({ ...formData, instagram: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, instagram: e.target.value })
+                  }
                   placeholder="@username"
                   className="w-full bg-white/10 border border-white/30 rounded-xl py-3 pl-12 pr-4 text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all duration-200"
                 />
@@ -226,12 +270,22 @@ export function SimpleContactForm({ onClose }: SimpleContactFormProps) {
                 <select
                   required
                   value={formData.role}
-                  onChange={(e) => setFormData({ ...formData, role: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, role: e.target.value })
+                  }
                   className="w-full bg-white/10 border border-white/30 rounded-xl py-3 pl-12 pr-4 text-white focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all duration-200"
                 >
-                  <option value="" className="bg-gray-800 text-white">Select a role...</option>
-                  {roles.map(role => (
-                    <option key={role} value={role} className="bg-gray-800 text-white">{role}</option>
+                  <option value="" className="bg-gray-800 text-white">
+                    Select a role...
+                  </option>
+                  {roles.map((role) => (
+                    <option
+                      key={role}
+                      value={role}
+                      className="bg-gray-800 text-white"
+                    >
+                      {role}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -248,7 +302,9 @@ export function SimpleContactForm({ onClose }: SimpleContactFormProps) {
                   type="text"
                   required
                   value={formData.club}
-                  onChange={(e) => setFormData({ ...formData, club: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, club: e.target.value })
+                  }
                   placeholder="Ex: Fabric London"
                   className="w-full bg-white/10 border border-white/30 rounded-xl py-3 pl-12 pr-4 text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all duration-200"
                 />
@@ -265,7 +321,9 @@ export function SimpleContactForm({ onClose }: SimpleContactFormProps) {
                 <input
                   type="text"
                   value={formData.city}
-                  onChange={(e) => setFormData({ ...formData, city: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, city: e.target.value })
+                  }
                   placeholder="Ex: London"
                   className="w-full bg-white/10 border border-white/30 rounded-xl py-3 pl-12 pr-4 text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all duration-200"
                 />
@@ -279,12 +337,22 @@ export function SimpleContactForm({ onClose }: SimpleContactFormProps) {
               </label>
               <select
                 value={formData.country}
-                onChange={(e) => setFormData({ ...formData, country: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, country: e.target.value })
+                }
                 className="w-full bg-white/10 border border-white/30 rounded-xl py-3 px-4 text-white focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all duration-200"
               >
-                <option value="" className="bg-gray-800 text-white">Select a country...</option>
-                {countries.map(country => (
-                  <option key={country} value={country} className="bg-gray-800 text-white">{country}</option>
+                <option value="" className="bg-gray-800 text-white">
+                  Select a country...
+                </option>
+                {countries.map((country) => (
+                  <option
+                    key={country}
+                    value={country}
+                    className="bg-gray-800 text-white"
+                  >
+                    {country}
+                  </option>
                 ))}
               </select>
             </div>
@@ -294,7 +362,13 @@ export function SimpleContactForm({ onClose }: SimpleContactFormProps) {
           <div className="flex justify-center pt-6">
             <Button
               type="submit"
-              disabled={isSubmitting || !formData.firstName || !formData.lastName || !formData.club || !formData.role}
+              disabled={
+                isSubmitting ||
+                !formData.firstName ||
+                !formData.lastName ||
+                !formData.club ||
+                !formData.role
+              }
               className="px-8 py-3 bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-600 hover:to-fuchsia-600 disabled:opacity-50 disabled:cursor-not-allowed"
             >
               {isSubmitting ? (
@@ -315,10 +389,12 @@ export function SimpleContactForm({ onClose }: SimpleContactFormProps) {
         {/* Help Text */}
         <div className="mt-8 p-4 bg-violet-500/10 border border-violet-500/20 rounded-xl">
           <p className="text-violet-300 text-sm">
-            💡 <strong>Tip:</strong> Contacts added here will appear in the "Contacts" page where you can track your interactions and manage your networking.
+            💡 <strong>Tip:</strong> Contacts added here will appear in the
+            "Contacts" page where you can track your interactions and manage
+            your networking.
           </p>
         </div>
       </div>
     </GlassContainer>
-  )
-} 
+  );
+}

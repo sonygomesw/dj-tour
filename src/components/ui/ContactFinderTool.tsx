@@ -1,26 +1,26 @@
-import { useState } from 'react'
-import { GlassContainer } from './GlassContainer'
-import { Button } from './button'
-import { ContactFinder } from './ContactFinder'
-import { SimpleContactForm } from './SimpleContactForm'
-import { Users, Plus, Search, MapPin } from 'lucide-react'
+import { useState } from 'react';
+import { GlassContainer } from './GlassContainer';
+import { Button } from './button';
+import { ContactFinder } from './ContactFinder';
+import { SimpleContactForm } from './SimpleContactForm';
+import { Users, Plus, Search, MapPin } from 'lucide-react';
 
 interface ContactFinderToolProps {
-  onComplete: () => void
+  onComplete: () => void;
 }
 
 export function ContactFinderTool({ onComplete }: ContactFinderToolProps) {
-  const [activeTab, setActiveTab] = useState<'search' | 'add'>('search')
-  const [showAddForm, setShowAddForm] = useState(false)
+  const [activeTab, setActiveTab] = useState<'search' | 'add'>('search');
+  const [showAddForm, setShowAddForm] = useState(false);
 
   return (
     <GlassContainer className="p-6 max-w-4xl mx-auto">
       <div className="space-y-6">
         <div className="text-center">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
+          <h2 className="text-2xl font-bold text-gray-900 mb-2">
             Contact Finder Tool
           </h2>
-          <p className="text-gray-600 dark:text-gray-400">
+          <p className="text-gray-600">
             Find and manage your DJ industry contacts
           </p>
         </div>
@@ -32,7 +32,7 @@ export function ContactFinderTool({ onComplete }: ContactFinderToolProps) {
             className={`px-4 py-2 rounded-lg font-medium transition-all ${
               activeTab === 'search'
                 ? 'bg-violet-500 text-white shadow-lg'
-                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                : 'text-gray-600 hover:text-gray-900'
             }`}
           >
             <Search className="w-4 h-4 mr-2 inline" />
@@ -43,7 +43,7 @@ export function ContactFinderTool({ onComplete }: ContactFinderToolProps) {
             className={`px-4 py-2 rounded-lg font-medium transition-all ${
               activeTab === 'add'
                 ? 'bg-violet-500 text-white shadow-lg'
-                : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white'
+                : 'text-gray-600 hover:text-gray-900'
             }`}
           >
             <Plus className="w-4 h-4 mr-2 inline" />
@@ -59,10 +59,9 @@ export function ContactFinderTool({ onComplete }: ContactFinderToolProps) {
                 <MapPin className="w-5 h-5 mr-2" />
                 Regional Contact Search
               </h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-4">
+              <p className="text-gray-600 mb-4">
                 Find DJs, club owners, and industry professionals in your area
               </p>
-              
               <ContactFinder
                 onComplete={onComplete}
                 minContacts={5}
@@ -80,10 +79,9 @@ export function ContactFinderTool({ onComplete }: ContactFinderToolProps) {
                 <Users className="w-5 h-5 mr-2" />
                 Add New Contact
               </h3>
-              <p className="text-gray-600 dark:text-gray-400 mb-4">
+              <p className="text-gray-600 mb-4">
                 Manually add contacts to your network
               </p>
-              
               {!showAddForm ? (
                 <Button
                   onClick={() => setShowAddForm(true)}
@@ -95,8 +93,8 @@ export function ContactFinderTool({ onComplete }: ContactFinderToolProps) {
               ) : (
                 <SimpleContactForm
                   onClose={() => {
-                    setShowAddForm(false)
-                    onComplete()
+                    setShowAddForm(false);
+                    onComplete();
                   }}
                 />
               )}
@@ -107,7 +105,7 @@ export function ContactFinderTool({ onComplete }: ContactFinderToolProps) {
         {/* Tips */}
         <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4">
           <h4 className="text-blue-400 font-medium mb-2">💡 Contact Building Tips</h4>
-          <ul className="list-disc list-inside space-y-1 text-sm text-gray-600 dark:text-gray-400">
+          <ul className="list-disc list-inside space-y-1 text-sm text-gray-600">
             <li>Focus on local venues and promoters first</li>
             <li>Connect with DJs in your genre for collaboration</li>
             <li>Build relationships with club owners and bookers</li>
@@ -128,5 +126,5 @@ export function ContactFinderTool({ onComplete }: ContactFinderToolProps) {
         </div>
       </div>
     </GlassContainer>
-  )
-} 
+  );
+}

@@ -38,19 +38,19 @@ export interface Badge {
 }
 
 export enum MissionCategory {
-  VISIBILITY = 'visibility',
-  STRATEGY = 'strategy',
-  CONTENT = 'content',
-  BOOKING = 'booking',
-  PROFESSIONAL = 'professional',
-  SKILLS = 'skills'
+  VISIBILITY = "visibility",
+  STRATEGY = "strategy",
+  CONTENT = "content",
+  BOOKING = "booking",
+  PROFESSIONAL = "professional",
+  SKILLS = "skills",
 }
 
 export enum MissionStatus {
-  LOCKED = 'locked',
-  AVAILABLE = 'available',
-  IN_PROGRESS = 'in_progress',
-  COMPLETED = 'completed'
+  LOCKED = "locked",
+  AVAILABLE = "available",
+  IN_PROGRESS = "in_progress",
+  COMPLETED = "completed",
 }
 
 export interface MissionRewards {
@@ -69,4 +69,4 @@ export interface Mission {
   category: MissionCategory;
   status: MissionStatus;
   requiredMissions: number[];
-} 
+}

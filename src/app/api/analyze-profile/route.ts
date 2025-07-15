@@ -1,36 +1,52 @@
-import { NextRequest, NextResponse } from 'next/server'
-import OpenAI from 'openai'
+import { NextRequest, NextResponse } from "next/server";
+import OpenAI from "openai";
 
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
-})
+});
 
 export async function POST(request: NextRequest) {
   try {
     // Debug: Vérifier que la clé API est bien chargée
-    console.log('🔑 [Profile Analysis] API KEY Status:', process.env.OPENAI_API_KEY ? 'LOADED' : 'MISSING')
-    console.log('🔑 [Profile Analysis] API KEY Preview:', process.env.OPENAI_API_KEY ? `${process.env.OPENAI_API_KEY.substring(0, 10)}...` : 'N/A')
-    
+    console.log(
+      "🔑 [Profile Analysis] API KEY Status:",
+      process.env.OPENAI_API_KEY ? "LOADED" : "MISSING",
+    );
+    console.log(
+      "🔑 [Profile Analysis] API KEY Preview:",
+      process.env.OPENAI_API_KEY
+        ? `${process.env.OPENAI_API_KEY.substring(0, 10)}...`
+        : "N/A",
+    );
+
     if (!process.env.OPENAI_API_KEY) {
-      console.error('❌ [Profile Analysis] OpenAI API key not found in environment variables')
+      console.error(
+        "❌ [Profile Analysis] OpenAI API key not found in environment variables",
+      );
       return NextResponse.json(
-        { error: 'OpenAI API key not configured' },
-        { status: 500 }
-      )
+        { error: "OpenAI API key not configured" },
+        { status: 500 },
+      );
     }
 
-    const { images, analysisType = 'global' } = await request.json()
+    const { images, analysisType = "global" } = await request.json();
 
     if (!images || images.length === 0) {
-      return NextResponse.json({ error: 'Please provide at least one image' }, { status: 400 })
+      return NextResponse.json(
+        { error: "Please provide at least one image" },
+        { status: 400 },
+      );
     }
 
     // For global analysis, require at least 2 images
-    if (analysisType === 'global' && images.length < 2) {
-      return NextResponse.json({ error: 'Global analysis requires at least 2 images' }, { status: 400 })
+    if (analysisType === "global" && images.length < 2) {
+      return NextResponse.json(
+        { error: "Global analysis requires at least 2 images" },
+        { status: 400 },
+      );
     }
 
-    const analyses = []
+    const analyses = [];
 
     // System context for DJ Tour platform
     const systemContext = `You are a DJ career strategy expert working for DJ Tour, a platform that helps DJs grow through:
@@ -39,20 +55,16 @@ export async function POST(request: NextRequest) {
 - Ready-to-use templates and career planning tools
 - Social media optimization and booking strategies
 
-Your goal is to analyze DJ profiles and provide actionable recommendations that can be executed directly through DJ Tour's tools and features. Focus on helping DJs get more bookings, improve their online presence, and increase their revenue.
-
-Always respond in English.`
+Your goal is to analyze DJ profiles and provide actionable recommendations that can be executed directly through DJ Tour's tools and features. Focus on helping DJs get more bookings, improve their online presence, and increase their revenue. Always respond in English.`;
 
     // Analyze each platform individually
     for (const image of images) {
-      const { platform, base64 } = image
+      const { platform, base64 } = image;
+      let prompt = "";
 
-      let prompt = ''
       switch (platform) {
-        case 'instagram':
-          prompt = `You are a social media marketing expert specializing in music industry professionals.
-
-CRITICAL INSTRUCTION: You MUST provide a comprehensive analysis with at least 6-10 detailed bullet points for EACH section (strengths AND weaknesses). Each bullet point must be 2-3 sentences long with specific insights and actionable details.
+        case "instagram":
+          prompt = `You are a social media marketing expert specializing in music industry professionals. CRITICAL INSTRUCTION: You MUST provide a comprehensive analysis with at least 6-10 detailed bullet points for EACH section (strengths AND weaknesses). Each bullet point must be 2-3 sentences long with specific insights and actionable details.
 
 Analyze this Instagram profile covering:
 1. Profile summary and overall brand positioning (analyze follower count, growth patterns, professional positioning)
@@ -72,30 +84,10 @@ MANDATORY REQUIREMENTS:
 Focus on professional growth and booking opportunities. Be extremely thorough and detailed.
 
 Return ONLY valid JSON format (no markdown, no backticks):
-{
-  "platform": "instagram",
-  "summary": {
-    "followers": number,
-    "bio": "extracted bio text",
-    "recentContent": "description of recent posts"
-  },
-  "analysis": {
-    "strengths": ["MINIMUM 6 detailed strength points, each 2-3 sentences long with strategic insights and specific examples"],
-    "weaknesses": ["MINIMUM 6 detailed weakness points, each 2-3 sentences long with impact explanation and specific improvement steps"]
-  },
-  "recommendations": [
-    "🎯 Strategic summary with specific metrics and goals (2-3 sentences)",
-    "🔧 Priority action 1 with detailed implementation steps (2-3 sentences)",
-    "🔧 Priority action 2 with detailed implementation steps (2-3 sentences)", 
-    "🔧 Priority action 3 with detailed implementation steps (2-3 sentences)",
-    "💡 Pro tip with specific techniques and expected results (2-3 sentences)"
-  ]
-}`
-          break
-        case 'spotify':
-          prompt = `You are a music streaming strategy expert.
-
-CRITICAL INSTRUCTION: You MUST provide a comprehensive analysis with at least 5-8 detailed bullet points for EACH section (strengths AND weaknesses). Each bullet point must be 2-3 sentences long with specific insights and actionable details.
+{"platform":"instagram","summary": {"followers": number,"bio":"extracted bio text","recentContent":"description of recent posts"},"analysis": {"strengths": ["MINIMUM 6 detailed strength points, each 2-3 sentences long with strategic insights and specific examples"],"weaknesses": ["MINIMUM 6 detailed weakness points, each 2-3 sentences long with impact explanation and specific improvement steps"] },"recommendations": ["🎯 Strategic summary with specific metrics and goals (2-3 sentences)","🔧 Priority action 1 with detailed implementation steps (2-3 sentences)","🔧 Priority action 2 with detailed implementation steps (2-3 sentences)","🔧 Priority action 3 with detailed implementation steps (2-3 sentences)","💡 Pro tip with specific techniques and expected results (2-3 sentences)"] }`;
+          break;
+        case "spotify":
+          prompt = `You are a music streaming strategy expert. CRITICAL INSTRUCTION: You MUST provide a comprehensive analysis with at least 5-8 detailed bullet points for EACH section (strengths AND weaknesses). Each bullet point must be 2-3 sentences long with specific insights and actionable details.
 
 Analyze this Spotify profile covering:
 1. Monthly listeners analysis and growth patterns (current numbers, trends, seasonal patterns)
@@ -115,30 +107,10 @@ MANDATORY REQUIREMENTS:
 Focus on professional music career development. Be extremely thorough and detailed.
 
 Return ONLY valid JSON format (no markdown, no backticks):
-{
-  "platform": "spotify",
-  "summary": {
-    "listeners": number,
-    "topCities": ["city1", "city2"],
-    "lastRelease": "release info"
-  },
-  "analysis": {
-    "strengths": ["MINIMUM 5 detailed strength points, each 2-3 sentences long with strategic insights and specific examples"],
-    "weaknesses": ["MINIMUM 5 detailed weakness points, each 2-3 sentences long with impact explanation and specific improvement steps"]
-  },
-  "recommendations": [
-    "🎧 Strategic summary with specific metrics and goals (2-3 sentences)",
-    "⚡️ Priority action 1 with detailed implementation steps (2-3 sentences)",
-    "⚡️ Priority action 2 with detailed implementation steps (2-3 sentences)",
-    "⚡️ Priority action 3 with detailed implementation steps (2-3 sentences)",
-    "🔥 Advanced tip with specific techniques and expected results (2-3 sentences)"
-  ]
-}`
-          break
-        case 'tiktok':
-          prompt = `You are a social media content strategy expert specializing in music creators.
-
-CRITICAL INSTRUCTION: You MUST provide a comprehensive analysis with at least 6-10 detailed bullet points for EACH section (strengths AND weaknesses). Each bullet point must be 2-3 sentences long with specific insights and actionable details.
+{"platform":"spotify","summary": {"listeners": number,"topCities": ["city1","city2"],"lastRelease":"release info"},"analysis": {"strengths": ["MINIMUM 5 detailed strength points, each 2-3 sentences long with strategic insights and specific examples"],"weaknesses": ["MINIMUM 5 detailed weakness points, each 2-3 sentences long with impact explanation and specific improvement steps"] },"recommendations": ["🎧 Strategic summary with specific metrics and goals (2-3 sentences)","⚡️ Priority action 1 with detailed implementation steps (2-3 sentences)","⚡️ Priority action 2 with detailed implementation steps (2-3 sentences)","⚡️ Priority action 3 with detailed implementation steps (2-3 sentences)","🔥 Advanced tip with specific techniques and expected results (2-3 sentences)"] }`;
+          break;
+        case "tiktok":
+          prompt = `You are a social media content strategy expert specializing in music creators. CRITICAL INSTRUCTION: You MUST provide a comprehensive analysis with at least 6-10 detailed bullet points for EACH section (strengths AND weaknesses). Each bullet point must be 2-3 sentences long with specific insights and actionable details.
 
 Analyze this TikTok profile covering:
 1. Profile overview and niche positioning in music/DJ space (follower growth, audience demographics, brand identity)
@@ -160,121 +132,108 @@ MANDATORY REQUIREMENTS:
 Focus on professional music career growth. Be extremely thorough and detailed.
 
 Return ONLY valid JSON format (no markdown, no backticks):
-{
-  "platform": "tiktok",
-  "summary": {
-    "followers": number,
-    "videoViews": number,
-    "recentContent": "description of recent videos"
-  },
-  "analysis": {
-    "strengths": ["MINIMUM 6 detailed strength points, each 2-3 sentences long with strategic insights and specific examples"],
-    "weaknesses": ["MINIMUM 6 detailed weakness points, each 2-3 sentences long with impact explanation and specific improvement steps"]
-  },
-  "recommendations": [
-    "🎯 Strategic summary with specific metrics and goals (2-3 sentences)",
-    "🎥 Content idea 1 with detailed implementation steps (2-3 sentences)",
-    "🎥 Content idea 2 with detailed implementation steps (2-3 sentences)",
-    "🎥 Content idea 3 with detailed implementation steps (2-3 sentences)",
-    "🧠 Advanced TikTok technique with specific methods and expected results (2-3 sentences)"
-  ]
-}`
-          break
+{"platform":"tiktok","summary": {"followers": number,"videoViews": number,"recentContent":"description of recent videos"},"analysis": {"strengths": ["MINIMUM 6 detailed strength points, each 2-3 sentences long with strategic insights and specific examples"],"weaknesses": ["MINIMUM 6 detailed weakness points, each 2-3 sentences long with impact explanation and specific improvement steps"] },"recommendations": ["🎯 Strategic summary with specific metrics and goals (2-3 sentences)","🎥 Content idea 1 with detailed implementation steps (2-3 sentences)","🎥 Content idea 2 with detailed implementation steps (2-3 sentences)","🎥 Content idea 3 with detailed implementation steps (2-3 sentences)","🧠 Advanced TikTok technique with specific methods and expected results (2-3 sentences)"] }`;
+          break;
         default:
-          continue
+          continue;
       }
 
       try {
-        console.log(`🔍 [Profile Analysis] Analyzing ${platform} profile...`)
-        console.log(`📝 [Profile Analysis] Prompt preview: ${prompt.substring(0, 100)}...`)
-        
+        console.log(`🔍 [Profile Analysis] Analyzing ${platform} profile...`);
+        console.log(
+          `📝 [Profile Analysis] Prompt preview: ${prompt.substring(0, 100)}...`,
+        );
+
         const response = await openai.chat.completions.create({
           model: "gpt-4o",
           messages: [
-            {
-              role: "system",
-              content: systemContext
-            },
+            { role: "system", content: systemContext },
             {
               role: "user",
               content: [
-                {
-                  type: "text",
-                  text: prompt
-                },
+                { type: "text", text: prompt },
                 {
                   type: "image_url",
-                  image_url: {
-                    url: `data:image/jpeg;base64,${base64}`
-                  }
-                }
-              ]
-            }
+                  image_url: { url: `data:image/jpeg;base64,${base64}` },
+                },
+              ],
+            },
           ],
           max_tokens: 4000,
-          temperature: 0.7
-        })
+          temperature: 0.7,
+        });
 
-        const content = response.choices[0].message.content
-        console.log(`✅ [Profile Analysis] ${platform} analysis completed`)
-        console.log(`📄 [Profile Analysis] Raw response: ${content?.substring(0, 200)}...`)
-        
+        const content = response.choices[0].message.content;
+        console.log(`✅ [Profile Analysis] ${platform} analysis completed`);
+        console.log(
+          `📄 [Profile Analysis] Raw response: ${content?.substring(0, 200)}...`,
+        );
+
         try {
           // Clean the response: remove markdown code blocks and extra whitespace
-          let cleanedContent = content || '{}'
-          cleanedContent = cleanedContent.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim()
-          
-          const analysis = JSON.parse(cleanedContent)
-          analyses.push(analysis)
+          let cleanedContent = content || "{}";
+          cleanedContent = cleanedContent
+            .replace(/```json\s*/g, "")
+            .replace(/```\s*/g, "")
+            .trim();
+          const analysis = JSON.parse(cleanedContent);
+          analyses.push(analysis);
         } catch (parseError) {
-          console.error(`❌ [Profile Analysis] Failed to parse ${platform} analysis:`, parseError)
-          console.error(`❌ [Profile Analysis] Raw content:`, content)
+          console.error(
+            `❌ [Profile Analysis] Failed to parse ${platform} analysis:`,
+            parseError,
+          );
+          console.error(`❌ [Profile Analysis] Raw content:`, content);
           // Fallback analysis if JSON parsing fails
           analyses.push({
             platform,
             summary: {},
             analysis: {
               strengths: [`Analysis completed for ${platform}`],
-              weaknesses: ['Could not parse detailed analysis']
+              weaknesses: ["Could not parse detailed analysis"],
             },
-            recommendations: ['Please try uploading a clearer screenshot']
-          })
+            recommendations: ["Please try uploading a clearer screenshot"],
+          });
         }
       } catch (error) {
-        console.error(`❌ [Profile Analysis] Error analyzing ${platform}:`, error)
+        console.error(
+          `❌ [Profile Analysis] Error analyzing ${platform}:`,
+          error,
+        );
         analyses.push({
           platform,
           summary: {},
           analysis: {
             strengths: [],
-            weaknesses: [`Failed to analyze ${platform} profile`]
+            weaknesses: [`Failed to analyze ${platform} profile`],
           },
-          recommendations: ['Please try uploading a different screenshot']
-        })
+          recommendations: ["Please try uploading a different screenshot"],
+        });
       }
     }
 
     // If individual analysis, return just the analyses
-    if (analysisType === 'individual') {
-      return NextResponse.json({
-        analyses,
-        analysisType: 'individual'
-      })
+    if (analysisType === "individual") {
+      return NextResponse.json({ analyses, analysisType: "individual" });
     }
 
     // For global analysis, create comprehensive insights
-    let globalAnalysis = null
+    let globalAnalysis = null;
     if (analyses.length >= 2) {
       try {
         const globalPrompt = `Based on these individual platform analyses, provide a comprehensive global analysis for this DJ:
 
-${analyses.map(analysis => `
+${analyses
+  .map(
+    (analysis) => `
 ${analysis.platform.toUpperCase()}:
 - Summary: ${JSON.stringify(analysis.summary)}
-- Strengths: ${analysis.analysis.strengths.join(', ')}
-- Weaknesses: ${analysis.analysis.weaknesses.join(', ')}
-- Recommendations: ${analysis.recommendations.join(', ')}
-`).join('\n')}
+- Strengths: ${analysis.analysis.strengths.join(", ")}
+- Weaknesses: ${analysis.analysis.weaknesses.join(", ")}
+- Recommendations: ${analysis.recommendations.join(", ")}
+`,
+  )
+  .join("\n")}
 
 Create a global strategic analysis that:
 1. Identifies cross-platform patterns and opportunities
@@ -283,59 +242,52 @@ Create a global strategic analysis that:
 4. Creates a prioritized 60-day action plan using DJ Tour's tools
 
 Return ONLY valid JSON format (no markdown, no backticks):
-{
-  "overallScore": number,
-  "keyInsights": ["insight1", "insight2", "insight3"],
-  "actionPlan": ["action1", "action2", "action3", "action4", "action5"],
-  "nextSteps": "Immediate priority actions for the next 2 weeks"
-}`
+{"overallScore": number,"keyInsights": ["insight1","insight2","insight3"],"actionPlan": ["action1","action2","action3","action4","action5"],"nextSteps":"Immediate priority actions for the next 2 weeks"}`;
 
         const globalResponse = await openai.chat.completions.create({
           model: "gpt-4o",
           messages: [
-            {
-              role: "system",
-              content: systemContext
-            },
-            {
-              role: "user",
-              content: globalPrompt
-            }
+            { role: "system", content: systemContext },
+            { role: "user", content: globalPrompt },
           ],
           max_tokens: 3500,
-          temperature: 0.7
-        })
+          temperature: 0.7,
+        });
 
-        const globalContent = globalResponse.choices[0].message.content
-        
+        const globalContent = globalResponse.choices[0].message.content;
+
         // Clean the response: remove markdown code blocks and extra whitespace
-        let cleanedGlobalContent = globalContent || '{}'
-        cleanedGlobalContent = cleanedGlobalContent.replace(/```json\s*/g, '').replace(/```\s*/g, '').trim()
-        
-        globalAnalysis = JSON.parse(cleanedGlobalContent)
-        console.log('✅ [Profile Analysis] Global analysis completed')
+        let cleanedGlobalContent = globalContent || "{}";
+        cleanedGlobalContent = cleanedGlobalContent
+          .replace(/```json\s*/g, "")
+          .replace(/```\s*/g, "")
+          .trim();
+        globalAnalysis = JSON.parse(cleanedGlobalContent);
+        console.log("✅ [Profile Analysis] Global analysis completed");
       } catch (error) {
-        console.error('❌ [Profile Analysis] Error creating global analysis:', error)
+        console.error(
+          "❌ [Profile Analysis] Error creating global analysis:",
+          error,
+        );
         globalAnalysis = {
           overallScore: 50,
-          keyInsights: ['Analysis completed for uploaded platforms'],
-          actionPlan: ['Focus on improving your strongest platform first'],
-          nextSteps: 'Review individual platform recommendations'
-        }
+          keyInsights: ["Analysis completed for uploaded platforms"],
+          actionPlan: ["Focus on improving your strongest platform first"],
+          nextSteps: "Review individual platform recommendations",
+        };
       }
     }
 
     return NextResponse.json({
       analyses,
       globalAnalysis,
-      analysisType: 'global'
-    })
-
+      analysisType: "global",
+    });
   } catch (error) {
-    console.error('❌ [Profile Analysis] Unexpected error:', error)
+    console.error("❌ [Profile Analysis] Unexpected error:", error);
     return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    )
+      { error: "Internal server error" },
+      { status: 500 },
+    );
   }
-} 
+}

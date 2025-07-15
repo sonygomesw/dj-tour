@@ -9,7 +9,7 @@ export interface TourDate {
   end_time?: string; // Format: HH:MM
   fee?: number; // Cachet en euros
   genre?: string;
-  status: 'confirmed' | 'pending' | 'cancelled';
+  status: "confirmed" | "pending" | "cancelled";
   capacity?: number;
   notes?: string;
   created_at: string;
@@ -32,7 +32,7 @@ export interface NewTourDate {
   end_time?: string;
   fee?: number;
   genre?: string;
-  status?: 'confirmed' | 'pending' | 'cancelled';
+  status?: "confirmed" | "pending" | "cancelled";
   capacity?: number;
   notes?: string;
-} 
+}

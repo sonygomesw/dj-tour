@@ -1,21 +1,16 @@
-'use client'
+"use client";
 
-import { useEffect } from 'react'
-import { useRouter } from 'next/navigation'
-
-export default function StartFromScratchRedirect() {
-  const router = useRouter()
-
-  useEffect(() => {
-    router.replace('/my-dj-plan')
-  }, [router])
-
+export default function StartFromScratchPage() {
   return (
-    <div className="flex items-center justify-center min-h-screen bg-white">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-violet-900 via-purple-900 to-indigo-900">
       <div className="text-center">
-        <div className="text-xl text-gray-900 mb-4">Redirecting to My DJ Plan...</div>
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-violet-500 mx-auto"></div>
+        <h1 className="text-4xl font-bold text-white mb-4">
+          Start From Scratch
+        </h1>
+        <p className="text-white/70">
+          This page will help you start from scratch soon.
+        </p>
       </div>
     </div>
-  )
-} 
+  );
+}

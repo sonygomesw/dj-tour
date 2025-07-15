@@ -1,20 +1,17 @@
 interface CircularTimerProps {
-  time: string
-  label: string
-  progress: number
+  time: string;
+  label: string;
+  progress: number;
 }
 
 export function CircularTimer({ time, label, progress }: CircularTimerProps) {
-  const radius = 40
-  const circumference = 2 * Math.PI * radius
-  const strokeDashoffset = circumference * (1 - progress)
+  const radius = 40;
+  const circumference = 2 * Math.PI * radius;
+  const strokeDashoffset = circumference * (1 - progress);
 
   return (
     <div className="relative flex flex-col items-center">
-      <svg
-        className="transform -rotate-90 w-32 h-32"
-        viewBox="0 0 100 100"
-      >
+      <svg className="transform -rotate-90 w-32 h-32" viewBox="0 0 100 100">
         {/* Background circle */}
         <circle
           cx="50"
@@ -36,28 +33,49 @@ export function CircularTimer({ time, label, progress }: CircularTimerProps) {
           style={{
             strokeDasharray: circumference,
             strokeDashoffset: strokeDashoffset,
-            transition: 'stroke-dashoffset 0.5s ease-out'
+            transition: "stroke-dashoffset 0.5s ease-out",
           }}
         />
       </svg>
-      
+
       <div className="absolute inset-0 flex flex-col items-center justify-center">
-        <div className="text-2xl font-bold text-gray-900 dark:text-white">{time}</div>
+        <div className="text-2xl font-bold text-gray-900">{time}</div>
         <div className="text-sm text-[#d1d5db]">{label}</div>
       </div>
 
       <div className="flex gap-4 mt-4">
         <button className="p-2 rounded-full hover:bg-white/5 transition-colors">
-          <svg className="w-5 h-5 text-gray-900 dark:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          <svg
+            className="w-5 h-5 text-gray-900"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M14 5l7 7m0 0l-7 7m7-7H3"
+            />
           </svg>
         </button>
+
         <button className="p-2 rounded-full hover:bg-white/5 transition-colors">
-          <svg className="w-5 h-5 text-gray-900 dark:text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <svg
+            className="w-5 h-5 text-gray-900"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M10 9v6m4-6v6m7-3a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
           </svg>
         </button>
       </div>
     </div>
-  )
-} 
+  );
+}

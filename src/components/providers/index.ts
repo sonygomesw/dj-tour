@@ -1,1 +1,1 @@
-export * from './contact-provider'; 
+export * from "./contact-provider";

@@ -38,8 +38,8 @@ import {
   Video,
   Wifi,
   Zap,
-  LucideIcon
-} from 'lucide-react'
+  LucideIcon,
+} from "lucide-react";
 
 const iconMap: Record<string, LucideIcon> = {
   award: Award,
@@ -80,15 +80,15 @@ const iconMap: Record<string, LucideIcon> = {
   users: Users,
   video: Video,
   wifi: Wifi,
-  zap: Zap
-}
+  zap: Zap,
+};
 
 interface MissionIconProps {
-  name: string
-  className?: string
+  name: string;
+  className?: string;
 }
 
-export function MissionIcon({ name, className = '' }: MissionIconProps) {
-  const Icon = iconMap[name] || Box
-  return <Icon className={className} />
-} 
+export function MissionIcon({ name, className = "" }: MissionIconProps) {
+  const Icon = iconMap[name] || Box;
+  return <Icon className={className} />;
+}
