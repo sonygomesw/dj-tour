@@ -19,13 +19,13 @@ export function MainNav() {
   return (
     <>
       {/* Desktop Navigation */}
-      <nav className="hidden md:flex fixed top-0 left-0 right-0 h-16 bg-black/80 backdrop-blur-xl border-b border-white/10 px-8 z-50">
+      <nav className="hidden md:flex fixed top-0 left-0 right-0 h-12 bg-black/80 backdrop-blur-xl border-b border-white/10 px-6 z-50">
         <div className="flex items-center justify-between w-full max-w-7xl mx-auto">
           <div className="flex items-center gap-8">
-            <h1 className="text-xl font-bold bg-gradient-to-r from-purple-400 to-yellow-400 bg-clip-text text-transparent">
+            <h1 className="text-lg font-bold bg-gradient-to-r from-purple-400 to-yellow-400 bg-clip-text text-transparent">
               DJ Tour
             </h1>
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-1">
               {navItems.map((item) => {
                 const Icon = item.icon
                 const isActive = pathname === item.href
@@ -33,13 +33,13 @@ export function MainNav() {
                   <Link
                     key={item.href}
                     href={item.href}
-                    className={`px-4 py-2 rounded-xl text-sm font-medium flex items-center gap-2 transition-colors ${
+                    className={`px-3 py-1.5 rounded-lg text-sm font-medium flex items-center gap-1.5 transition-colors ${
                       isActive
                         ? 'bg-white/10 text-white'
                         : 'text-gray-600 dark:text-white/70 hover:bg-white/10 hover:text-gray-900 dark:hover:text-white'
                     }`}
                   >
-                    <Icon className="w-4 h-4" />
+                    <Icon className="w-3.5 h-3.5" />
                     {item.label}
                   </Link>
                 )
@@ -51,7 +51,7 @@ export function MainNav() {
 
       {/* Mobile Navigation */}
       <nav className="md:hidden fixed bottom-0 left-0 right-0 bg-black/80 backdrop-blur-xl border-t border-white/10 z-50">
-        <div className="flex justify-around p-4">
+        <div className="flex justify-around p-3">
           {navItems.map((item) => {
             const Icon = item.icon
             const isActive = pathname === item.href
@@ -63,7 +63,7 @@ export function MainNav() {
                   isActive ? 'text-white' : 'text-gray-600 dark:text-white/70'
                 }`}
               >
-                <Icon className="w-5 h-5" />
+                <Icon className="w-4 h-4" />
                 <span className="text-xs">{item.label}</span>
               </Link>
             )
@@ -73,10 +73,10 @@ export function MainNav() {
 
       {/* Mobile Menu Button */}
       <button
-        className="md:hidden fixed top-4 right-4 p-2 rounded-lg bg-white/10 z-50"
+        className="md:hidden fixed top-3 right-3 p-1.5 rounded-lg bg-white/10 z-50"
         onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
       >
-        <Menu className="w-6 h-6" />
+        <Menu className="w-5 h-5" />
       </button>
     </>
   )

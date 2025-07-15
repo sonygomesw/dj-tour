@@ -83,27 +83,27 @@ export function DJSidebar() {
   }
 
   return (
-    <div className="fixed left-0 top-0 h-full w-96 backdrop-blur-2xl bg-black/[0.02] dark:bg-white/[0.02] border-r border-black/10 dark:border-white/10 z-50 shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_16px_rgba(0,0,0,0.08)]">
+    <div className="fixed left-0 top-0 h-full w-80 backdrop-blur-2xl bg-black/[0.02] dark:bg-white/[0.02] border-r border-black/10 dark:border-white/10 z-50 shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_16px_rgba(0,0,0,0.08)]">
       {/* Logo Section */}
-      <div className="p-8 border-b border-black/10 dark:border-white/10">
+      <div className="p-6 border-b border-black/10 dark:border-white/10">
         <div className="flex items-center gap-4">
           <div className="relative">
-            <div className="w-14 h-14 bg-gradient-to-br from-violet-500 via-fuchsia-500 to-violet-600 rounded-2xl flex items-center justify-center shadow-[0_8px_32px_rgba(139,92,246,0.3),0_3px_16px_rgba(139,92,246,0.2)] border border-white/10">
-              <Trophy className="w-7 h-7 text-gray-900 dark:text-white drop-shadow-sm" />
+            <div className="w-12 h-12 bg-gradient-to-br from-violet-500 via-fuchsia-500 to-violet-600 rounded-xl flex items-center justify-center shadow-[0_8px_32px_rgba(139,92,246,0.3),0_3px_16px_rgba(139,92,246,0.2)] border border-white/10">
+              <Trophy className="w-6 h-6 text-gray-900 dark:text-white drop-shadow-sm" />
             </div>
-            <div className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center shadow-lg">
-              <Sparkles className="w-2.5 h-2.5 text-gray-900 dark:text-white" />
+            <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center shadow-lg">
+              <Sparkles className="w-2 h-2 text-gray-900 dark:text-white" />
             </div>
           </div>
           <div>
-            <h1 className="text-2xl font-bold text-black dark:text-white">DJ Tour</h1>
+            <h1 className="text-xl font-bold text-black dark:text-white">DJ Tour</h1>
             <p className="text-sm text-black/60 dark:text-gray-600 dark:text-white/60 font-medium">Pro Edition</p>
           </div>
         </div>
       </div>
 
       {/* Navigation Menu */}
-      <nav className="p-6 space-y-3">
+      <nav className="p-5 space-y-2">
         {menuItems.map((item, index) => {
           const isActive = pathname === item.href;
           const isDarkItem = item.label === 'Presskit Examples' || item.label === 'Contacts';
@@ -113,7 +113,7 @@ export function DJSidebar() {
               key={item.label}
               href={item.href}
               className={cn(
-                "flex items-center gap-4 px-6 py-4 rounded-2xl font-medium text-lg",
+                "flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-base",
                 "transition-all duration-300 group cursor-pointer",
                 "hover:scale-105",
                 isDarkItem 
@@ -125,7 +125,7 @@ export function DJSidebar() {
             >
               <div className="relative">
                 <item.icon className={cn(
-                  "w-6 h-6 transition-all duration-300",
+                  "w-5 h-5 transition-all duration-300",
                   isActive 
                     ? "text-violet-400" 
                     : isDarkItem 
@@ -146,16 +146,16 @@ export function DJSidebar() {
       </nav>
 
       {/* Bottom Section */}
-      <div className="absolute bottom-0 left-0 right-0 p-6 border-t border-black/10 dark:border-white/10 space-y-3">
+      <div className="absolute bottom-0 left-0 right-0 p-5 border-t border-black/10 dark:border-white/10 space-y-2">
         {/* Theme Toggle */}
         <button 
           onClick={toggleTheme}
-          className="flex items-center gap-4 w-full px-6 py-4 rounded-2xl text-black/60 dark:text-gray-600 dark:text-white/60 hover:text-violet-400 hover:bg-violet-500/10 transition-all duration-300 group font-medium text-lg hover:scale-105"
+          className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-black/60 dark:text-gray-600 dark:text-white/60 hover:text-violet-400 hover:bg-violet-500/10 transition-all duration-300 group font-medium text-base hover:scale-105"
         >
           {theme === 'dark' ? (
-            <Sun className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
+            <Sun className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
           ) : (
-            <Moon className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
+            <Moon className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
           )}
           <span className="font-semibold">
             {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
@@ -165,9 +165,9 @@ export function DJSidebar() {
         {/* Logout */}
         <button 
           onClick={handleLogout}
-          className="flex items-center gap-4 w-full px-6 py-4 rounded-2xl text-black/60 dark:text-gray-600 dark:text-white/60 hover:text-red-400 hover:bg-red-500/10 transition-all duration-300 group font-medium text-lg hover:scale-105"
+          className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-black/60 dark:text-gray-600 dark:text-white/60 hover:text-red-400 hover:bg-red-500/10 transition-all duration-300 group font-medium text-base hover:scale-105"
         >
-          <LogOut className="w-6 h-6 group-hover:scale-110 transition-transform duration-300" />
+          <LogOut className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
           <span className="font-semibold">Logout</span>
         </button>
       </div>

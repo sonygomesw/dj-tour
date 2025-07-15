@@ -38,7 +38,7 @@ export default function MyDJPlanPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen bg-white">
+      <div className="flex min-h-screen bg-white scale-75 origin-top-left">
         <DJSidebar />
         <div className="flex-1 ml-96 p-8">
           <div className="flex items-center justify-center min-h-screen">
@@ -51,7 +51,7 @@ export default function MyDJPlanPage() {
 
   return (
     <PageTransition>
-      <div className="flex min-h-screen bg-white">
+      <div className="flex min-h-screen bg-white scale-75 origin-top-left">
         <DJSidebar />
         <div className="flex-1 ml-96 p-8">
           <div className="container mx-auto max-w-7xl">

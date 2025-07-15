@@ -387,7 +387,7 @@ export default function DJCoachAIPage() {
   }, [inputMessage])
 
   return (
-    <div className="flex h-screen bg-gray-50">
+    <div className="flex h-screen bg-gray-50 scale-75 origin-top-left">
       {/* DJ Sidebar - Hidden on mobile */}
       <div className="hidden lg:block">
         <DJSidebar />

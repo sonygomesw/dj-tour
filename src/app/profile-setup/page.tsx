@@ -172,7 +172,7 @@ export default function ProfileSetupPage() {
   if (!user) return null
 
   return (
-    <div className="min-h-screen bg-[#0F0F11] p-6">
+    <div className="min-h-screen bg-[#0F0F11] p-6 scale-75 origin-top-left">
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">

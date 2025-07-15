@@ -11,8 +11,8 @@ export function Navbar() {
 
   return (
     <div className="fixed left-8 top-1/2 -translate-y-1/2 z-[100]">
-      <div className="relative flex flex-col gap-6 items-center backdrop-blur-[32px] bg-[rgba(30,30,30,0.7)] rounded-[24px] py-6 px-4 shadow-[0_8px_32px_rgba(0,0,0,0.4)] before:absolute before:inset-0 before:rounded-[24px] before:backdrop-blur-3xl before:bg-gradient-to-b before:from-white/10 before:to-transparent before:border before:border-white/10">
-        <div className="relative z-10 flex flex-col gap-6">
+      <div className="relative flex flex-col gap-4 items-center backdrop-blur-[32px] bg-[rgba(30,30,30,0.7)] rounded-[20px] py-4 px-3 shadow-[0_8px_32px_rgba(0,0,0,0.4)] before:absolute before:inset-0 before:rounded-[20px] before:backdrop-blur-3xl before:bg-gradient-to-b before:from-white/10 before:to-transparent before:border before:border-white/10">
+        <div className="relative z-10 flex flex-col gap-4">
           <NavItem href="/dashboard" icon={LayoutDashboard} />
           <NavItem href="/missions" icon={Target} />
           <NavItem href="/profile" icon={User} />
@@ -31,7 +31,7 @@ function NavItem({ href, icon: Icon }: { href: string; icon: typeof Play }) {
     <Link 
       href={href}
       className={`
-        group relative w-11 h-11 flex items-center justify-center rounded-[16px]
+        group relative w-9 h-9 flex items-center justify-center rounded-[14px]
         transition-all duration-300
         ${isActive 
           ? 'bg-gradient-to-b from-white/20 to-white/10 text-gray-900 dark:text-white shadow-[0_0_10px_rgba(255,255,255,0.1)]' 
@@ -40,7 +40,7 @@ function NavItem({ href, icon: Icon }: { href: string; icon: typeof Play }) {
       `}
     >
       <Icon className={`
-        w-[22px] h-[22px] 
+        w-[18px] h-[18px] 
         transition-all duration-300 
         ${isActive ? 'scale-100' : 'scale-90 group-hover:scale-100'}
       `} />
