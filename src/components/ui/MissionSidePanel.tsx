@@ -1,0 +1,344 @@
+'use client'
+
+import React, { useState, useEffect } from 'react'
+import { X, CheckCircle, Circle, Star, Trophy, MessageSquare, Lightbulb } from 'lucide-react'
+import { Mission, MissionStep } from '@/types/mission'
+import { useMissions } from '@/contexts/MissionContext'
+import { Button } from './button'
+import { cn } from '@/lib/utils'
+import { motion, AnimatePresence } from 'framer-motion'
+
+interface MissionSidePanelProps {
+  mission: Mission
+  isOpen: boolean
+  onClose: () => void
+  onMissionComplete?: (mission: Mission) => void
+}
+
+export function MissionSidePanel({ mission, isOpen, onClose, onMissionComplete }: MissionSidePanelProps) {
+  const { 
+    getMissionStatus, 
+    getMissionProgress, 
+    getMissionSteps,
+    updateMissionProgress, 
+    completeMission, 
+    addMissionNote 
+  } = useMissions()
+  
+  const [steps, setSteps] = useState<MissionStep[]>([])
+  const [notes, setNotes] = useState('')
+  const [showNotes, setShowNotes] = useState(false)
+  const [isCompleting, setIsCompleting] = useState(false)
+
+  // Early return if mission is null
+  if (!mission) {
+    return null
+  }
+
+  const missionStatus = getMissionStatus(mission.id)
+  const progress = getMissionProgress(mission.id)
+
+  // Initialize steps from mission data and sync with database
+  useEffect(() => {
+    if (mission.steps) {
+      // Get existing steps from database if available
+      const existingSteps = getMissionSteps(mission.id)
+      
+      const initialSteps: MissionStep[] = mission.steps.map((step, index) => {
+        const existingStep = existingSteps.find(s => s.id === `${mission.id}-step-${index}`)
+        return {
+          id: `${mission.id}-step-${index}`,
+          title: step,
+          completed: existingStep?.completed || false,
+          completedAt: existingStep?.completedAt
+        }
+      })
+      setSteps(initialSteps)
+    }
+  }, [mission, getMissionSteps])
+
+  const handleStepToggle = async (stepId: string) => {
+    const updatedSteps = steps.map(step => {
+      if (step.id === stepId) {
+        return {
+          ...step,
+          completed: !step.completed,
+          completedAt: !step.completed ? new Date().toISOString() : undefined
+        }
+      }
+      return step
+    })
+    
+    setSteps(updatedSteps)
+    
+    // Calculate progress
+    const completedSteps = updatedSteps.filter(step => step.completed).length
+    const newProgress = Math.round((completedSteps / updatedSteps.length) * 100)
+    
+    await updateMissionProgress(mission.id, newProgress, updatedSteps)
+  }
+
+  const handleCompleteMission = async () => {
+    console.log('🎯 Starting mission completion for:', mission.id)
+    setIsCompleting(true)
+    try {
+      console.log('📝 Calling completeMission with notes:', notes)
+      await completeMission(mission.id, notes)
+      console.log('✅ Mission completed successfully')
+      
+      // Notify parent component about mission completion
+      if (onMissionComplete) {
+        console.log('🔔 Notifying parent component')
+        onMissionComplete(mission)
+      }
+      onClose()
+    } catch (error) {
+      console.error('❌ Error completing mission:', error)
+    } finally {
+      setIsCompleting(false)
+    }
+  }
+
+  const handleAddNote = async () => {
+    if (notes.trim()) {
+      await addMissionNote(mission.id, notes)
+      setShowNotes(false)
+    }
+  }
+
+  const completedSteps = steps.filter(step => step.completed).length
+  const allStepsCompleted = completedSteps === steps.length && steps.length > 0
+
+  const getCategoryEmoji = (category: string) => {
+    switch (category) {
+      case 'Booking': return '🎯'
+      case 'Content': return '📸'
+      case 'Visibility': return '📈'
+      case 'Preparation': return '📅'
+      case 'Networking': return '👥'
+      default: return '🎵'
+    }
+  }
+
+  const getDifficultyColor = (difficulty: string) => {
+    switch (difficulty) {
+      case 'beginner': return 'text-green-600 dark:text-green-400'
+      case 'intermediate': return 'text-yellow-600 dark:text-yellow-400'
+      case 'advanced': return 'text-red-600 dark:text-red-400'
+      default: return 'text-gray-600 dark:text-gray-400'
+    }
+  }
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <>
+          {/* Backdrop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 bg-black/50 backdrop-blur-sm z-40"
+            onClick={onClose}
+          />
+          
+          {/* Side Panel */}
+          <motion.div
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'spring', damping: 20, stiffness: 300 }}
+            className="fixed right-0 top-0 h-full w-full max-w-md bg-white dark:bg-gray-900 shadow-2xl z-50 overflow-y-auto"
+          >
+            <div className="p-6">
+              {/* Header */}
+              <div className="flex items-start justify-between mb-6">
+                <div className="flex-1">
+                  <div className="flex items-center gap-2 mb-2">
+                    <span className="text-2xl">{getCategoryEmoji(mission.category)}</span>
+                    <span className="text-sm font-medium text-gray-600 dark:text-gray-400">
+                      {mission.category}
+                    </span>
+                  </div>
+                  <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-2">
+                    {mission.title}
+                  </h2>
+                  <p className="text-gray-600 dark:text-gray-300 text-sm mb-4">
+                    {mission.description}
+                  </p>
+                  
+                  {/* Mission Info */}
+                  <div className="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400">
+                    <div className="flex items-center gap-1">
+                      <Star className="w-4 h-4" />
+                      <span>{mission.points} XP</span>
+                    </div>
+                    <div className={cn("font-medium", getDifficultyColor(mission.difficulty))}>
+                                  {mission.difficulty === 'beginner' && '🟢 Beginner'}
+            {mission.difficulty === 'intermediate' && '⚡ Intermediate'}
+            {mission.difficulty === 'advanced' && '🚀 Advanced'}
+                    </div>
+                    <span>{mission.duration}</span>
+                  </div>
+                </div>
+                
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={onClose}
+                  className="text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-200"
+                >
+                  <X className="w-5 h-5" />
+                </Button>
+              </div>
+
+              {/* Progress Bar */}
+              <div className="mb-6">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Progression
+                  </span>
+                  <span className="text-sm text-gray-500 dark:text-gray-400">
+                    {completedSteps}/{steps.length} étapes
+                  </span>
+                </div>
+                <div className="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-3">
+                  <motion.div
+                    className="bg-gradient-to-r from-violet-500 to-purple-600 h-3 rounded-full"
+                    initial={{ width: 0 }}
+                    animate={{ width: `${progress}%` }}
+                    transition={{ duration: 0.5 }}
+                  />
+                </div>
+                <div className="text-right text-sm text-gray-500 dark:text-gray-400 mt-1">
+                  {progress}%
+                </div>
+              </div>
+
+              {/* Steps */}
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">
+                  Étapes à suivre
+                </h3>
+                <div className="space-y-3">
+                  {steps.map((step, index) => (
+                    <motion.div
+                      key={step.id}
+                      initial={{ opacity: 0, x: -20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                      className={cn(
+                        "flex items-start gap-3 p-3 rounded-lg border transition-all cursor-pointer hover:bg-gray-50 dark:hover:bg-gray-800",
+                        step.completed 
+                          ? "bg-green-50 dark:bg-green-900/20 border-green-200 dark:border-green-800" 
+                          : "bg-white dark:bg-gray-800 border-gray-200 dark:border-gray-700"
+                      )}
+                      onClick={() => handleStepToggle(step.id)}
+                    >
+                      <div className="flex-shrink-0 mt-0.5">
+                        {step.completed ? (
+                          <CheckCircle className="w-5 h-5 text-green-600 dark:text-green-400" />
+                        ) : (
+                          <Circle className="w-5 h-5 text-gray-400 dark:text-gray-500" />
+                        )}
+                      </div>
+                      <div className="flex-1">
+                        <p className={cn(
+                          "text-sm font-medium",
+                          step.completed 
+                            ? "text-green-800 dark:text-green-200 line-through" 
+                            : "text-gray-900 dark:text-white"
+                        )}>
+                          {step.title}
+                        </p>
+                        {step.completed && step.completedAt && (
+                          <p className="text-xs text-green-600 dark:text-green-400 mt-1">
+                            Terminé le {new Date(step.completedAt).toLocaleDateString('fr-FR')}
+                          </p>
+                        )}
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Tips */}
+              {mission.tips && mission.tips.length > 0 && (
+                <div className="mb-6">
+                  <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-3 flex items-center gap-2">
+                    <Lightbulb className="w-5 h-5 text-yellow-500" />
+                    Conseils
+                  </h3>
+                  <div className="space-y-2">
+                    {mission.tips.map((tip, index) => (
+                      <div key={index} className="bg-yellow-50 dark:bg-yellow-900/20 p-3 rounded-lg border border-yellow-200 dark:border-yellow-800">
+                        <p className="text-sm text-yellow-800 dark:text-yellow-200">{tip}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Notes Section */}
+              <div className="mb-6">
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={() => setShowNotes(!showNotes)}
+                  className="flex items-center gap-2 mb-3"
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  {showNotes ? 'Masquer les notes' : 'Ajouter une note'}
+                </Button>
+                
+                {showNotes && (
+                  <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: 'auto' }}
+                    exit={{ opacity: 0, height: 0 }}
+                    className="space-y-3"
+                  >
+                    <textarea
+                      value={notes}
+                      onChange={(e) => setNotes(e.target.value)}
+                      placeholder="Ajoutez vos notes personnelles..."
+                      className="w-full p-3 border border-gray-300 dark:border-gray-600 rounded-lg bg-white dark:bg-gray-800 text-gray-900 dark:text-white resize-none"
+                      rows={3}
+                    />
+                    <Button onClick={handleAddNote} size="sm">
+                      Sauvegarder la note
+                    </Button>
+                  </motion.div>
+                )}
+              </div>
+
+              {/* Complete Mission Button */}
+              {allStepsCompleted && (
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="bg-gradient-to-r from-green-500 to-emerald-600 p-4 rounded-lg text-white mb-6"
+                >
+                  <div className="flex items-center gap-2 mb-2">
+                    <Trophy className="w-5 h-5" />
+                    <span className="font-semibold">Mission terminée !</span>
+                  </div>
+                  <p className="text-sm text-green-100 mb-3">
+                    Félicitations ! Vous avez terminé toutes les étapes. Validez votre mission pour gagner {mission.points} XP.
+                  </p>
+                  <Button
+                    onClick={handleCompleteMission}
+                    disabled={isCompleting}
+                    className="w-full bg-white text-green-600 hover:bg-green-50 font-semibold"
+                  >
+                    {isCompleting ? 'Validation...' : 'Valider la mission'}
+                  </Button>
+                </motion.div>
+              )}
+            </div>
+          </motion.div>
+        </>
+      )}
+    </AnimatePresence>
+  )
+} 
