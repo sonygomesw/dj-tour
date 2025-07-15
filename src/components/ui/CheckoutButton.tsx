@@ -15,33 +15,10 @@ export function CheckoutButton({ productId, className, children }: CheckoutButto
 
   const handleCheckout = async () => {
     setLoading(true)
-
+    
     try {
-      const response = await fetch('/api/create-checkout-session', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ productId }),
-      })
-
-      const { sessionId, error } = await response.json()
-
-      if (error) {
-        throw new Error(error)
-      }
-
-      // Rediriger vers Stripe Checkout
-      const stripe = await import('@stripe/stripe-js').then(({ loadStripe }) =>
-        loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
-      )
-
-      if (stripe) {
-        const { error } = await stripe.redirectToCheckout({ sessionId })
-        if (error) {
-          throw error
-        }
-      }
+      // Rediriger vers la page d'authentification avec un paramètre pour indiquer l'intention de paiement
+      window.location.href = '/auth?mode=signup&redirect=checkout'
     } catch (error) {
       console.error('Checkout error:', error)
       alert('Erreur lors du paiement. Veuillez réessayer.')

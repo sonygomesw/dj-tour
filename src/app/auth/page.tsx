@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button'
 export default function AuthPage() {
   const searchParams = useSearchParams()
   const mode = searchParams.get('mode')
+  const redirect = searchParams.get('redirect')
   
   const [isLogin, setIsLogin] = useState(mode !== 'signup')
   const [email, setEmail] = useState('')
@@ -19,6 +20,43 @@ export default function AuthPage() {
   const [loading, setLoading] = useState(false)
   const [message, setMessage] = useState('')
   const router = useRouter()
+
+  const handleCheckoutAfterSignup = async () => {
+    try {
+      setLoading(true)
+      setMessage('Redirecting to payment...')
+      
+      const response = await fetch('/api/create-checkout-session', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ productId: 'offgigs-lifetime' }),
+      })
+
+      const { sessionId, error } = await response.json()
+
+      if (error) {
+        throw new Error(error)
+      }
+
+      // Rediriger vers Stripe Checkout
+      const stripe = await import('@stripe/stripe-js').then(({ loadStripe }) =>
+        loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
+      )
+
+      if (stripe) {
+        const { error } = await stripe.redirectToCheckout({ sessionId })
+        if (error) {
+          throw error
+        }
+      }
+    } catch (error) {
+      console.error('Checkout error:', error)
+      setMessage('Error processing payment. Please try again.')
+      setLoading(false)
+    }
+  }
 
   useEffect(() => {
     // Update mode if URL parameter changes
@@ -40,10 +78,17 @@ export default function AuthPage() {
         if (error) throw error
         
         if (data.user) {
-          // Wait a bit for AuthProvider to sync
-          setTimeout(() => {
-            router.push('/dashboard')
-          }, 500)
+          // Si l'utilisateur vient pour un paiement, rediriger vers checkout
+          if (redirect === 'checkout') {
+            setTimeout(() => {
+              handleCheckoutAfterSignup()
+            }, 1000)
+          } else {
+            // Sinon, rediriger vers dashboard
+            setTimeout(() => {
+              router.push('/dashboard')
+            }, 500)
+          }
         }
       } else {
         const { data, error } = await supabase.auth.signUp({
@@ -62,10 +107,17 @@ export default function AuthPage() {
           setMessage('An account already exists with this email. Please log in.')
           setIsLogin(true)
         } else if (data.user) {
-          // Wait a bit for AuthProvider to sync
-          setTimeout(() => {
-            router.push('/profile-setup')
-          }, 500)
+          // Si l'utilisateur vient pour un paiement, rediriger vers checkout
+          if (redirect === 'checkout') {
+            setTimeout(() => {
+              handleCheckoutAfterSignup()
+            }, 1000)
+          } else {
+            // Sinon, rediriger vers profile-setup
+            setTimeout(() => {
+              router.push('/profile-setup')
+            }, 500)
+          }
         }
       }
     } catch (error: unknown) {
@@ -107,9 +159,15 @@ export default function AuthPage() {
                 {isLogin ? 'Login' : 'Sign Up'}
               </h1>
               <p className="text-lg text-gray-600 dark:text-white/70 font-light leading-relaxed">
-                {isLogin 
-                  ? 'Log in to access your missions'
-                  : 'Create your account to start your DJ journey'
+                {redirect === 'checkout' 
+                  ? (isLogin 
+                      ? 'Log in to continue with your purchase'
+                      : 'Create your account to access DJ Tour Pro'
+                    )
+                  : (isLogin 
+                      ? 'Log in to access your missions'
+                      : 'Create your account to start your DJ journey'
+                    )
                 }
               </p>
             </div>
