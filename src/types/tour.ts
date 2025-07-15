@@ -1,1 +1,38 @@
-export interface TourDate { id: string; user_id: string; club_name: string; city: string; country: string; event_date: string; // Format: YYYY-MM-DD start_time?: string; // Format: HH:MM end_time?: string; // Format: HH:MM fee?: number; // Cachet en euros genre?: string; status: 'confirmed' | 'pending' | 'cancelled'; capacity?: number; notes?: string; created_at: string; updated_at: string; } export interface TourStats { total_dates: number; confirmed_dates: number; pending_dates: number; total_revenue: number; } export interface NewTourDate { club_name: string; city: string; country: string; event_date: string; start_time?: string; end_time?: string; fee?: number; genre?: string; status?: 'confirmed' | 'pending' | 'cancelled'; capacity?: number; notes?: string; } 
+export interface TourDate {
+  id: string;
+  user_id: string;
+  club_name: string;
+  city: string;
+  country: string;
+  event_date: string; // Format: YYYY-MM-DD
+  start_time?: string; // Format: HH:MM
+  end_time?: string; // Format: HH:MM
+  fee?: number; // Cachet en euros
+  genre?: string;
+  status: "confirmed" | "pending" | "cancelled";
+  capacity?: number;
+  notes?: string;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface TourStats {
+  total_dates: number;
+  confirmed_dates: number;
+  pending_dates: number;
+  total_revenue: number;
+}
+
+export interface NewTourDate {
+  club_name: string;
+  city: string;
+  country: string;
+  event_date: string;
+  start_time?: string;
+  end_time?: string;
+  fee?: number;
+  genre?: string;
+  status?: "confirmed" | "pending" | "cancelled";
+  capacity?: number;
+  notes?: string;
+}

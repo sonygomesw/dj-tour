@@ -1,34 +1,34 @@
-'use client';
-import { useState, useEffect } from 'react';
-import { supabase } from '@/lib/supabase';
-import { Mail, Lock, User, ArrowLeft } from 'lucide-react';
-import Link from 'next/link';
-import { useRouter, useSearchParams } from 'next/navigation';
-import { GlassContainer } from '@/components/ui/GlassContainer';
-import { Button } from '@/components/ui/button';
+"use client";
+import { useState, useEffect } from "react";
+import { supabase } from "@/lib/supabase";
+import { Mail, Lock, User, ArrowLeft } from "lucide-react";
+import Link from "next/link";
+import { useRouter, useSearchParams } from "next/navigation";
+import { GlassContainer } from "@/components/ui/GlassContainer";
+import { Button } from "@/components/ui/button";
 
 export default function AuthPage() {
   const searchParams = useSearchParams();
-  const mode = searchParams.get('mode');
-  const redirect = searchParams.get('redirect');
-  const [isLogin, setIsLogin] = useState(mode !== 'signup');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [name, setName] = useState('');
+  const mode = searchParams.get("mode");
+  const redirect = searchParams.get("redirect");
+  const [isLogin, setIsLogin] = useState(mode !== "signup");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
   const [loading, setLoading] = useState(false);
-  const [message, setMessage] = useState('');
+  const [message, setMessage] = useState("");
   const router = useRouter();
 
   const handleCheckoutAfterSignup = async () => {
     try {
       setLoading(true);
-      setMessage('Redirecting to payment...');
-      const response = await fetch('/api/create-checkout-session', {
-        method: 'POST',
+      setMessage("Redirecting to payment...");
+      const response = await fetch("/api/create-checkout-session", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ productId: 'offgigs-lifetime' }),
+        body: JSON.stringify({ productId: "offgigs-lifetime" }),
       });
 
       const { sessionId, error } = await response.json();
@@ -37,8 +37,8 @@ export default function AuthPage() {
       }
 
       // Rediriger vers Stripe Checkout
-      const stripe = await import('@stripe/stripe-js').then(({ loadStripe }) =>
-        loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
+      const stripe = await import("@stripe/stripe-js").then(({ loadStripe }) =>
+        loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!),
       );
 
       if (stripe) {
@@ -48,21 +48,21 @@ export default function AuthPage() {
         }
       }
     } catch (error) {
-      console.error('Checkout error:', error);
-      setMessage('Error processing payment. Please try again.');
+      console.error("Checkout error:", error);
+      setMessage("Error processing payment. Please try again.");
       setLoading(false);
     }
   };
 
   useEffect(() => {
     // Update mode if URL parameter changes
-    setIsLogin(mode !== 'signup');
+    setIsLogin(mode !== "signup");
   }, [mode]);
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setMessage('');
+    setMessage("");
 
     try {
       if (isLogin) {
@@ -75,14 +75,14 @@ export default function AuthPage() {
 
         if (data.user) {
           // Si l'utilisateur vient pour un paiement, rediriger vers checkout
-          if (redirect === 'checkout') {
+          if (redirect === "checkout") {
             setTimeout(() => {
               handleCheckoutAfterSignup();
             }, 1000);
           } else {
             // Sinon, rediriger vers dashboard
             setTimeout(() => {
-              router.push('/dashboard');
+              router.push("/dashboard");
             }, 500);
           }
         }
@@ -93,38 +93,40 @@ export default function AuthPage() {
           options: {
             data: {
               full_name: name,
-            }
-          }
+            },
+          },
         });
 
         if (error) throw error;
 
         if (data.user?.identities?.length === 0) {
-          setMessage('An account already exists with this email. Please log in.');
+          setMessage(
+            "An account already exists with this email. Please log in.",
+          );
           setIsLogin(true);
         } else if (data.user) {
           // Si l'utilisateur vient pour un paiement, rediriger vers checkout
-          if (redirect === 'checkout') {
+          if (redirect === "checkout") {
             setTimeout(() => {
               handleCheckoutAfterSignup();
             }, 1000);
           } else {
             // Sinon, rediriger vers profile-setup
             setTimeout(() => {
-              router.push('/profile-setup');
+              router.push("/profile-setup");
             }, 500);
           }
         }
       }
     } catch (error: unknown) {
-      console.error('Auth error:', error);
+      console.error("Auth error:", error);
       if (error instanceof Error) {
-        console.error('Error message:', error.message);
-        console.error('Error details:', error);
+        console.error("Error message:", error.message);
+        console.error("Error details:", error);
         setMessage(error.message);
       } else {
-        console.error('Unknown error:', error);
-        setMessage('An error occurred');
+        console.error("Unknown error:", error);
+        setMessage("An error occurred");
       }
     } finally {
       setLoading(false);
@@ -138,7 +140,10 @@ export default function AuthPage() {
         <div className="flex flex-col gap-8 mb-12">
           {/* Back link */}
           <div className="flex justify-start">
-            <Link href="/" className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors hover:scale-105 transition-transform duration-200">
+            <Link
+              href="/"
+              className="inline-flex items-center text-gray-600 hover:text-gray-900 transition-colors hover:scale-105 transition-transform duration-200"
+            >
               <ArrowLeft className="w-4 h-4 mr-2" />
               Back to home
             </Link>
@@ -149,14 +154,16 @@ export default function AuthPage() {
             {/* Title and description */}
             <div>
               <h1 className="text-3xl font-bold text-gray-900 mb-3">
-                {isLogin ? 'Login' : 'Sign Up'}
+                {isLogin ? "Login" : "Sign Up"}
               </h1>
               <p className="text-lg text-gray-600 font-light leading-relaxed">
-                {redirect === 'checkout' ? (
-                  isLogin ? 'Log in to continue with your purchase' : 'Create your account to access DJ Tour Pro'
-                ) : (
-                  isLogin ? 'Log in to access your missions' : 'Create your account to start your DJ journey'
-                )}
+                {redirect === "checkout"
+                  ? isLogin
+                    ? "Log in to continue with your purchase"
+                    : "Create your account to access DJ Tour Pro"
+                  : isLogin
+                    ? "Log in to access your missions"
+                    : "Create your account to start your DJ journey"}
               </p>
             </div>
           </div>
@@ -167,7 +174,10 @@ export default function AuthPage() {
           <form onSubmit={handleAuth} className="space-y-6">
             {!isLogin && (
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-3">
+                <label
+                  htmlFor="name"
+                  className="block text-sm font-medium text-gray-700 mb-3"
+                >
                   Full Name
                 </label>
                 <div className="relative">
@@ -186,7 +196,10 @@ export default function AuthPage() {
             )}
 
             <div>
-              <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-3">
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700 mb-3"
+              >
                 Email
               </label>
               <div className="relative">
@@ -204,7 +217,10 @@ export default function AuthPage() {
             </div>
 
             <div>
-              <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-3">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700 mb-3"
+              >
                 Password
               </label>
               <div className="relative">
@@ -223,11 +239,13 @@ export default function AuthPage() {
             </div>
 
             {message && (
-              <div className={`p-4 rounded-2xl backdrop-blur-xl ${
-                message.includes('Check') 
-                  ? 'bg-green-500/10 border border-green-500/20 text-green-600' 
-                  : 'bg-red-500/10 border border-red-500/20 text-red-600'
-              }`}>
+              <div
+                className={`p-4 rounded-2xl backdrop-blur-xl ${
+                  message.includes("Check")
+                    ? "bg-green-500/10 border border-green-500/20 text-green-600"
+                    : "bg-red-500/10 border border-red-500/20 text-red-600"
+                }`}
+              >
                 {message}
               </div>
             )}
@@ -238,7 +256,7 @@ export default function AuthPage() {
               variant="gradient"
               className="w-full py-3 text-lg font-semibold hover:scale-105 transition-transform duration-200"
             >
-              {loading ? 'Loading...' : (isLogin ? 'Log In' : 'Sign Up')}
+              {loading ? "Loading..." : isLogin ? "Log In" : "Sign Up"}
             </Button>
           </form>
 
@@ -247,14 +265,16 @@ export default function AuthPage() {
               type="button"
               onClick={() => {
                 setIsLogin(!isLogin);
-                setMessage('');
-                setEmail('');
-                setPassword('');
-                setName('');
+                setMessage("");
+                setEmail("");
+                setPassword("");
+                setName("");
               }}
               className="text-violet-600 hover:text-violet-700 hover:scale-105 transition-all duration-200 font-medium cursor-pointer"
             >
-              {isLogin ? 'Don\'t have an account? Sign up' : 'Already have an account? Log in'}
+              {isLogin
+                ? "Don't have an account? Sign up"
+                : "Already have an account? Log in"}
             </button>
           </div>
         </GlassContainer>

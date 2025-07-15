@@ -1,1 +1,45 @@
-import { ReactNode } from 'react'; interface DialogProps { children: ReactNode; open: boolean; onOpenChange: (open: boolean) => void; } export function Dialog({ children, open, onOpenChange }: DialogProps) { if (!open) return null; return ( <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"onClick={() => onOpenChange(false)} > <div className="fixed inset-0 flex items-center justify-center p-4"> <div className="bg-black/80 backdrop-blur-xl border border-white/10 rounded-xl max-w-md w-full max-h-[90vh] overflow-y-auto"onClick={e => e.stopPropagation()} > {children} </div> </div> </div> ); } export function DialogTrigger({ children, onClick }: { children: ReactNode; onClick: () => void }) { return ( <div onClick={onClick}> {children} </div> ); } export function DialogContent({ children }: { children: ReactNode }) { return ( <div className="p-6"> {children} </div> ); } export function DialogHeader({ children }: { children: ReactNode }) { return ( <div className="mb-4"> {children} </div> ); } export function DialogTitle({ children }: { children: ReactNode }) { return ( <h2 className="text-xl font-semibold text-gray-900"> {children} </h2> ); } 
+import { ReactNode } from "react";
+interface DialogProps {
+  children: ReactNode;
+  open: boolean;
+  onOpenChange: (open: boolean) => void;
+}
+export function Dialog({ children, open, onOpenChange }: DialogProps) {
+  if (!open) return null;
+  return (
+    <div
+      className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm"
+      onClick={() => onOpenChange(false)}
+    >
+      {" "}
+      <div className="fixed inset-0 flex items-center justify-center p-4">
+        {" "}
+        <div
+          className="bg-black/80 backdrop-blur-xl border border-white/10 rounded-xl max-w-md w-full max-h-[90vh] overflow-y-auto"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {" "}
+          {children}{" "}
+        </div>{" "}
+      </div>{" "}
+    </div>
+  );
+}
+export function DialogTrigger({
+  children,
+  onClick,
+}: {
+  children: ReactNode;
+  onClick: () => void;
+}) {
+  return <div onClick={onClick}> {children} </div>;
+}
+export function DialogContent({ children }: { children: ReactNode }) {
+  return <div className="p-6"> {children} </div>;
+}
+export function DialogHeader({ children }: { children: ReactNode }) {
+  return <div className="mb-4"> {children} </div>;
+}
+export function DialogTitle({ children }: { children: ReactNode }) {
+  return <h2 className="text-xl font-semibold text-gray-900"> {children} </h2>;
+}

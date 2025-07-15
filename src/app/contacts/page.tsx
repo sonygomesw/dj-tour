@@ -1,33 +1,54 @@
-'use client';
-import { useState } from 'react';
-import { DJSidebar } from '@/components/ui/DJSidebar';
-import { useContacts } from '../../contexts/ContactContext';
-import { Search, Mail, Instagram, Phone, Trash2, CheckCircle, XCircle, Building2, Globe2, MapPin, User, Grid, List, LayoutGrid, Plus } from 'lucide-react';
-import { GlassContainer } from '@/components/ui/GlassContainer';
-import { SimpleContactForm } from '@/components/ui/SimpleContactForm';
-import { Button } from '@/components/ui/button';
+"use client";
+import { useState } from "react";
+import { DJSidebar } from "@/components/ui/DJSidebar";
+import { useContacts } from "../../contexts/ContactContext";
+import {
+  Search,
+  Mail,
+  Instagram,
+  Phone,
+  Trash2,
+  CheckCircle,
+  XCircle,
+  Building2,
+  Globe2,
+  MapPin,
+  User,
+  Grid,
+  List,
+  LayoutGrid,
+  Plus,
+} from "lucide-react";
+import { GlassContainer } from "@/components/ui/GlassContainer";
+import { SimpleContactForm } from "@/components/ui/SimpleContactForm";
+import { Button } from "@/components/ui/button";
 
 export default function ContactsPage() {
   const { contacts, updateContact, deleteContact } = useContacts();
-  console.log('ContactsPage: Current contacts:', contacts);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [statusFilter, setStatusFilter] = useState('all');
-  const [continentFilter, setContinentFilter] = useState('all');
-  const [roleFilter, setRoleFilter] = useState('all');
-  const [viewMode, setViewMode] = useState<'cards' | 'table'>('cards');
+  console.log("ContactsPage: Current contacts:", contacts);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [continentFilter, setContinentFilter] = useState("all");
+  const [roleFilter, setRoleFilter] = useState("all");
+  const [viewMode, setViewMode] = useState<"cards" | "table">("cards");
   const [showAddContactModal, setShowAddContactModal] = useState(false);
 
   // Filtrer les contacts en fonction de la recherche et des filtres
-  const filteredContacts = contacts.filter(contact => {
-    const matchesSearch = contact.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+  const filteredContacts = contacts.filter((contact) => {
+    const matchesSearch =
+      contact.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
       contact.club.toLowerCase().includes(searchQuery.toLowerCase()) ||
       contact.role.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      (contact.email && contact.email.toLowerCase().includes(searchQuery.toLowerCase())) ||
-      (contact.instagram && contact.instagram.toLowerCase().includes(searchQuery.toLowerCase()));
+      (contact.email &&
+        contact.email.toLowerCase().includes(searchQuery.toLowerCase())) ||
+      (contact.instagram &&
+        contact.instagram.toLowerCase().includes(searchQuery.toLowerCase()));
 
-    const matchesStatus = statusFilter === 'all' || contact.status === statusFilter;
-    const matchesContinent = continentFilter === 'all' || contact.continent === continentFilter;
-    const matchesRole = roleFilter === 'all' || contact.role === roleFilter;
+    const matchesStatus =
+      statusFilter === "all" || contact.status === statusFilter;
+    const matchesContinent =
+      continentFilter === "all" || contact.continent === continentFilter;
+    const matchesRole = roleFilter === "all" || contact.role === roleFilter;
 
     return matchesSearch && matchesStatus && matchesContinent && matchesRole;
   });
@@ -35,19 +56,26 @@ export default function ContactsPage() {
   // Statistiques des contacts
   const stats = {
     total: contacts.length,
-    contacted: contacts.filter(c => c.status === 'contacted').length,
-    responded: contacts.filter(c => c.status === 'responded').length,
-    booked: contacts.filter(c => c.status === 'booked').length,
-    rejected: contacts.filter(c => c.status === 'rejected').length
+    contacted: contacts.filter((c) => c.status === "contacted").length,
+    responded: contacts.filter((c) => c.status === "responded").length,
+    booked: contacts.filter((c) => c.status === "booked").length,
+    rejected: contacts.filter((c) => c.status === "rejected").length,
   };
 
   // Obtenir les continents uniques pour le filtre
-  const uniqueContinents = Array.from(new Set(contacts.map(c => c.continent).filter(Boolean)));
+  const uniqueContinents = Array.from(
+    new Set(contacts.map((c) => c.continent).filter(Boolean)),
+  );
 
   // Obtenir les rôles uniques pour le filtre
-  const uniqueRoles = Array.from(new Set(contacts.map(c => c.role).filter(Boolean)));
+  const uniqueRoles = Array.from(
+    new Set(contacts.map((c) => c.role).filter(Boolean)),
+  );
 
-  const handleStatusChange = (contactId: string, newStatus: 'new' | 'contacted' | 'responded' | 'booked' | 'rejected') => {
+  const handleStatusChange = (
+    contactId: string,
+    newStatus: "new" | "contacted" | "responded" | "booked" | "rejected",
+  ) => {
     updateContact(contactId, { status: newStatus });
   };
 
@@ -83,23 +111,33 @@ export default function ContactsPage() {
           {/* Stats */}
           <div className="grid grid-cols-5 gap-4">
             <GlassContainer className="p-4">
-              <div className="text-2xl font-bold text-gray-900 mb-1">{stats.total}</div>
+              <div className="text-2xl font-bold text-gray-900 mb-1">
+                {stats.total}
+              </div>
               <div className="text-sm text-gray-600">Total</div>
             </GlassContainer>
             <GlassContainer className="p-4">
-              <div className="text-2xl font-bold text-blue-400 mb-1">{stats.contacted}</div>
+              <div className="text-2xl font-bold text-blue-400 mb-1">
+                {stats.contacted}
+              </div>
               <div className="text-sm text-gray-600">Contacted</div>
             </GlassContainer>
             <GlassContainer className="p-4">
-              <div className="text-2xl font-bold text-green-400 mb-1">{stats.responded}</div>
+              <div className="text-2xl font-bold text-green-400 mb-1">
+                {stats.responded}
+              </div>
               <div className="text-sm text-gray-600">Responded</div>
             </GlassContainer>
             <GlassContainer className="p-4">
-              <div className="text-2xl font-bold text-violet-400 mb-1">{stats.booked}</div>
+              <div className="text-2xl font-bold text-violet-400 mb-1">
+                {stats.booked}
+              </div>
               <div className="text-sm text-gray-600">Booked</div>
             </GlassContainer>
             <GlassContainer className="p-4">
-              <div className="text-2xl font-bold text-red-400 mb-1">{stats.rejected}</div>
+              <div className="text-2xl font-bold text-red-400 mb-1">
+                {stats.rejected}
+              </div>
               <div className="text-sm text-gray-600">Rejected</div>
             </GlassContainer>
           </div>
@@ -122,21 +160,37 @@ export default function ContactsPage() {
             onChange={(e) => setStatusFilter(e.target.value)}
             className="bg-white/[0.02] border border-white/10 rounded-2xl px-6 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all duration-200"
           >
-            <option value="all" className="bg-gray-900">All statuses</option>
-            <option value="new" className="bg-gray-900">New</option>
-            <option value="contacted" className="bg-gray-900">Contacted</option>
-            <option value="responded" className="bg-gray-900">Responded</option>
-            <option value="booked" className="bg-gray-900">Booked</option>
-            <option value="rejected" className="bg-gray-900">Rejected</option>
+            <option value="all" className="bg-gray-900">
+              All statuses
+            </option>
+            <option value="new" className="bg-gray-900">
+              New
+            </option>
+            <option value="contacted" className="bg-gray-900">
+              Contacted
+            </option>
+            <option value="responded" className="bg-gray-900">
+              Responded
+            </option>
+            <option value="booked" className="bg-gray-900">
+              Booked
+            </option>
+            <option value="rejected" className="bg-gray-900">
+              Rejected
+            </option>
           </select>
           <select
             value={continentFilter}
             onChange={(e) => setContinentFilter(e.target.value)}
             className="bg-white/[0.02] border border-white/10 rounded-2xl px-6 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all duration-200"
           >
-            <option value="all" className="bg-gray-900">All continents</option>
-            {uniqueContinents.map(continent => (
-              <option key={continent} value={continent} className="bg-gray-900">{continent}</option>
+            <option value="all" className="bg-gray-900">
+              All continents
+            </option>
+            {uniqueContinents.map((continent) => (
+              <option key={continent} value={continent} className="bg-gray-900">
+                {continent}
+              </option>
             ))}
           </select>
         </div>
@@ -145,22 +199,22 @@ export default function ContactsPage() {
         <div className="flex justify-center mb-8">
           <div className="bg-white/[0.02] border border-white/10 rounded-2xl p-2 flex">
             <button
-              onClick={() => setViewMode('cards')}
+              onClick={() => setViewMode("cards")}
               className={`flex items-center gap-2 px-6 py-3 rounded-xl transition-all duration-200 ${
-                viewMode === 'cards'
-                  ? 'bg-gradient-to-r from-violet-500 to-fuchsia-500 text-gray-900 shadow-lg'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-white/5'
+                viewMode === "cards"
+                  ? "bg-gradient-to-r from-violet-500 to-fuchsia-500 text-gray-900 shadow-lg"
+                  : "text-gray-600 hover:text-gray-900 hover:bg-white/5"
               }`}
             >
               <LayoutGrid className="w-4 h-4" />
               <span className="font-medium">Cards</span>
             </button>
             <button
-              onClick={() => setViewMode('table')}
+              onClick={() => setViewMode("table")}
               className={`flex items-center gap-2 px-6 py-3 rounded-xl transition-all duration-200 ${
-                viewMode === 'table'
-                  ? 'bg-gradient-to-r from-violet-500 to-fuchsia-500 text-gray-900 shadow-lg'
-                  : 'text-gray-600 hover:text-gray-900 hover:bg-white/5'
+                viewMode === "table"
+                  ? "bg-gradient-to-r from-violet-500 to-fuchsia-500 text-gray-900 shadow-lg"
+                  : "text-gray-600 hover:text-gray-900 hover:bg-white/5"
               }`}
             >
               <List className="w-4 h-4" />
@@ -171,7 +225,7 @@ export default function ContactsPage() {
 
         {/* Contact List */}
         {filteredContacts.length > 0 ? (
-          viewMode === 'cards' ? (
+          viewMode === "cards" ? (
             /* Vue en cartes */
             <div className="space-y-4">
               {filteredContacts.map((contact) => (
@@ -179,7 +233,9 @@ export default function ContactsPage() {
                   <div className="flex items-start justify-between">
                     <div className="space-y-3">
                       <div className="flex items-center gap-3">
-                        <h3 className="text-xl font-semibold text-gray-900">{contact.name}</h3>
+                        <h3 className="text-xl font-semibold text-gray-900">
+                          {contact.name}
+                        </h3>
                         {contact.role && (
                           <span className="text-sm text-gray-600 bg-white/10 px-3 py-1 rounded-full">
                             {contact.role}
@@ -189,7 +245,9 @@ export default function ContactsPage() {
                       <div className="flex items-center gap-6 text-gray-600">
                         <div className="flex items-center gap-2">
                           <Building2 className="w-4 h-4" />
-                          <span className="text-violet-400">{contact.club}</span>
+                          <span className="text-violet-400">
+                            {contact.club}
+                          </span>
                         </div>
                         {contact.continent && (
                           <div className="flex items-center gap-2">
@@ -216,7 +274,7 @@ export default function ContactsPage() {
                         )}
                         {contact.instagram && (
                           <a
-                            href={`https://instagram.com/${contact.instagram.replace('@', '')}`}
+                            href={`https://instagram.com/${contact.instagram.replace("@", "")}`}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="flex items-center gap-1 hover:text-violet-400 transition-colors"
@@ -229,44 +287,50 @@ export default function ContactsPage() {
                     </div>
                     <div className="flex items-center gap-2">
                       <button
-                        onClick={() => handleStatusChange(contact.id, 'contacted')}
+                        onClick={() =>
+                          handleStatusChange(contact.id, "contacted")
+                        }
                         className={`p-2 rounded-xl transition-colors ${
-                          contact.status === 'contacted'
-                            ? 'bg-blue-500/20 text-blue-400'
-                            : 'bg-white/5 text-gray-500 hover:bg-white/10'
+                          contact.status === "contacted"
+                            ? "bg-blue-500/20 text-blue-400"
+                            : "bg-white/5 text-gray-500 hover:bg-white/10"
                         }`}
                         title="Marquer comme contacté"
                       >
                         <Mail className="w-5 h-5" />
                       </button>
                       <button
-                        onClick={() => handleStatusChange(contact.id, 'responded')}
+                        onClick={() =>
+                          handleStatusChange(contact.id, "responded")
+                        }
                         className={`p-2 rounded-xl transition-colors ${
-                          contact.status === 'responded'
-                            ? 'bg-green-500/20 text-green-400'
-                            : 'bg-white/5 text-gray-500 hover:bg-white/10'
+                          contact.status === "responded"
+                            ? "bg-green-500/20 text-green-400"
+                            : "bg-white/5 text-gray-500 hover:bg-white/10"
                         }`}
                         title="Marquer comme répondu"
                       >
                         <CheckCircle className="w-5 h-5" />
                       </button>
                       <button
-                        onClick={() => handleStatusChange(contact.id, 'booked')}
+                        onClick={() => handleStatusChange(contact.id, "booked")}
                         className={`p-2 rounded-xl transition-colors ${
-                          contact.status === 'booked'
-                            ? 'bg-violet-500/20 text-violet-400'
-                            : 'bg-white/5 text-gray-500 hover:bg-white/10'
+                          contact.status === "booked"
+                            ? "bg-violet-500/20 text-violet-400"
+                            : "bg-white/5 text-gray-500 hover:bg-white/10"
                         }`}
                         title="Marquer comme booké"
                       >
                         <Phone className="w-5 h-5" />
                       </button>
                       <button
-                        onClick={() => handleStatusChange(contact.id, 'rejected')}
+                        onClick={() =>
+                          handleStatusChange(contact.id, "rejected")
+                        }
                         className={`p-2 rounded-xl transition-colors ${
-                          contact.status === 'rejected'
-                            ? 'bg-red-500/20 text-red-400'
-                            : 'bg-white/5 text-gray-500 hover:bg-white/10'
+                          contact.status === "rejected"
+                            ? "bg-red-500/20 text-red-400"
+                            : "bg-white/5 text-gray-500 hover:bg-white/10"
                         }`}
                         title="Marquer comme rejeté"
                       >
@@ -291,13 +355,27 @@ export default function ContactsPage() {
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-white/10 bg-white/[0.02]">
-                      <th className="text-left py-4 px-6 text-sm font-medium text-gray-700">Nom</th>
-                      <th className="text-left py-4 px-6 text-sm font-medium text-gray-700">Rôle</th>
-                      <th className="text-left py-4 px-6 text-sm font-medium text-gray-700">Club</th>
-                      <th className="text-left py-4 px-6 text-sm font-medium text-gray-700">Localisation</th>
-                      <th className="text-left py-4 px-6 text-sm font-medium text-gray-700">Contact</th>
-                      <th className="text-left py-4 px-6 text-sm font-medium text-gray-700">Statut</th>
-                      <th className="text-center py-4 px-6 text-sm font-medium text-gray-700">Actions</th>
+                      <th className="text-left py-4 px-6 text-sm font-medium text-gray-700">
+                        Nom
+                      </th>
+                      <th className="text-left py-4 px-6 text-sm font-medium text-gray-700">
+                        Rôle
+                      </th>
+                      <th className="text-left py-4 px-6 text-sm font-medium text-gray-700">
+                        Club
+                      </th>
+                      <th className="text-left py-4 px-6 text-sm font-medium text-gray-700">
+                        Localisation
+                      </th>
+                      <th className="text-left py-4 px-6 text-sm font-medium text-gray-700">
+                        Contact
+                      </th>
+                      <th className="text-left py-4 px-6 text-sm font-medium text-gray-700">
+                        Statut
+                      </th>
+                      <th className="text-center py-4 px-6 text-sm font-medium text-gray-700">
+                        Actions
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -305,11 +383,13 @@ export default function ContactsPage() {
                       <tr
                         key={contact.id}
                         className={`border-b border-white/5 hover:bg-white/[0.02] transition-colors ${
-                          index % 2 === 0 ? 'bg-white/[0.01]' : ''
+                          index % 2 === 0 ? "bg-white/[0.01]" : ""
                         }`}
                       >
                         <td className="py-4 px-6">
-                          <div className="font-medium text-gray-900">{contact.name}</div>
+                          <div className="font-medium text-gray-900">
+                            {contact.name}
+                          </div>
                         </td>
                         <td className="py-4 px-6">
                           <span className="text-sm text-gray-600 bg-white/10 px-2 py-1 rounded-full">
@@ -317,13 +397,15 @@ export default function ContactsPage() {
                           </span>
                         </td>
                         <td className="py-4 px-6">
-                          <span className="text-violet-400 font-medium">{contact.club}</span>
+                          <span className="text-violet-400 font-medium">
+                            {contact.club}
+                          </span>
                         </td>
                         <td className="py-4 px-6">
                           <div className="text-gray-600 text-sm">
                             {contact.city && contact.continent
                               ? `${contact.city}, ${contact.continent}`
-                              : contact.continent || contact.city || '-'}
+                              : contact.continent || contact.city || "-"}
                           </div>
                         </td>
                         <td className="py-4 px-6">
@@ -339,7 +421,7 @@ export default function ContactsPage() {
                             )}
                             {contact.instagram && (
                               <a
-                                href={`https://instagram.com/${contact.instagram.replace('@', '')}`}
+                                href={`https://instagram.com/${contact.instagram.replace("@", "")}`}
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="flex items-center gap-1 text-sm text-gray-600 hover:text-violet-400 transition-colors"
@@ -353,69 +435,77 @@ export default function ContactsPage() {
                         <td className="py-4 px-6">
                           <span
                             className={`text-xs px-2 py-1 rounded-full font-medium ${
-                              contact.status === 'new'
-                                ? 'bg-gray-500/20 text-gray-300'
-                                : contact.status === 'contacted'
-                                ? 'bg-blue-500/20 text-blue-400'
-                                : contact.status === 'responded'
-                                ? 'bg-green-500/20 text-green-400'
-                                : contact.status === 'booked'
-                                ? 'bg-violet-500/20 text-violet-400'
-                                : 'bg-red-500/20 text-red-400'
+                              contact.status === "new"
+                                ? "bg-gray-500/20 text-gray-300"
+                                : contact.status === "contacted"
+                                  ? "bg-blue-500/20 text-blue-400"
+                                  : contact.status === "responded"
+                                    ? "bg-green-500/20 text-green-400"
+                                    : contact.status === "booked"
+                                      ? "bg-violet-500/20 text-violet-400"
+                                      : "bg-red-500/20 text-red-400"
                             }`}
                           >
-                            {contact.status === 'new'
-                              ? 'Nouveau'
-                              : contact.status === 'contacted'
-                              ? 'Contacté'
-                              : contact.status === 'responded'
-                              ? 'Répondu'
-                              : contact.status === 'booked'
-                              ? 'Booké'
-                              : 'Rejeté'}
+                            {contact.status === "new"
+                              ? "Nouveau"
+                              : contact.status === "contacted"
+                                ? "Contacté"
+                                : contact.status === "responded"
+                                  ? "Répondu"
+                                  : contact.status === "booked"
+                                    ? "Booké"
+                                    : "Rejeté"}
                           </span>
                         </td>
                         <td className="py-4 px-6">
                           <div className="flex items-center justify-center gap-1">
                             <button
-                              onClick={() => handleStatusChange(contact.id, 'contacted')}
+                              onClick={() =>
+                                handleStatusChange(contact.id, "contacted")
+                              }
                               className={`p-1.5 rounded-lg transition-colors ${
-                                contact.status === 'contacted'
-                                  ? 'bg-blue-500/20 text-blue-400'
-                                  : 'bg-white/5 text-gray-500 hover:bg-white/10'
+                                contact.status === "contacted"
+                                  ? "bg-blue-500/20 text-blue-400"
+                                  : "bg-white/5 text-gray-500 hover:bg-white/10"
                               }`}
                               title="Marquer comme contacté"
                             >
                               <Mail className="w-4 h-4" />
                             </button>
                             <button
-                              onClick={() => handleStatusChange(contact.id, 'responded')}
+                              onClick={() =>
+                                handleStatusChange(contact.id, "responded")
+                              }
                               className={`p-1.5 rounded-lg transition-colors ${
-                                contact.status === 'responded'
-                                  ? 'bg-green-500/20 text-green-400'
-                                  : 'bg-white/5 text-gray-500 hover:bg-white/10'
+                                contact.status === "responded"
+                                  ? "bg-green-500/20 text-green-400"
+                                  : "bg-white/5 text-gray-500 hover:bg-white/10"
                               }`}
                               title="Marquer comme répondu"
                             >
                               <CheckCircle className="w-4 h-4" />
                             </button>
                             <button
-                              onClick={() => handleStatusChange(contact.id, 'booked')}
+                              onClick={() =>
+                                handleStatusChange(contact.id, "booked")
+                              }
                               className={`p-1.5 rounded-lg transition-colors ${
-                                contact.status === 'booked'
-                                  ? 'bg-violet-500/20 text-violet-400'
-                                  : 'bg-white/5 text-gray-500 hover:bg-white/10'
+                                contact.status === "booked"
+                                  ? "bg-violet-500/20 text-violet-400"
+                                  : "bg-white/5 text-gray-500 hover:bg-white/10"
                               }`}
                               title="Marquer comme booké"
                             >
                               <Phone className="w-4 h-4" />
                             </button>
                             <button
-                              onClick={() => handleStatusChange(contact.id, 'rejected')}
+                              onClick={() =>
+                                handleStatusChange(contact.id, "rejected")
+                              }
                               className={`p-1.5 rounded-lg transition-colors ${
-                                contact.status === 'rejected'
-                                  ? 'bg-red-500/20 text-red-400'
-                                  : 'bg-white/5 text-gray-500 hover:bg-white/10'
+                                contact.status === "rejected"
+                                  ? "bg-red-500/20 text-red-400"
+                                  : "bg-white/5 text-gray-500 hover:bg-white/10"
                               }`}
                               title="Marquer comme rejeté"
                             >
@@ -442,19 +532,25 @@ export default function ContactsPage() {
             <div className="w-20 h-20 rounded-full bg-white/5 flex items-center justify-center mx-auto mb-6">
               <User className="w-10 h-10 text-gray-400" />
             </div>
-            <h3 className="text-xl font-semibold text-gray-900 mb-2">No contact found</h3>
+            <h3 className="text-xl font-semibold text-gray-900 mb-2">
+              No contact found
+            </h3>
             <p className="text-gray-600 mb-6">
-              {searchQuery || statusFilter !== 'all' || continentFilter !== 'all'
+              {searchQuery ||
+              statusFilter !== "all" ||
+              continentFilter !== "all"
                 ? "Aucun contact ne correspond à vos critères de recherche"
                 : "Start by adding contacts via Build Tour"}
             </p>
             <div className="bg-yellow-500/10 border border-yellow-500/20 rounded-xl p-4 max-w-md mx-auto">
               <p className="text-yellow-400 text-sm">
-                💡 <strong>Debug:</strong> Total contacts dans le contexte: {contacts.length}
+                💡 <strong>Debug:</strong> Total contacts dans le contexte:{" "}
+                {contacts.length}
               </p>
               {contacts.length > 0 && (
                 <p className="text-yellow-400 text-xs mt-2">
-                  Contacts présents mais filtrés: {contacts.map(c => c.name).join(', ')}
+                  Contacts présents mais filtrés:{" "}
+                  {contacts.map((c) => c.name).join(", ")}
                 </p>
               )}
             </div>
@@ -465,7 +561,9 @@ export default function ContactsPage() {
         {showAddContactModal && (
           <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
             <div className="w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-              <SimpleContactForm onClose={() => setShowAddContactModal(false)} />
+              <SimpleContactForm
+                onClose={() => setShowAddContactModal(false)}
+              />
             </div>
           </div>
         )}
