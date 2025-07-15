@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 import OpenAI from 'openai'
 
-// Configuration OpenAI
-const openai = new OpenAI({
+// Configuration OpenAI (conditionnelle)
+const openai = process.env.OPENAI_API_KEY ? new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
-})
+}) : null
 
 // Mock responses for offline mode - Professional tone
 const mockResponses = [
@@ -106,7 +106,7 @@ export async function POST(request: NextRequest) {
     }
 
     // Vérifier si on a une clé API
-    if (!process.env.OPENAI_API_KEY) {
+    if (!openai) {
       console.log('🔄 Mode offline - Utilisation des réponses mock')
       const randomResponse = mockResponses[Math.floor(Math.random() * mockResponses.length)]
       
