@@ -69,9 +69,13 @@ export default function AuthPage() {
         }
       }
     } catch (error: unknown) {
+      console.error('Auth error:', error)
       if (error instanceof Error) {
+        console.error('Error message:', error.message)
+        console.error('Error details:', error)
         setMessage(error.message)
       } else {
+        console.error('Unknown error:', error)
         setMessage('An error occurred')
       }
     } finally {
