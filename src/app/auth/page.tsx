@@ -136,7 +136,7 @@ export default function AuthPage() {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0F0F11] transition-colors duration-300 scale-50 origin-top-left">
+    <div className="min-h-screen bg-white dark:bg-[#0F0F11] transition-colors duration-300">
       <div className="relative z-10 max-w-lg mx-auto px-6 py-8">
         {/* Header with improved spacing */}
         <div className="flex flex-col gap-8 mb-12">

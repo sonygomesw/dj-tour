@@ -170,14 +170,14 @@ export default function StatsPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen bg-white dark:bg-[#0F0F11] items-center justify-center transition-colors duration-300 scale-50 origin-top-left">
+      <div className="flex min-h-screen bg-white dark:bg-[#0F0F11] items-center justify-center transition-colors duration-300">
         <div className="text-gray-900 dark:text-white text-xl">Loading...</div>
       </div>
     )
   }
 
   return (
-    <div className="flex min-h-screen bg-white dark:bg-[#0F0F11] transition-colors duration-300 scale-50 origin-top-left">
+    <div className="flex min-h-screen bg-white dark:bg-[#0F0F11] transition-colors duration-300">
       <DJSidebar />
       <div className="flex-1 ml-96 p-16 relative overflow-hidden">
         {/* Background */}
