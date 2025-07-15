@@ -29,14 +29,14 @@ export default function MissionDetailPage({ params }: { params: { id: string } }
 
   if (!mission) {
     return (
-      <div className="min-h-screen bg-[#0e0e0e] flex items-center justify-center scale-75 origin-top-left">
+      <div className="min-h-screen bg-[#0e0e0e] flex items-center justify-center scale-50 origin-top-left">
         <p className="text-gray-900 dark:text-white">Mission not found</p>
       </div>
     )
   }
 
   return (
-    <div className="min-h-screen bg-[#0e0e0e] py-12 scale-75 origin-top-left">
+    <div className="min-h-screen bg-[#0e0e0e] py-12 scale-50 origin-top-left">
       <div className="container mx-auto px-6">
         {/* Back button */}
         <Link href="/missions" className="inline-flex items-center text-gray-400 hover:text-gray-900 dark:text-white mb-8 transition-colors">
