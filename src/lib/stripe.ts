@@ -22,10 +22,10 @@ export interface Product {
 
 // Produit offgigs
 export const OFFGIGS_PRODUCT: Product = {
-  id: 'offgigs-lifetime',
-  name: 'offgigs Lifetime Access',
-  description: 'Accès à vie à la plateforme offgigs avec toutes les fonctionnalités',
-  price: 97, // Prix réduit pour test
+  id: 'Offgigs-lifetime',
+  name: 'DJ Tour Pro - Lifetime Access',
+  description: 'Accès à vie à la plateforme DJ Tour avec toutes les fonctionnalités premium',
+  price: 197, // Prix final
   currency: 'eur',
   features: [
     'Accès à vie à toutes les missions',
@@ -66,6 +66,7 @@ export async function createCheckoutSession(product: Product) {
       mode: 'payment',
       success_url: 'https://offgigs.com/dashboard?success=true&session_id={CHECKOUT_SESSION_ID}',
       cancel_url: 'https://offgigs.com/?canceled=true',
+      allow_promotion_codes: true, // Active le champ promo code
       metadata: {
         product_id: product.id,
       },
