@@ -1,1 +1,33 @@
-import type { Metadata } from 'next' import { Inter } from 'next/font/google' import './globals.css' import { ContactProvider } from '@/contexts/ContactContext' import { AuthProvider } from '@/components/auth/AuthProvider' import { MissionProvider } from '@/contexts/MissionContext' const inter = Inter({ subsets: ['latin'] }) export const metadata: Metadata = { title: 'offgigs - Build Your DJ Career', description: 'Professional DJ career development platform', } export default function RootLayout({ children, }: { children: React.ReactNode }) { return ( <html lang="en"> <body className={`${inter.className} min-h-screen bg-white text-black antialiased`}> <AuthProvider> <MissionProvider> <ContactProvider> {children} </ContactProvider> </MissionProvider> </AuthProvider> </body> </html> ) } 
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
+import './globals.css';
+import { ContactProvider } from '@/contexts/ContactContext';
+import { AuthProvider } from '@/components/auth/AuthProvider';
+import { MissionProvider } from '@/contexts/MissionContext';
+
+const inter = Inter({ subsets: ['latin'] });
+
+export const metadata: Metadata = {
+  title: 'offgigs - Build Your DJ Career',
+  description: 'Professional DJ career development platform',
+};
+
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
+  return (
+    <html lang="en">
+      <body className={`${inter.className} min-h-screen bg-white text-black antialiased`}>
+        <AuthProvider>
+          <MissionProvider>
+            <ContactProvider>
+              {children}
+            </ContactProvider>
+          </MissionProvider>
+        </AuthProvider>
+      </body>
+    </html>
+  );
+} 

@@ -1,1 +1,19 @@
-'use client' import { createContext, useContext, useState, ReactNode } from 'react' import { Contact } from '@/types/contact' type ContactContextType = { contactOpen: boolean setContactOpen: (open: boolean) => void contacts: Contact[] addContact: (contact: Contact) => void updateContact: (id: string, updates: Partial<Contact>) => void deleteContact: (id: string) => void loading: boolean error: string | null } const ContactContext = createContext<ContactContextType | undefined>(undefined) export const ContactProvider = ({ children }: { children: ReactNode }) => { const [contactOpen, setContactOpen] = useState(false) const [contacts, setContacts] = useState<Contact[]>([]) const [loading, setLoading] = useState(false) const [error, setError] = useState<string | null>(null) const addContact = (contact: Contact) => { console.log('ContactContext: Adding contact:', contact) setContacts(prev => { const newContacts = [...prev, contact] console.log('ContactContext: New contacts array:', newContacts) return newContacts }) } const updateContact = (id: string, updates: Partial<Contact>) => { setContacts(prev => prev.map(contact => contact.id === id ? { ...contact, ...updates } : contact )) } const deleteContact = (id: string) => { setContacts(prev => prev.filter(contact => contact.id !== id)) } return ( <ContactContext.Provider value={{ contactOpen, setContactOpen, contacts, addContact, updateContact, deleteContact, loading, error }}> {children} </ContactContext.Provider> ) } export const useContact = () => { const context = useContext(ContactContext) if (!context) { throw new Error('useContact must be used within a ContactProvider') } return context } // Alias pour la compatibilité export const useContacts = useContact 
+'use client';
+
+import { createContext, useContext, useState, ReactNode } from 'react';
+import { Contact } from '@/types/contact';
+
+type ContactContextType = {
+  contactOpen: boolean;
+  setContactOpen: (open: boolean) => void;
+  contacts: Contact[];
+  addContact: (contact: Contact) => void;
+  updateContact: (id: string, updates: Partial<Contact>) => void;
+  deleteContact: (id: string) => void;
+  loading: boolean;
+  error: string | null;
+};
+
+const ContactContext = createContext<ContactContextType | undefined>(undefined);
+
+export const ContactProvider = ({ children }: { children: ReactNode }) => { const [contactOpen, setContactOpen] = useState(false) const [contacts, setContacts] = useState<Contact[]>([]) const [loading, setLoading] = useState(false) const [error, setError] = useState<string | null>(null) const addContact = (contact: Contact) => { console.log('ContactContext: Adding contact:', contact) setContacts(prev => { const newContacts = [...prev, contact] console.log('ContactContext: New contacts array:', newContacts) return newContacts }) } const updateContact = (id: string, updates: Partial<Contact>) => { setContacts(prev => prev.map(contact => contact.id === id ? { ...contact, ...updates } : contact )) } const deleteContact = (id: string) => { setContacts(prev => prev.filter(contact => contact.id !== id)) } return ( <ContactContext.Provider value={{ contactOpen, setContactOpen, contacts, addContact, updateContact, deleteContact, loading, error }}> {children} </ContactContext.Provider> ) } export const useContact = () => { const context = useContext(ContactContext) if (!context) { throw new Error('useContact must be used within a ContactProvider') } return context } // Alias pour la compatibilité export const useContacts = useContact 
