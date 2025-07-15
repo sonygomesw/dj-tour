@@ -18,7 +18,7 @@ html, body {
     --foreground: 229 229 231;
     --text-secondary: 156 163 175;
     --primary: 167 139 250;
-    --primary-dark: 76 29 149;
+    --primary-darker: 76 29 149;
     --success: 52 211 153;
     --warning: 251 191 36;
     --danger: 248 113 113;
@@ -28,7 +28,7 @@ html, body {
   }
 
   body {
-    @apply bg-background text-text;
+    @apply bg-white text-gray-900;
   }
 }
 
@@ -42,7 +42,7 @@ html, body {
   }
   
   .text-gradient {
-    @apply bg-gradient-to-r from-primary [--tw-gradient-to:#4C1D95] bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-primary to-primary-darker bg-clip-text text-transparent;
   }
   
   .hover-glow {

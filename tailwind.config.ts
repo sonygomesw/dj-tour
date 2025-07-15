@@ -16,7 +16,7 @@ const config: Config = {
         foreground: "#E5E7EB",
         "text-secondary": "#9CA3AF",
         primary: "#A78BFA",
-        "primary-dark": "#4C1D95",
+        "primary-darker": "#4C1D95",
         success: "#34D399",
         warning: "#FBBF24",
         danger: "#F87171",
