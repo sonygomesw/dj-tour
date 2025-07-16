@@ -39,7 +39,7 @@ interface UserStats {
   date: string
 }
 
-export default function DashboardPage() {
+function DashboardContent() {
   const [profile, setProfile] = useState<UserProfile | null>(null)
   const [stats, setStats] = useState<UserStats | null>(null)
   const [loading, setLoading] = useState(true)
