@@ -236,7 +236,13 @@ export default function DashboardPage() {
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
             {/* Profile Card */}
             <div className="lg:row-span-2">
-              <DJProfileCard profile={profile} />
+              <DJProfileCard 
+                name={profile?.dj_name || profile?.full_name || 'DJ'}
+                level={Math.ceil(bookabilityScore / 20).toString()}
+                points={earnedPoints}
+                maxPoints={totalPoints}
+                imageUrl={profile?.avatar_url || '/images/profile/default-dj.svg'}
+              />
             </div>
             
             {/* Bookability Score */}
