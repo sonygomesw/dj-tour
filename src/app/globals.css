@@ -42,7 +42,7 @@ html, body {
   }
   
   .text-gradient {
-    @apply bg-gradient-to-r from-primary to-primary-darker bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-violet-500 to-purple-600 bg-clip-text text-transparent;
   }
   
   .hover-glow {
