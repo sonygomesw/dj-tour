@@ -16,9 +16,6 @@ import {
   Plus, 
   MessageSquare, 
   Trash2,
-  Lightbulb,
-  FileText,
-  BarChart3,
   Edit3,
   Copy,
   Download,
@@ -59,26 +56,7 @@ export default function DJCoachAIPage() {
   const recognitionRef = useRef<any>(null)
   const { showToast, ToastContainer } = useToast()
 
-  const quickPrompts = [
-    {
-      icon: <Lightbulb className="w-5 h-5" />,
-          title: "Develop a plan",
-    description: "How to develop my DJ career in 6 months?",
-    suggestions: ["Marketing plan", "Booking strategy", "Network development"]
-    },
-    {
-      icon: <BarChart3 className="w-5 h-5" />,
-      title: "Analyze data",
-              description: "Analyze my Spotify stats and give me advice",
-        suggestions: ["Audience analysis", "Playlist optimization", "Genre trends"]
-    },
-    {
-      icon: <FileText className="w-5 h-5" />,
-          title: "Strategic summary",
-    description: "Summarize the best strategies to break through on Instagram",
-    suggestions: ["Viral content", "Community engagement", "Artist collaboration"]
-    }
-  ]
+
 
   const currentConversation = conversations.find(c => c.id === currentConversationId)
   const messages = currentConversation?.messages || []
@@ -369,10 +347,7 @@ export default function DJCoachAIPage() {
     }
   }
 
-  const useQuickPrompt = (prompt: string) => {
-    setInputMessage(prompt)
-    inputRef.current?.focus()
-  }
+
 
   const adjustTextareaHeight = () => {
     const textarea = inputRef.current
@@ -585,31 +560,7 @@ export default function DJCoachAIPage() {
                 <p className="text-2xl md:text-3xl text-gray-600 px-4">Your assistant to develop your DJ career faster</p>
               </div>
 
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-8 px-4 md:px-0">
-                {quickPrompts.map((prompt, index) => (
-                                      <div
-                      key={index}
-                      onClick={() => useQuickPrompt(prompt.description)}
-                      className="p-6 md:p-8 border border-gray-200 rounded-xl hover:border-gray-300 cursor-pointer transition-all bg-white hover:shadow-md"
-                    >
-                    <div className="flex items-center gap-3 mb-3">
-                      <div className="text-gray-600">{prompt.icon}</div>
-                      <h3 className="font-semibold text-gray-800 text-2xl">{prompt.title}</h3>
-                    </div>
-                    <p className="text-xl text-gray-600 leading-relaxed mb-3">{prompt.description}</p>
-                    <div className="flex flex-wrap gap-2">
-                      {prompt.suggestions.map((suggestion, i) => (
-                        <span
-                          key={i}
-                          className="px-3 py-1 bg-gray-100 text-lg text-gray-600 rounded-full"
-                        >
-                          {suggestion}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                ))}
-              </div>
+
             </div>
           </div>
         ) : (
