@@ -83,92 +83,69 @@ export function DJSidebar() {
   }
 
   return (
-    <div className="fixed left-0 top-0 h-full w-80 backdrop-blur-2xl bg-black/[0.02] dark:bg-white/[0.02] border-r border-black/10 dark:border-white/10 z-50 shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_16px_rgba(0,0,0,0.08)]">
+    <div className="fixed left-0 top-0 h-full w-80 backdrop-blur-2xl bg-black/[0.02] border-r border-black/10 z-50 shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_16px_rgba(0,0,0,0.08)]">
       {/* Logo Section */}
-      <div className="p-6 border-b border-black/10 dark:border-white/10">
+              <div className="p-6 border-b border-black/10">
         <div className="flex items-center gap-4">
           <div className="relative">
-            <div className="w-12 h-12 bg-gradient-to-br from-violet-500 via-fuchsia-500 to-violet-600 rounded-xl flex items-center justify-center shadow-[0_8px_32px_rgba(139,92,246,0.3),0_3px_16px_rgba(139,92,246,0.2)] border border-white/10">
-              <Trophy className="w-6 h-6 text-gray-900 dark:text-white drop-shadow-sm" />
+            <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500 via-fuchsia-500 to-violet-600 flex items-center justify-center shadow-[0_8px_32px_rgba(139,92,246,0.3),0_3px_16px_rgba(139,92,246,0.2)] border border-white/10">
+              <Trophy className="w-6 h-6 text-white drop-shadow-sm" />
             </div>
-            <div className="absolute -top-1 -right-1 w-4 h-4 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center shadow-lg">
-              <Sparkles className="w-2 h-2 text-gray-900 dark:text-white" />
+            <div className="absolute -top-1 -right-1 w-3 h-3 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center shadow-lg">
+              <Sparkles className="w-2 h-2 text-white" />
             </div>
           </div>
           <div>
-            <h1 className="text-xl font-bold text-black dark:text-white">DJ Tour</h1>
-            <p className="text-sm text-black/60 dark:text-gray-600 dark:text-white/60 font-medium">Pro Edition</p>
+            <h1 className="text-xl font-bold text-black">DJ Tour</h1>
+            <p className="text-sm text-black/60 font-medium">Pro Edition</p>
           </div>
         </div>
       </div>
 
-      {/* Navigation Menu */}
-      <nav className="p-5 space-y-2">
-        {menuItems.map((item, index) => {
+      {/* Navigation */}
+      <nav className="flex-1 px-4 py-6 space-y-2">
+        {menuItems.map((item) => {
           const isActive = pathname === item.href;
-          const isDarkItem = item.label === 'Presskit Examples' || item.label === 'Contacts';
-          
           return (
             <Link
-              key={item.label}
+              key={item.href}
               href={item.href}
               className={cn(
-                "flex items-center gap-3 px-4 py-3 rounded-xl font-medium text-base",
-                "transition-all duration-300 group cursor-pointer",
-                "hover:scale-105",
-                isDarkItem 
-                  ? "text-gray-800 dark:text-gray-200 bg-gray-200/80 dark:bg-gray-800/80 hover:bg-gray-300/90 dark:hover:bg-gray-700/90 hover:text-gray-900 dark:hover:text-gray-100 shadow-[0_4px_16px_rgba(0,0,0,0.1)]"
-                  : "text-black/70 dark:text-white/70 hover:bg-black/[0.05] dark:hover:bg-white/[0.05] hover:text-black dark:hover:text-white",
-                "hover:shadow-[0_8px_32px_rgba(139,92,246,0.15),0_2px_16px_rgba(139,92,246,0.1)]",
-                isActive && "bg-gradient-to-r from-violet-500/20 to-fuchsia-500/20 text-black dark:text-white border border-violet-500/30 shadow-[0_8px_32px_rgba(139,92,246,0.25),0_2px_16px_rgba(139,92,246,0.15)]"
+                "group flex items-center gap-4 px-6 py-4 rounded-2xl transition-all duration-300 font-medium text-base hover:scale-105 active:scale-95",
+                isActive
+                  ? "text-gray-800 bg-gray-200/80 hover:bg-gray-300/90 hover:text-gray-900 shadow-[0_4px_16px_rgba(0,0,0,0.1)]"
+                  : "text-black/70 hover:bg-black/[0.05] hover:text-black",
+                "relative",
+                isActive && "bg-gradient-to-r from-violet-500/20 to-fuchsia-500/20 text-black border border-violet-500/30 shadow-[0_8px_32px_rgba(139,92,246,0.25),0_2px_16px_rgba(139,92,246,0.15)]"
               )}
             >
               <div className="relative">
-                <item.icon className={cn(
-                  "w-5 h-5 transition-all duration-300",
-                  isActive 
-                    ? "text-violet-400" 
-                    : isDarkItem 
-                      ? "text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-gray-100"
-                      : "text-black/60 dark:text-white/60 group-hover:text-black dark:group-hover:text-white"
-                )} />
-                {isActive && (
-                  <div className="absolute inset-0 bg-violet-500/30 rounded-full blur-lg -z-10" />
-                )}
+                <item.icon
+                  className={cn(
+                    "w-6 h-6 transition-colors duration-300",
+                    isActive
+                      ? "text-gray-700 group-hover:text-gray-900"
+                      : "text-black/60 group-hover:text-black"
+                  )}
+                />
               </div>
-              <span className="font-semibold">{item.label}</span>
-              {isActive && (
-                <div className="ml-auto w-2 h-2 rounded-full bg-gradient-to-r from-violet-400 to-fuchsia-400 shadow-lg" />
-              )}
+              <span className="tracking-wide">{item.label}</span>
             </Link>
           );
         })}
       </nav>
 
       {/* Bottom Section */}
-      <div className="absolute bottom-0 left-0 right-0 p-5 border-t border-black/10 dark:border-white/10 space-y-2">
-        {/* Theme Toggle */}
-        <button 
-          onClick={toggleTheme}
-          className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-black/60 dark:text-gray-600 dark:text-white/60 hover:text-violet-400 hover:bg-violet-500/10 transition-all duration-300 group font-medium text-base hover:scale-105"
-        >
-          {theme === 'dark' ? (
-            <Sun className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
-          ) : (
-            <Moon className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
-          )}
-          <span className="font-semibold">
-            {theme === 'dark' ? 'Light Mode' : 'Dark Mode'}
-          </span>
-        </button>
-
-        {/* Logout */}
+      <div className="absolute bottom-0 left-0 right-0 p-5 border-t border-black/10 space-y-2">
+        {/* Theme Toggle - Removed since we're removing dark mode */}
+        
+        {/* Logout Button */}
         <button 
           onClick={handleLogout}
-          className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-black/60 dark:text-gray-600 dark:text-white/60 hover:text-red-400 hover:bg-red-500/10 transition-all duration-300 group font-medium text-base hover:scale-105"
+          className="flex items-center gap-3 w-full px-4 py-3 rounded-xl text-black/60 hover:text-red-400 hover:bg-red-500/10 transition-all duration-300 group font-medium text-base hover:scale-105"
         >
-          <LogOut className="w-5 h-5 group-hover:scale-110 transition-transform duration-300" />
-          <span className="font-semibold">Logout</span>
+          <LogOut className="w-5 h-5" />
+          <span>Logout</span>
         </button>
       </div>
     </div>

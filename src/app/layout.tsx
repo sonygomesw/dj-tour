@@ -20,16 +20,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.className} min-h-screen bg-white dark:bg-[#0F0F11] text-black dark:text-white antialiased transition-colors duration-300`}>
-        <ThemeProvider>
-          <AuthProvider>
-            <MissionProvider>
-              <ContactProvider>
-                {children}
-              </ContactProvider>
-            </MissionProvider>
-          </AuthProvider>
-        </ThemeProvider>
+      <body className={`${inter.className} min-h-screen bg-white text-black antialiased transition-colors duration-300`}>
+        <AuthProvider>
+          <ThemeProvider>
+            {children}
+          </ThemeProvider>
+        </AuthProvider>
       </body>
     </html>
   )

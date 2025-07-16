@@ -110,7 +110,7 @@ export default function MissionBuildTourPage() {
   ]
 
   return (
-    <div className="flex min-h-screen bg-white dark:bg-[#0F0F11] transition-colors duration-300">
+    <div className="flex min-h-screen bg-white transition-colors duration-300">
       <DJSidebar />
       <div className="flex-1 ml-80 p-8 relative overflow-hidden">
         {/* Background */}

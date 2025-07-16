@@ -148,7 +148,7 @@ export default function MyTourPage() {
 
   if (loading) {
     return (
-      <div className="flex min-h-screen bg-white dark:bg-[#0F0F11]">
+              <div className="flex min-h-screen bg-white">
         <DJSidebar />
         <div className="flex-1 ml-80 p-8 flex items-center justify-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-violet-600"></div>
@@ -158,7 +158,7 @@ export default function MyTourPage() {
   }
 
   return (
-    <div className="flex min-h-screen bg-white dark:bg-[#0F0F11] transition-colors duration-300">
+    <div className="flex min-h-screen bg-white transition-colors duration-300">
       <DJSidebar />
       <div className="flex-1 ml-80 p-8 relative overflow-hidden">
         {/* Background */}
