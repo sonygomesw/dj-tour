@@ -309,42 +309,7 @@ export default function DashboardPage() {
               </div>
             </GlassContainer>
             
-            {/* Next Mission */}
-            <GlassContainer className="p-8">
-              <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 flex items-center justify-center">
-                    <Play className="w-6 h-6 text-violet-500" />
-                  </div>
-                  <div>
-                    <h3 className="text-lg font-semibold text-gray-900">Next Mission</h3>
-                    <p className="text-sm text-gray-600">Continue your journey</p>
-                  </div>
-                </div>
-                <Button
-                  variant="outline"
-                  size="sm"
-                  className="text-violet-600 border-violet-600 hover:bg-violet-50"
-                >
-                  View all <ChevronRight className="w-4 h-4 ml-1" />
-                </Button>
-              </div>
-              
-              <div className="bg-gradient-to-r from-violet-500/10 to-fuchsia-500/10 border border-violet-500/20 rounded-2xl p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center">
-                    <Sparkles className="w-5 h-5 text-white" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-900">Instagram & TikTok Setup</h4>
-                    <p className="text-sm text-gray-600">Create or optimize your Instagram & TikTok profile with a clear bio, HD profile, and music links.</p>
-                  </div>
-                </div>
-                <Button className="w-full bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-600 hover:to-fuchsia-600">
-                  Start Mission
-                </Button>
-              </div>
-            </GlassContainer>
+
           </div>
 
           {/* Recent Missions */}
@@ -367,20 +332,7 @@ export default function DashboardPage() {
               </Button>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {missions.slice(0, 3).map((mission) => (
-                <MissionCard 
-                  key={mission.id}
-                  title={mission.title}
-                  description={mission.description}
-                  duration={mission.duration}
-                  points={mission.points}
-                  difficulty={mission.difficulty}
-                  category={mission.category}
-                  isCompleted={mission.status === 'completed'}
-                />
-              ))}
-            </div>
+
           </div>
         </div>
       </div>
