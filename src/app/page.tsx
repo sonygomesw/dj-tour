@@ -82,7 +82,7 @@ export default function LandingPage() {
   ]
 
   return (
-    <div className="min-h-screen bg-white scale-50 origin-top-left">
+    <div className="min-h-screen bg-white">
       {/* Navigation Apple-Style */}
       <nav className="bg-white/80 backdrop-blur-xl border-b border-gray-100 sticky top-0 z-50">
         <div className="max-w-6xl mx-auto px-6 py-4">
