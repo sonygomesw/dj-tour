@@ -138,9 +138,9 @@ export default function LandingPage() {
           {/* Auto-Play Video Section */}
           <div className="text-center mb-16">
             <div className="max-w-4xl mx-auto">
-              <div className="relative shadow-2xl">
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl">
                 <video
-                  className="w-full aspect-video object-contain rounded-3xl"
+                  className="w-full aspect-video object-contain"
                   autoPlay
                   muted
                   loop
