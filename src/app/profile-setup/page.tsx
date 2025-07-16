@@ -2,14 +2,18 @@
 
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
-import { useRouter } from 'next/navigation'
-import { User, Mail, MapPin, Music, Upload, ArrowRight, Sparkles, TrendingUp } from 'lucide-react'
+import { useRouter, useSearchParams } from 'next/navigation'
+import { User, Mail, MapPin, Music, Upload, ArrowRight, Sparkles, TrendingUp, CheckCircle } from 'lucide-react'
 import { SpotifyIcon, TikTokIcon, InstagramIcon } from '@/components/icons/brand-icons'
 import { GlassContainer } from '@/components/ui/GlassContainer'
 import { Button } from '@/components/ui/button'
 import Image from 'next/image'
 
 export default function ProfileSetupPage() {
+  const searchParams = useSearchParams()
+  const paymentSuccess = searchParams.get('payment_success') === 'true'
+  const router = useRouter()
+  
   const [loading, setLoading] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [message, setMessage] = useState('')
@@ -39,6 +43,16 @@ export default function ProfileSetupPage() {
     }
     getUser()
   }, [router])
+
+  // Nettoyer l'URL après avoir affiché le message de succès
+  useEffect(() => {
+    if (paymentSuccess) {
+      const timer = setTimeout(() => {
+        router.replace('/profile-setup')
+      }, 3000)
+      return () => clearTimeout(timer)
+    }
+  }, [paymentSuccess, router])
 
   const uploadAvatar = async (event: React.ChangeEvent<HTMLInputElement>) => {
     try {
@@ -174,6 +188,21 @@ export default function ProfileSetupPage() {
   return (
     <div className="min-h-screen bg-[#0F0F11] p-6 scale-75 origin-top-left">
       <div className="max-w-4xl mx-auto">
+        {/* Payment Success Message */}
+        {paymentSuccess && (
+          <div className="mb-8">
+            <div className="bg-gradient-to-r from-green-500 to-emerald-600 text-white p-6 rounded-2xl shadow-lg border border-green-400/20 backdrop-blur-sm">
+              <div className="flex items-center gap-3">
+                <CheckCircle className="w-6 h-6" />
+                <div>
+                  <h3 className="text-lg font-semibold">🎉 Paiement confirmé !</h3>
+                  <p className="text-green-100">Bienvenue dans la communauté offgigs. Configure maintenant ton profil pour commencer ton parcours DJ.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-3 mb-6">
