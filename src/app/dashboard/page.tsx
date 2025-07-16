@@ -278,7 +278,7 @@ export default function DashboardPage() {
             
             {/* Social Stats */}
             <div>
-              <SocialStats stats={stats} />
+              <SocialStats stats={socialStats} />
             </div>
           </div>
 
