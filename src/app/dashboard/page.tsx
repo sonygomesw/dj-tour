@@ -93,10 +93,21 @@ export default function DashboardPage() {
         if (profileError) {
           console.error('Profile fetch error:', profileError)
           if (profileError.code === 'PGRST116') {
-            router.push('/profile-setup')
+            router.push('/onboarding')
             return
           }
         } else {
+          // Vérifier si le profil est complet (dj_name, location, avatar_url sont requis)
+          const isProfileComplete = profileData && 
+            profileData.dj_name && 
+            profileData.location && 
+            profileData.avatar_url;
+
+          if (!isProfileComplete) {
+            router.push('/onboarding')
+            return
+          }
+          
           setProfile(profileData)
         }
 
