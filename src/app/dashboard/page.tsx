@@ -235,7 +235,7 @@ export default function DashboardPage() {
           {/* Stats Cards Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
             {/* Profile Card */}
-            <div className="lg:row-span-2">
+            <div className="lg:row-span-3">
               <DJProfileCard 
                 name={profile?.dj_name || profile?.full_name || 'DJ'}
                 level={Math.ceil(bookabilityScore / 20).toString()}
@@ -275,15 +275,12 @@ export default function DashboardPage() {
                 </div>
               </div>
             </GlassContainer>
-            
+
             {/* Social Stats */}
             <div>
               <SocialStats stats={socialStats} />
             </div>
-          </div>
-
-          {/* Progress Section */}
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            
             {/* Global Progress */}
             <GlassContainer className="p-8">
               <div className="flex items-center gap-4 mb-6">
@@ -308,8 +305,6 @@ export default function DashboardPage() {
                 </div>
               </div>
             </GlassContainer>
-            
-
           </div>
 
           {/* Recent Missions */}
