@@ -88,7 +88,7 @@ export default function ContactsPage() {
               <Search className="w-6 h-6 text-violet-400" />
               Find Contacts
             </h3>
-            <ContactFinder />
+            <ContactFinder onComplete={() => {}} />
           </GlassContainer>
 
           {/* Contact List */}
