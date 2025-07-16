@@ -71,19 +71,19 @@ export default function ProfileSetupPage() {
       setUploading(true)
       
       if (!event.target.files || event.target.files.length === 0) {
-        throw new Error('Vous devez sélectionner une image')
+        throw new Error('You must select an image')
       }
 
       const file = event.target.files[0]
       
       // Vérifier la taille du fichier (max 5MB)
       if (file.size > 5 * 1024 * 1024) {
-        throw new Error('Le fichier est trop volumineux (max 5MB)')
+        throw new Error('File is too large (max 5MB)')
       }
 
       // Vérifier le type de fichier
       if (!file.type.startsWith('image/')) {
-        throw new Error('Veuillez sélectionner une image valide')
+        throw new Error('Please select a valid image')
       }
 
       const fileExt = file.name.split('.').pop()
@@ -98,7 +98,7 @@ export default function ProfileSetupPage() {
 
         if (uploadError) {
           console.error('Supabase Storage Error:', uploadError)
-          throw new Error('Storage non disponible')
+          throw new Error('Storage not available')
         }
 
         const { data } = supabase.storage
@@ -207,8 +207,8 @@ export default function ProfileSetupPage() {
               <div className="flex items-center gap-3">
                 <CheckCircle className="w-6 h-6" />
                 <div>
-                  <h3 className="text-lg font-semibold">🎉 Paiement confirmé !</h3>
-                  <p className="text-green-100">Bienvenue dans la communauté offgigs. Configure maintenant ton profil pour commencer ton parcours DJ.</p>
+                  <h3 className="text-lg font-semibold">🎉 Payment confirmed!</h3>
+                  <p className="text-green-100">Welcome to the offgigs community. Now configure your profile to start your DJ journey.</p>
                 </div>
               </div>
             </div>
@@ -232,7 +232,7 @@ export default function ProfileSetupPage() {
             </div>
           </div>
           <p className="text-xl text-gray-600 font-light">
-            Complete your profile to personalize your DJ Tour experience
+            Complete your profile to personalize your DJ journey
           </p>
         </div>
 
@@ -277,11 +277,11 @@ export default function ProfileSetupPage() {
                           : 'hover:bg-gray-50 hover:scale-105'
                       }`}
                     >
-                      {uploading ? 'Upload...' : 'Choisir une photo'}
+                      {uploading ? 'Uploading...' : 'Choose a photo'}
                     </label>
-                    <p className="text-sm text-gray-600 mt-2">
-                      Format recommandé : JPG, PNG (max 5MB)
-                    </p>
+                                          <p className="text-sm text-gray-600 mt-2">
+                        Recommended format: JPG, PNG (max 5MB)
+                      </p>
                   </div>
                 </div>
               </GlassContainer>
@@ -301,12 +301,12 @@ export default function ProfileSetupPage() {
               <GlassContainer className="p-8">
                 <h3 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3">
                   <User className="w-6 h-6 text-violet-400" />
-                  Informations de base
+                                     Basic Information
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-3">
-                      Nom DJ *
+                                             DJ Name *
                     </label>
                     <input
                       type="text"
@@ -319,7 +319,7 @@ export default function ProfileSetupPage() {
                   </div>
                   <div className="relative">
                     <label className="block text-sm font-medium text-gray-700 mb-3">
-                      Localisation *
+                                             Location *
                     </label>
                     <div className="relative">
                       <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -342,7 +342,7 @@ export default function ProfileSetupPage() {
               <GlassContainer className="p-8">
                 <h3 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3">
                   <Music className="w-6 h-6 text-violet-400" />
-                  Réseaux sociaux
+                                     Social Media
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
@@ -357,7 +357,7 @@ export default function ProfileSetupPage() {
                         value={formData.instagram}
                         onChange={(e) => setFormData({...formData, instagram: e.target.value})}
                         className="w-full px-4 py-3 bg-white border border-gray-300 rounded-2xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all duration-200"
-                        placeholder="votre_nom_instagram"
+                                                 placeholder="your_instagram_handle"
                       />
                     </div>
                   </div>
@@ -373,7 +373,7 @@ export default function ProfileSetupPage() {
                         value={formData.tiktok}
                         onChange={(e) => setFormData({...formData, tiktok: e.target.value})}
                         className="w-full px-4 py-3 bg-white border border-gray-300 rounded-2xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all duration-200"
-                        placeholder="votre_nom_tiktok"
+                                                 placeholder="your_tiktok_handle"
                       />
                     </div>
                   </div>
@@ -401,16 +401,16 @@ export default function ProfileSetupPage() {
               <GlassContainer className="p-8">
                 <h3 className="text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-3">
                   <TrendingUp className="w-6 h-6 text-violet-400" />
-                  Statistiques actuelles
+                                     Current Statistics
                 </h3>
-                <p className="text-gray-600 mb-6">
-                  Ces informations nous aident à personnaliser votre expérience et à suivre vos progrès.
-                </p>
+                                 <p className="text-gray-600 mb-6">
+                   This information helps us personalize your experience and track your progress.
+                 </p>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
                       <SpotifyIcon className="w-5 h-5" />
-                      Auditeurs mensuels Spotify
+                                             Spotify Monthly Listeners
                     </label>
                     <input
                       type="number"
@@ -423,7 +423,7 @@ export default function ProfileSetupPage() {
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
                       <InstagramIcon className="w-5 h-5 text-pink-500" />
-                      Followers Instagram
+                                             Instagram Followers
                     </label>
                     <input
                       type="number"
@@ -436,7 +436,7 @@ export default function ProfileSetupPage() {
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-3 flex items-center gap-2">
                       <TikTokIcon className="w-5 h-5 text-gray-900" />
-                      Followers TikTok
+                                             TikTok Followers
                     </label>
                     <input
                       type="number"
@@ -458,7 +458,7 @@ export default function ProfileSetupPage() {
               onClick={() => router.push('/dashboard')}
               className="hover:scale-105 transition-transform duration-200"
             >
-              Passer cette étape
+              Skip this step
             </Button>
             <Button
               type="submit"
@@ -467,7 +467,7 @@ export default function ProfileSetupPage() {
               className="hover:scale-105 transition-transform duration-200"
               rightIcon={<ArrowRight className="w-4 h-4" />}
             >
-              {loading ? 'Sauvegarde...' : 'Terminer la configuration'}
+              {loading ? 'Saving...' : 'Complete setup'}
             </Button>
           </div>
         </form>
