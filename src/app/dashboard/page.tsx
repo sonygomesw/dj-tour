@@ -235,7 +235,7 @@ export default function DashboardPage() {
           {/* Stats Cards Grid */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
             {/* Profile Card */}
-            <div className="lg:row-span-3">
+            <div className="lg:row-span-2">
               <DJProfileCard 
                 name={profile?.dj_name || profile?.full_name || 'DJ'}
                 level={Math.ceil(bookabilityScore / 20).toString()}
@@ -245,66 +245,69 @@ export default function DashboardPage() {
               />
             </div>
             
-            {/* Bookability Score */}
-            <GlassContainer className="pt-5 px-5 pb-3 h-fit">
-              <div className="flex items-center gap-3 mb-2">
-                <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 flex items-center justify-center">
-                  <Sparkles className="w-4 h-4 text-violet-500" />
+            {/* Bookability Score and Global Progress Column */}
+            <div className="space-y-1">
+              {/* Bookability Score */}
+              <GlassContainer className="pt-5 px-5 pb-3 h-fit">
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 flex items-center justify-center">
+                    <Sparkles className="w-4 h-4 text-violet-500" />
+                  </div>
+                  <div>
+                    <h3 className="text-sm font-semibold text-gray-900">Bookability Score</h3>
+                    <p className="text-xs text-gray-600">Your booking potential</p>
+                  </div>
                 </div>
-                <div>
-                  <h3 className="text-sm font-semibold text-gray-900">Bookability Score</h3>
-                  <p className="text-xs text-gray-600">Your booking potential</p>
-                </div>
-              </div>
-              
-              <div className="text-center">
-                <div className="text-3xl font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent mb-1">
-                  {bookabilityScore}
-                </div>
-                <div className="text-xs text-gray-600 mb-1">out of 100</div>
                 
-                <div className="space-y-1">
-                  <div className="flex justify-between text-xs">
-                    <span className="text-gray-600">Instagram (2.5M)</span>
-                    <span className="text-gray-900">50 pts</span>
+                <div className="text-center">
+                  <div className="text-3xl font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent mb-1">
+                    {bookabilityScore}
                   </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-gray-600">Spotify (47,000)</span>
-                    <span className="text-gray-900">30 pts</span>
+                  <div className="text-xs text-gray-600 mb-1">out of 100</div>
+                  
+                  <div className="space-y-1">
+                    <div className="flex justify-between text-xs">
+                      <span className="text-gray-600">Instagram (2.5M)</span>
+                      <span className="text-gray-900">50 pts</span>
+                    </div>
+                    <div className="flex justify-between text-xs">
+                      <span className="text-gray-600">Spotify (47,000)</span>
+                      <span className="text-gray-900">30 pts</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </GlassContainer>
+              </GlassContainer>
+              
+              {/* Global Progress */}
+              <GlassContainer className="p-8">
+                <div className="flex items-center gap-4 mb-6">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 flex items-center justify-center">
+                    <Target className="w-6 h-6 text-violet-500" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Global Progress</h3>
+                    <p className="text-sm text-gray-600">Your overall advancement</p>
+                  </div>
+                </div>
+                
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center">
+                    <span className="text-gray-600">Total progress</span>
+                    <span className="text-2xl font-bold text-gray-900">100%</span>
+                  </div>
+                  <ProgressBar progress={100} className="h-3" />
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">1000 points earned</span>
+                    <span className="text-gray-900">1000 total points</span>
+                  </div>
+                </div>
+              </GlassContainer>
+            </div>
 
             {/* Social Stats */}
             <div>
               <SocialStats stats={socialStats} />
             </div>
-            
-            {/* Global Progress */}
-            <GlassContainer className="p-8">
-              <div className="flex items-center gap-4 mb-6">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 flex items-center justify-center">
-                  <Target className="w-6 h-6 text-violet-500" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900">Global Progress</h3>
-                  <p className="text-sm text-gray-600">Your overall advancement</p>
-                </div>
-              </div>
-              
-              <div className="space-y-4">
-                <div className="flex justify-between items-center">
-                  <span className="text-gray-600">Total progress</span>
-                  <span className="text-2xl font-bold text-gray-900">100%</span>
-                </div>
-                <ProgressBar progress={100} className="h-3" />
-                <div className="flex justify-between text-sm">
-                  <span className="text-gray-600">1000 points earned</span>
-                  <span className="text-gray-900">1000 total points</span>
-                </div>
-              </div>
-            </GlassContainer>
           </div>
 
           {/* Recent Missions */}
