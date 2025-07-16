@@ -39,18 +39,32 @@ export function Sidebar() {
           <div className="flex items-center gap-3">
             <div className="relative w-12 h-12 rounded-full overflow-hidden ring-2 ring-white/20">
               <Image
+<<<<<<< HEAD
                 src={defaultProfile.avatar_url || '/images/profile/default-dj.svg'}
                 alt={defaultProfile.dj_name || 'DJ'}
+=======
+                src={defaultProfile.avatar_url || '/profile/default-dj.svg'}
+                alt={defaultProfile.dj_name || defaultProfile.full_name || 'DJ'}
+>>>>>>> recup-version-stable
                 fill
                 className="object-cover"
               />
             </div>
             <div>
+<<<<<<< HEAD
               <h3 className="text-base font-medium text-gray-900 dark:text-white">{defaultProfile.dj_name || 'DJ'}</h3>
               <p className="text-sm text-gray-600 dark:text-white/60 mt-1">Niveau 2 - DJ Confirmé</p>
+=======
+              <h3 className="text-base font-medium text-gray-900 dark:text-white">
+                {defaultProfile.dj_name || defaultProfile.full_name}
+              </h3>
+              {/*
+              <p className="text-sm text-gray-600 dark:text-white/60 mt-1">{defaultProfile.level}</p>
+>>>>>>> recup-version-stable
               <div className="mt-2 inline-flex items-center px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-sm">
                 2750 pts
               </div>
+              */}
             </div>
           </div>
         </div>

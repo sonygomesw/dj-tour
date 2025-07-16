@@ -1,5 +1,6 @@
 'use client'
 
+import { Suspense } from 'react'
 import { useState, useEffect } from 'react'
 import { supabase } from '@/lib/supabase'
 import { Mail, Lock, User, ArrowLeft } from 'lucide-react'
@@ -8,7 +9,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { GlassContainer } from '@/components/ui/GlassContainer'
 import { Button } from '@/components/ui/button'
 
-export default function AuthPage() {
+function AuthPageContent() {
   const searchParams = useSearchParams()
   const mode = searchParams.get('mode')
   const redirect = searchParams.get('redirect')
@@ -297,4 +298,12 @@ export default function AuthPage() {
       </div>
     </div>
   )
+}
+
+export default function AuthPage() {
+  return (
+    <Suspense>
+      <AuthPageContent />
+    </Suspense>
+  );
 } 

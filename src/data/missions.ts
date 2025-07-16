@@ -1,4 +1,8 @@
+<<<<<<< HEAD
 import { Mission, MissionCategory, MissionStatus } from '@/types/mission'
+=======
+import { Mission, MissionCategory, MissionStatus } from '@/types/mission';
+>>>>>>> recup-version-stable
 
 const missions: Mission[] = [
   // PHASE 1: PREPARATION & POSITIONING
@@ -63,7 +67,14 @@ const missions: Mission[] = [
       'Note their branding and bio'
     ]
   }
+<<<<<<< HEAD
 ]
 
 export default missions
 export { missions } 
+=======
+];
+
+export default missions;
+export { missions }; 
+>>>>>>> recup-version-stable
