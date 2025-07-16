@@ -30,7 +30,6 @@ export default function ProfileSetupPage() {
     tiktok_followers: 0,
     spotify_listeners: 0
   })
-  const router = useRouter()
 
   useEffect(() => {
     const getUser = async () => {
