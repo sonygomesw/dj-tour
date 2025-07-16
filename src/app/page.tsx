@@ -138,17 +138,18 @@ export default function LandingPage() {
           {/* Auto-Play Video Section */}
           <div className="text-center mb-16">
             <div className="max-w-4xl mx-auto">
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl bg-gradient-to-br from-blue-600 to-purple-600">
-                <div className="aspect-video flex items-center justify-center">
-                  <div className="text-center text-white p-8">
-                    <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-6">
-                      <Play className="w-10 h-10 ml-1" />
-                    </div>
-                    <h3 className="text-2xl font-bold mb-2">What is offgigs?</h3>
-                    <p className="text-lg opacity-90 mb-4">See how we help DJs scale from sporadic gigs to consistent bookings</p>
-                    <div className="text-sm opacity-70">60 seconds • Auto-playing</div>
-                  </div>
-                </div>
+              <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+                <video
+                  className="w-full aspect-video object-cover"
+                  autoPlay
+                  muted
+                  loop
+                  playsInline
+                  controls
+                >
+                  <source src="/videohero.mp4" type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
                 <div className="absolute top-4 left-4 bg-red-500 text-white px-2 py-1 rounded text-xs font-medium">
                   LIVE
                 </div>
@@ -774,112 +775,7 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Video Testimonial - Updated messaging */}
-      <section className="py-24 px-6 bg-gray-50">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-5xl font-light text-gray-900 mb-6">
-              See the platform in action
-            </h2>
-            <p className="text-xl text-gray-600 font-light">
-              Real DJs scaling their careers
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Video Testimonial */}
-            <div className="bg-white rounded-3xl shadow-lg overflow-hidden">
-              <div className="relative">
-                <div className="aspect-video bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center">
-                  <div className="text-center text-white">
-                    <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                      <Play className="w-8 h-8 ml-1" />
-                    </div>
-                    <div className="font-medium">DJ Marcus Shows His Scaling Journey</div>
-                    <div className="text-sm opacity-80">2:15 min • Click to play</div>
-                  </div>
-                </div>
-                <div className="absolute top-4 right-4 bg-red-500 text-white px-2 py-1 rounded text-xs font-medium">
-                  LIVE
-                </div>
-              </div>
-              
-              <div className="p-6">
-                <div className="flex items-center gap-3 mb-4">
-                  <Image 
-                    src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=40&h=40&fit=crop" 
-                    alt="DJ Marcus" 
-                    width={40} 
-                    height={40} 
-                    className="rounded-full"
-                  />
-                  <div>
-                    <div className="font-medium text-gray-900">DJ Marcus</div>
-                    <div className="text-sm text-gray-500">Austin, TX • 3 months ago</div>
-                  </div>
-                </div>
-                
-                <blockquote className="text-gray-700 italic mb-4">
-                  "I had 50k Spotify listeners but was only making €1,200/month. This platform helped me scale to €8,400/month with consistent high-paying bookings."
-                </blockquote>
-                
-                <div className="flex items-center gap-4 text-sm text-gray-500">
-                  <div className="flex items-center gap-1">
-                    <CheckCircle className="w-4 h-4 text-green-500" />
-                    <span>Verified result</span>
-                  </div>
-                  <div className="flex items-center gap-1">
-                    <Calendar className="w-4 h-4" />
-                    <span>90-day scaling program</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            
-            {/* Success Stats - Updated for scaling */}
-            <div className="space-y-8">
-              <div className="bg-white rounded-3xl p-8 shadow-sm">
-                <div className="flex items-center gap-4 mb-6">
-                  <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
-                    <TrendingUp className="w-6 h-6 text-green-600" />
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold text-gray-900">287</div>
-                    <div className="text-sm text-gray-500">DJs scaled up</div>
-                  </div>
-                </div>
-                <div className="text-gray-600 leading-relaxed">
-                  Average results from our community of DJs who completed the 90-day scaling program.
-                </div>
-              </div>
-              
-              <div className="bg-white rounded-3xl p-8 shadow-sm">
-                <div className="grid grid-cols-2 gap-6">
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-blue-600">73%</div>
-                    <div className="text-sm text-gray-500">Scale to consistent bookings</div>
-                  </div>
-                  <div className="text-center">
-                    <div className="text-3xl font-bold text-green-600">3.2x</div>
-                    <div className="text-sm text-gray-500">Average revenue increase</div>
-                  </div>
-                </div>
-              </div>
-              
-              <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-3xl p-8">
-                <div className="text-center">
-                  <div className="text-lg font-medium text-gray-900 mb-2">Ready to scale up?</div>
-                  <div className="text-gray-600 mb-6">Join the DJs already scaling their careers</div>
-                  <a href="/auth" className="inline-flex items-center gap-2 px-6 py-3 bg-blue-600 text-white font-medium rounded-full hover:bg-blue-700 transition-all duration-200">
-                    Scale My Career
-                    <ArrowRight className="w-4 h-4" />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+
 
       {/* Instant Understanding - Updated for all levels */}
       <section className="py-16 px-6 bg-blue-50">

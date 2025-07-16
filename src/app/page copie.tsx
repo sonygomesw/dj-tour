@@ -191,50 +191,7 @@ export default function LandingPage() {
         </div>
       </div>
 
-      {/* Section Vidéo/Preuve dynamique */}
-      <div className="relative z-20 py-24 bg-gradient-to-br from-purple-900 to-purple-800">
-        <div className="max-w-4xl mx-auto px-6 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-8">
-            🎬 See DJ Tour in Action
-          </h2>
-          <p className="text-xl text-purple-200 mb-12 max-w-2xl mx-auto">
-            Watch real DJs get their first bookings using our exact system
-          </p>
-          
-          {/* Video placeholder */}
-          <div className="relative bg-black rounded-2xl overflow-hidden shadow-2xl mb-8">
-            <div className="aspect-video flex items-center justify-center">
-              <div className="text-center">
-                <div className="w-20 h-20 bg-white rounded-full flex items-center justify-center mx-auto mb-4">
-                  <div className="w-0 h-0 border-l-[12px] border-l-purple-600 border-t-[8px] border-t-transparent border-b-[8px] border-b-transparent ml-1"></div>
-                </div>
-                <p className="text-white text-lg font-semibold">Watch: From 0 to Booked in 90 Days</p>
-                <p className="text-gray-400 text-sm mt-2">Real DJ success story • 2:30 min</p>
-              </div>
-            </div>
-          </div>
-          
-          <div className="grid md:grid-cols-3 gap-6 text-left">
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
-              <div className="text-2xl mb-3">🤖</div>
-              <h3 className="text-white font-bold mb-2">AI Coach Demo</h3>
-              <p className="text-purple-200 text-sm">See how our AI gives personalized advice</p>
-            </div>
-            
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
-              <div className="text-2xl mb-3">📱</div>
-              <h3 className="text-white font-bold mb-2">Platform Walkthrough</h3>
-              <p className="text-purple-200 text-sm">Complete tour of all features & tools</p>
-            </div>
-            
-            <div className="bg-white/10 backdrop-blur-sm rounded-lg p-6">
-              <div className="text-2xl mb-3">🎯</div>
-              <h3 className="text-white font-bold mb-2">Real Results</h3>
-              <p className="text-purple-200 text-sm">DJs sharing their actual bookings</p>
-            </div>
-          </div>
-        </div>
-      </div>
+
 
       {/* Section "Aperçu de la plateforme" */}
       <div className="relative z-20 py-24 bg-gray-50">
