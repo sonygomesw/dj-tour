@@ -1,28 +1,3 @@
-<<<<<<< HEAD
-import { useState } from 'react'
-import { GlassContainer } from './GlassContainer'
-import { Button } from './button'
-import { Copy, Check, Mail, Send, User, Building, Music, Star } from 'lucide-react'
-
-interface ContextualEmailTemplatesProps {
-  onComplete: () => void
-  context: 'venue-inquiry' | 'dj-collaboration' | 'booking-request' | 'follow-up'
-  userProfile?: {
-    name: string
-    city: string
-    genre: string
-    experience: string
-  }
-}
-
-export function ContextualEmailTemplates({ 
-  onComplete, 
-  context, 
-  userProfile = { name: 'DJ Name', city: 'Your City', genre: 'House', experience: 'Beginner' }
-}: ContextualEmailTemplatesProps) {
-  const [copied, setCopied] = useState(false)
-  const [selectedTemplate, setSelectedTemplate] = useState(0)
-=======
 import { useState } from 'react';
 import { GlassContainer } from './GlassContainer';
 import { Button } from './button';
@@ -51,17 +26,12 @@ export function ContextualEmailTemplates({
 }: ContextualEmailTemplatesProps) {
   const [copied, setCopied] = useState(false);
   const [selectedTemplate, setSelectedTemplate] = useState(0);
->>>>>>> recup-version-stable
   const [customizations, setCustomizations] = useState({
     recipientName: '',
     venueName: '',
     eventDate: '',
     additionalInfo: ''
-<<<<<<< HEAD
-  })
-=======
   });
->>>>>>> recup-version-stable
 
   const templates = {
     'venue-inquiry': [
@@ -73,13 +43,9 @@ I'm ${userProfile.name}, a ${userProfile.experience.toLowerCase()} ${userProfile
 
 I'd love to discuss the possibility of performing at your venue. I specialize in ${userProfile.genre} music and have experience creating the perfect atmosphere for different crowds.
 
-<<<<<<< HEAD
-I've attached my press kit with recent mixes, photos, and performance history. Would you be available for a brief call to discuss potential opportunities?
-=======
 I've attached my press kit with recent mixes, photos, and performance history.
 
 Would you be available for a brief call to discuss potential opportunities?
->>>>>>> recup-version-stable
 
 Best regards,
 ${userProfile.name}
@@ -92,33 +58,6 @@ ${userProfile.name}
           'Mention specific events or nights you\'ve attended',
           'Keep it concise but show genuine interest'
         ]
-<<<<<<< HEAD
-      },
-      {
-        subject: `${userProfile.genre} DJ Available - ${userProfile.name}`,
-        body: `Hello ${customizations.recipientName || '[Name]'},
-
-Hope you're doing well! I'm ${userProfile.name}, a ${userProfile.genre} DJ from ${userProfile.city}. I came across ${customizations.venueName || '[Venue Name]'} and was impressed by your commitment to quality electronic music.
-
-I'm reaching out to introduce myself and see if you have any upcoming opportunities for guest DJs. My sets focus on ${userProfile.genre} with influences from underground and commercial tracks that keep the dance floor moving.
-
-Recent highlights:
-• Performed at [Recent Venue 1] and [Recent Venue 2]
-• Regular resident at [Local Club Name]
-• Featured on [Local Radio Station] mix show
-
-I'd love to contribute to your venue's atmosphere. My press kit is attached with recent performances and references.
-
-Looking forward to hearing from you!
-
-${userProfile.name}`,
-        tips: [
-          'Mention recent performances to show you\'re active',
-          'Include specific musical influences',
-          'Show you understand their venue\'s vibe'
-        ]
-=======
->>>>>>> recup-version-stable
       }
     ],
     'dj-collaboration': [
@@ -185,13 +124,9 @@ ${userProfile.name}`,
 
 I wanted to follow up on my previous message about performing at ${customizations.venueName || '[Venue Name]'}. I understand you're probably busy, but I wanted to make sure my email didn't get lost in your inbox.
 
-<<<<<<< HEAD
-I'm still very interested in the opportunity and would love to discuss how I can contribute to your venue's success. I've since:
-=======
 I'm still very interested in the opportunity and would love to discuss how I can contribute to your venue's success.
 
 I've since:
->>>>>>> recup-version-stable
 • ${customizations.additionalInfo || 'Added recent performance/achievement'}
 • Updated my press kit with new material
 • Received positive feedback from recent shows
@@ -209,28 +144,6 @@ ${userProfile.name}`,
         ]
       }
     ]
-<<<<<<< HEAD
-  }
-
-  const currentTemplates = templates[context] || []
-  const currentTemplate = currentTemplates[selectedTemplate]
-
-  const handleCopy = () => {
-    if (currentTemplate) {
-      const emailContent = `Subject: ${currentTemplate.subject}\n\n${currentTemplate.body}`
-      navigator.clipboard.writeText(emailContent)
-      setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
-    }
-  }
-
-  const contextTitles = {
-    'venue-inquiry': 'Venue Inquiry Templates',
-    'dj-collaboration': 'DJ Collaboration Templates', 
-    'booking-request': 'Booking Request Templates',
-    'follow-up': 'Follow-up Templates'
-  }
-=======
   };
 
   const currentTemplates = templates[context] || [];
@@ -251,22 +164,15 @@ ${userProfile.name}`,
     'booking-request': 'Booking Request Templates',
     'follow-up': 'Follow-up Templates'
   };
->>>>>>> recup-version-stable
 
   const contextIcons = {
     'venue-inquiry': Building,
     'dj-collaboration': User,
     'booking-request': Star,
     'follow-up': Mail
-<<<<<<< HEAD
-  }
-
-  const ContextIcon = contextIcons[context]
-=======
   };
 
   const ContextIcon = contextIcons[context];
->>>>>>> recup-version-stable
 
   return (
     <div className="space-y-6">
@@ -364,14 +270,7 @@ ${userProfile.name}`,
         <GlassContainer className="p-6">
           <div className="flex items-center justify-between mb-4">
             <h4 className="font-semibold text-gray-900">Email Preview</h4>
-<<<<<<< HEAD
-            <Button
-              onClick={handleCopy}
-              className="bg-violet-500 hover:bg-violet-600 text-white"
-            >
-=======
             <Button onClick={handleCopy} className="bg-violet-500 hover:bg-violet-600 text-white">
->>>>>>> recup-version-stable
               {copied ? (
                 <>
                   <Check className="w-4 h-4 mr-2" />
@@ -385,30 +284,17 @@ ${userProfile.name}`,
               )}
             </Button>
           </div>
-<<<<<<< HEAD
-          
-                      <div className="bg-gray-50 rounded-lg p-4 mb-4">
-=======
           <div className="bg-gray-50 rounded-lg p-4 mb-4">
->>>>>>> recup-version-stable
             <div className="mb-2">
               <span className="text-sm font-medium text-gray-900">Subject: </span>
               <span className="text-sm text-gray-600">{currentTemplate.subject}</span>
             </div>
-<<<<<<< HEAD
-                          <div className="border-t border-gray-200 pt-4">
-=======
             <div className="border-t border-gray-200 pt-4">
->>>>>>> recup-version-stable
               <pre className="text-sm text-gray-900 whitespace-pre-wrap font-sans">
                 {currentTemplate.body}
               </pre>
             </div>
           </div>
-<<<<<<< HEAD
-
-=======
->>>>>>> recup-version-stable
           {/* Tips */}
           <div className="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4">
             <h5 className="font-medium text-blue-400 mb-2">💡 Email Tips</h5>
@@ -423,22 +309,11 @@ ${userProfile.name}`,
 
       {/* Actions */}
       <div className="flex justify-center space-x-4">
-<<<<<<< HEAD
-        <Button
-          onClick={onComplete}
-          className="bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-600 hover:to-fuchsia-600"
-        >
-=======
         <Button onClick={onComplete} className="bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-600 hover:to-fuchsia-600">
->>>>>>> recup-version-stable
           <Send className="w-4 h-4 mr-2" />
           Complete Mission
         </Button>
       </div>
     </div>
-<<<<<<< HEAD
-  )
-=======
   );
->>>>>>> recup-version-stable
 } 
