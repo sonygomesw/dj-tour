@@ -93,7 +93,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
       .from('transactions')
       .insert({
         stripe_session_id: session.id,
-        amount: 9700, // 97€ en centimes
+        amount: 10000, // 100€ en centimes
         currency: 'eur',
         status: 'completed',
         product_id: productId,
@@ -169,7 +169,7 @@ async function updateUserPremiumStatus(userId: string, isPremium: boolean, sessi
       .insert({
         user_id: userId,
         stripe_session_id: sessionId,
-        amount: 9700, // 97€ en centimes
+        amount: 10000, // 100€ en centimes
         currency: 'eur',
         status: 'completed',
         created_at: new Date().toISOString()

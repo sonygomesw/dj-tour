@@ -1172,7 +1172,7 @@ export default function LandingPage() {
             </p>
             
             <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 mb-8">
-              <div className="text-6xl font-light text-gray-900 mb-2">$97</div>
+              <div className="text-6xl font-light text-gray-900 mb-2">100€</div>
               <div className="text-gray-500 mb-4">One-time payment • Lifetime access</div>
               <div className="text-sm text-gray-600">
                 ✓ AI Profile Analysis<br/>
