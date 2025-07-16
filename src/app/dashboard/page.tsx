@@ -383,3 +383,15 @@ function DashboardContent() {
     </div>
   )
 }
+
+export default function DashboardPage() {
+  return (
+    <Suspense fallback={
+      <div className="flex min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 items-center justify-center">
+        <div className="text-gray-900 text-xl">Loading...</div>
+      </div>
+    }>
+      <DashboardContent />
+    </Suspense>
+  );
+}
