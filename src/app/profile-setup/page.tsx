@@ -46,9 +46,10 @@ export default function ProfileSetupPage() {
           .eq('id', user.id)
           .single()
         
-        // Si le profil n'est pas complet, rediriger vers onboarding
+        // Si le profil n'est pas complet, rester sur profile-setup
         if (!profileData || !profileData.dj_name || !profileData.location || !profileData.avatar_url) {
-          router.push('/onboarding')
+          // Rester sur la page profile-setup pour compléter le profil
+          console.log('Profil incomplet, rester sur profile-setup')
         }
       }
     }

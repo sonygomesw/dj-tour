@@ -61,8 +61,8 @@ export default function DashboardPage() {
         if (data.paid) {
           console.log('✅ Paiement confirmé')
           setPaymentVerified(true)
-          // Rediriger vers onboarding après paiement réussi
-          router.replace('/onboarding?payment_success=true')
+          // Rediriger vers profile-setup après paiement réussi
+          router.replace('/profile-setup?payment_success=true')
         } else {
           console.warn('❌ Paiement non confirmé')
           router.push('/?payment_failed=true')
@@ -93,7 +93,7 @@ export default function DashboardPage() {
         if (profileError) {
           console.error('Profile fetch error:', profileError)
           if (profileError.code === 'PGRST116') {
-            router.push('/onboarding')
+            router.push('/profile-setup')
             return
           }
         } else {
@@ -104,7 +104,7 @@ export default function DashboardPage() {
             profileData.avatar_url;
 
           if (!isProfileComplete) {
-            router.push('/onboarding')
+            router.push('/profile-setup')
             return
           }
           

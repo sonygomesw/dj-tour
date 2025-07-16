@@ -113,9 +113,9 @@ export default function AuthPage() {
               handleCheckoutAfterSignup()
             }, 1000)
           } else {
-            // Sinon, rediriger vers onboarding
+            // Sinon, rediriger vers profile-setup
             setTimeout(() => {
-              router.push('/onboarding')
+              router.push('/profile-setup')
             }, 500)
           }
         }
