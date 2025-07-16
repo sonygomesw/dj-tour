@@ -61,8 +61,8 @@ export default function DashboardPage() {
         if (data.paid) {
           console.log('✅ Paiement confirmé')
           setPaymentVerified(true)
-          // Rediriger vers profile-setup après paiement réussi
-          router.replace('/profile-setup?payment_success=true')
+          // Rediriger vers onboarding après paiement réussi
+          router.replace('/onboarding?payment_success=true')
         } else {
           console.warn('❌ Paiement non confirmé')
           router.push('/?payment_failed=true')

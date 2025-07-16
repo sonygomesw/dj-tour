@@ -1,15 +1,17 @@
 'use client'
 
 import { useState } from 'react'
-import { useRouter } from 'next/navigation'
+import { useRouter, useSearchParams } from 'next/navigation'
 import { supabase } from '@/lib/supabase'
 import { GlassContainer } from '@/components/ui/GlassContainer'
 import { Button } from '@/components/ui/button'
 import { ImageUpload } from '@/components/ui/ImageUpload'
-import { Music, MapPin, Globe, Instagram, Video, Loader, Music2, Users } from 'lucide-react'
+import { Music, MapPin, Globe, Instagram, Video, Loader, Music2, Users, CheckCircle } from 'lucide-react'
 
 export default function OnboardingPage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
+  const paymentSuccess = searchParams.get('payment_success') === 'true'
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
     // Informations de base
@@ -113,6 +115,21 @@ export default function OnboardingPage() {
   return (
     <div className="min-h-screen bg-background py-16 px-4">
       <div className="max-w-2xl mx-auto">
+        {/* Payment Success Message */}
+        {paymentSuccess && (
+          <div className="mb-8">
+            <div className="bg-gradient-to-r from-green-500 to-emerald-600 text-white p-6 rounded-2xl shadow-lg border border-green-400/20 backdrop-blur-sm">
+              <div className="flex items-center gap-3">
+                <CheckCircle className="w-6 h-6" />
+                <div>
+                  <h3 className="text-lg font-semibold">🎉 Paiement confirmé !</h3>
+                  <p className="text-green-100">Bienvenue dans la communauté offgigs. Configure maintenant ton profil pour commencer ton parcours DJ.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
         {/* Header */}
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-3 mb-8">
