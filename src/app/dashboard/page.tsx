@@ -246,8 +246,8 @@ export default function DashboardPage() {
             </div>
             
             {/* Bookability Score */}
-            <GlassContainer className="p-8">
-              <div className="flex items-center gap-4 mb-6">
+            <GlassContainer className="p-6">
+              <div className="flex items-center gap-4 mb-4">
                 <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 flex items-center justify-center">
                   <Sparkles className="w-6 h-6 text-violet-500" />
                 </div>
@@ -258,12 +258,12 @@ export default function DashboardPage() {
               </div>
               
               <div className="text-center">
-                <div className="text-6xl font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent mb-2">
+                <div className="text-5xl font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent mb-1">
                   {bookabilityScore}
                 </div>
-                <div className="text-sm text-gray-600 mb-4">out of 100</div>
+                <div className="text-sm text-gray-600 mb-3">out of 100</div>
                 
-                <div className="space-y-2">
+                <div className="space-y-1">
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-600">Instagram (2.5M)</span>
                     <span className="text-gray-900">50 pts</span>
