@@ -5,6 +5,7 @@ import { ContactProvider } from '@/contexts/ContactContext'
 import { ThemeProvider } from '@/contexts/ThemeContext'
 import { AuthProvider } from '@/components/auth/AuthProvider'
 import { MissionProvider } from '@/contexts/MissionContext'
+import { Analytics } from "@vercel/analytics/next"
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -30,6 +31,7 @@ export default function RootLayout({
             </ContactProvider>
           </ThemeProvider>
         </AuthProvider>
+        <Analytics />
       </body>
     </html>
   )
