@@ -337,7 +337,7 @@ export default function StatsPage() {
               <div className="space-y-3">
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600">
-                    Instagram ({formatNumber(bookabilityResult.instagramFollowers)})
+                    Instagram ({formatNumber(formData.instagram_followers)})
                   </span>
                   <span className="text-gray-900 font-medium">
                     {bookabilityResult.instagramScore} pts
@@ -345,7 +345,7 @@ export default function StatsPage() {
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-gray-600">
-                    Spotify ({formatNumber(bookabilityResult.spotifyListeners)})
+                    Spotify ({formatNumber(formData.spotify_listeners)})
                   </span>
                   <span className="text-gray-900 font-medium">
                     {bookabilityResult.spotifyScore} pts
