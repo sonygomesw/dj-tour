@@ -23,7 +23,11 @@ export default function RootLayout({
       <body className={`${inter.className} min-h-screen bg-white text-black antialiased transition-colors duration-300`}>
         <AuthProvider>
           <ThemeProvider>
-            {children}
+            <ContactProvider>
+              <MissionProvider>
+                {children}
+              </MissionProvider>
+            </ContactProvider>
           </ThemeProvider>
         </AuthProvider>
       </body>
