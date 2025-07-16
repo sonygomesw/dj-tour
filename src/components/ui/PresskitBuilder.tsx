@@ -1,12 +1,3 @@
-<<<<<<< HEAD
-import { useState } from 'react'
-import { GlassContainer } from './GlassContainer'
-import { Button } from './button'
-import { FileText, Download, Upload, Image as ImageIcon } from 'lucide-react'
-
-interface PresskitBuilderProps {
-  onComplete: () => void
-=======
 import { useState } from 'react';
 import { GlassContainer } from './GlassContainer';
 import { Button } from './button';
@@ -14,7 +5,6 @@ import { FileText, Download, Upload, Image as ImageIcon } from 'lucide-react';
 
 interface PresskitBuilderProps {
   onComplete: () => void;
->>>>>>> recup-version-stable
 }
 
 export function PresskitBuilder({ onComplete }: PresskitBuilderProps) {
@@ -28,27 +18,6 @@ export function PresskitBuilder({ onComplete }: PresskitBuilderProps) {
       soundcloud: '',
       spotify: ''
     }
-<<<<<<< HEAD
-  })
-
-  const [profileImage, setProfileImage] = useState<string | null>(null)
-
-  const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (file) {
-      const reader = new FileReader()
-      reader.onload = (e) => {
-        setProfileImage(e.target?.result as string)
-      }
-      reader.readAsDataURL(file)
-    }
-  }
-
-  const generatePresskit = () => {
-    // Logique pour générer le presskit
-    onComplete()
-  }
-=======
   });
   
   const [profileImage, setProfileImage] = useState<string | null>(null);
@@ -68,23 +37,15 @@ export function PresskitBuilder({ onComplete }: PresskitBuilderProps) {
     // Logique pour générer le presskit
     onComplete();
   };
->>>>>>> recup-version-stable
 
   return (
     <GlassContainer className="p-6 max-w-4xl mx-auto">
       <div className="space-y-6">
         <div className="text-center">
-<<<<<<< HEAD
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">
-            Press Kit Builder
-          </h2>
-          <p className="text-gray-600 dark:text-gray-400">
-=======
           <h2 className="text-2xl font-bold text-gray-900 mb-2">
             Press Kit Builder
           </h2>
           <p className="text-gray-600">
->>>>>>> recup-version-stable
             Create a professional press kit to showcase your DJ brand
           </p>
         </div>
@@ -92,15 +53,8 @@ export function PresskitBuilder({ onComplete }: PresskitBuilderProps) {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Profile Image */}
           <div className="space-y-4">
-<<<<<<< HEAD
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              Profile Image
-            </h3>
-            <div className="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-6 text-center">
-=======
             <h3 className="text-lg font-semibold text-gray-900">Profile Image</h3>
             <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
->>>>>>> recup-version-stable
               {profileImage ? (
                 <img 
                   src={profileImage} 
@@ -129,46 +83,28 @@ export function PresskitBuilder({ onComplete }: PresskitBuilderProps) {
 
           {/* Basic Info */}
           <div className="space-y-4">
-<<<<<<< HEAD
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-              Basic Information
-            </h3>
-=======
             <h3 className="text-lg font-semibold text-gray-900">Basic Information</h3>
->>>>>>> recup-version-stable
             <div className="space-y-3">
               <input
                 type="text"
                 placeholder="DJ Name"
                 value={presskitData.djName}
                 onChange={(e) => setPresskitData({...presskitData, djName: e.target.value})}
-<<<<<<< HEAD
-                className="w-full bg-white/5 border border-white/10 rounded-lg py-3 px-4 text-gray-900 dark:text-white placeholder:text-gray-500"
-=======
                 className="w-full bg-white/5 border border-white/10 rounded-lg py-3 px-4 text-gray-900 placeholder:text-gray-500"
->>>>>>> recup-version-stable
               />
               <input
                 type="text"
                 placeholder="Genre (e.g., House, Techno, Hip-Hop)"
                 value={presskitData.genre}
                 onChange={(e) => setPresskitData({...presskitData, genre: e.target.value})}
-<<<<<<< HEAD
-                className="w-full bg-white/5 border border-white/10 rounded-lg py-3 px-4 text-gray-900 dark:text-white placeholder:text-gray-500"
-=======
                 className="w-full bg-white/5 border border-white/10 rounded-lg py-3 px-4 text-gray-900 placeholder:text-gray-500"
->>>>>>> recup-version-stable
               />
               <textarea
                 placeholder="Bio (tell your story in 2-3 sentences)"
                 value={presskitData.bio}
                 onChange={(e) => setPresskitData({...presskitData, bio: e.target.value})}
                 rows={4}
-<<<<<<< HEAD
-                className="w-full bg-white/5 border border-white/10 rounded-lg py-3 px-4 text-gray-900 dark:text-white placeholder:text-gray-500"
-=======
                 className="w-full bg-white/5 border border-white/10 rounded-lg py-3 px-4 text-gray-900 placeholder:text-gray-500"
->>>>>>> recup-version-stable
               />
             </div>
           </div>
@@ -176,13 +112,7 @@ export function PresskitBuilder({ onComplete }: PresskitBuilderProps) {
 
         {/* Social Links */}
         <div className="space-y-4">
-<<<<<<< HEAD
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-            Social Links
-          </h3>
-=======
           <h3 className="text-lg font-semibold text-gray-900">Social Links</h3>
->>>>>>> recup-version-stable
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <input
               type="url"
@@ -192,11 +122,7 @@ export function PresskitBuilder({ onComplete }: PresskitBuilderProps) {
                 ...presskitData,
                 socialLinks: {...presskitData.socialLinks, instagram: e.target.value}
               })}
-<<<<<<< HEAD
-              className="w-full bg-white/5 border border-white/10 rounded-lg py-3 px-4 text-gray-900 dark:text-white placeholder:text-gray-500"
-=======
               className="w-full bg-white/5 border border-white/10 rounded-lg py-3 px-4 text-gray-900 placeholder:text-gray-500"
->>>>>>> recup-version-stable
             />
             <input
               type="url"
@@ -206,11 +132,7 @@ export function PresskitBuilder({ onComplete }: PresskitBuilderProps) {
                 ...presskitData,
                 socialLinks: {...presskitData.socialLinks, soundcloud: e.target.value}
               })}
-<<<<<<< HEAD
-              className="w-full bg-white/5 border border-white/10 rounded-lg py-3 px-4 text-gray-900 dark:text-white placeholder:text-gray-500"
-=======
               className="w-full bg-white/5 border border-white/10 rounded-lg py-3 px-4 text-gray-900 placeholder:text-gray-500"
->>>>>>> recup-version-stable
             />
             <input
               type="url"
@@ -220,57 +142,34 @@ export function PresskitBuilder({ onComplete }: PresskitBuilderProps) {
                 ...presskitData,
                 socialLinks: {...presskitData.socialLinks, spotify: e.target.value}
               })}
-<<<<<<< HEAD
-              className="w-full bg-white/5 border border-white/10 rounded-lg py-3 px-4 text-gray-900 dark:text-white placeholder:text-gray-500"
-=======
               className="w-full bg-white/5 border border-white/10 rounded-lg py-3 px-4 text-gray-900 placeholder:text-gray-500"
->>>>>>> recup-version-stable
             />
           </div>
         </div>
 
         {/* Achievements */}
         <div className="space-y-4">
-<<<<<<< HEAD
-          <h3 className="text-lg font-semibold text-gray-900 dark:text-white">
-            Achievements & Highlights
-          </h3>
-=======
           <h3 className="text-lg font-semibold text-gray-900">Achievements & Highlights</h3>
->>>>>>> recup-version-stable
           <textarea
             placeholder="List your notable gigs, awards, collaborations, or achievements"
             value={presskitData.achievements}
             onChange={(e) => setPresskitData({...presskitData, achievements: e.target.value})}
             rows={3}
-<<<<<<< HEAD
-            className="w-full bg-white/5 border border-white/10 rounded-lg py-3 px-4 text-gray-900 dark:text-white placeholder:text-gray-500"
-=======
             className="w-full bg-white/5 border border-white/10 rounded-lg py-3 px-4 text-gray-900 placeholder:text-gray-500"
->>>>>>> recup-version-stable
           />
         </div>
 
         {/* Actions */}
         <div className="flex justify-center space-x-4">
-<<<<<<< HEAD
-          <Button
-=======
           <Button 
->>>>>>> recup-version-stable
             onClick={generatePresskit}
             className="bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-600 hover:to-fuchsia-600"
           >
             <FileText className="w-4 h-4 mr-2" />
             Generate Press Kit
           </Button>
-<<<<<<< HEAD
-          <Button
-            variant="outline"
-=======
           <Button 
             variant="outline" 
->>>>>>> recup-version-stable
             onClick={onComplete}
             className="bg-white/5 border-white/10"
           >
@@ -280,9 +179,5 @@ export function PresskitBuilder({ onComplete }: PresskitBuilderProps) {
         </div>
       </div>
     </GlassContainer>
-<<<<<<< HEAD
-  )
-=======
   );
->>>>>>> recup-version-stable
 } 
