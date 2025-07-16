@@ -387,14 +387,14 @@ export default function DJCoachAIPage() {
   }, [inputMessage])
 
   return (
-    <div className="flex h-screen bg-gray-50 scale-75 origin-top-left">
+    <div className="flex h-screen bg-gray-50">
       {/* DJ Sidebar - Hidden on mobile */}
       <div className="hidden lg:block">
         <DJSidebar />
       </div>
       
       {/* Chat Sidebar */}
-      <div className="w-96 bg-gray-800 text-white flex flex-col lg:ml-96 hidden md:flex">
+      <div className="w-96 bg-gray-800 text-white flex flex-col lg:ml-80 hidden md:flex">
         {/* Header */}
         <div className="p-6 border-b border-gray-700">
           <Button

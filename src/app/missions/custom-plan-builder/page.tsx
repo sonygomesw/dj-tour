@@ -110,9 +110,9 @@ export default function MissionBuildTourPage() {
   ]
 
   return (
-    <div className="flex min-h-screen bg-white dark:bg-[#0F0F11] transition-colors duration-300 scale-75 origin-top-left">
+    <div className="flex min-h-screen bg-white dark:bg-[#0F0F11] transition-colors duration-300">
       <DJSidebar />
-      <div className="flex-1 ml-96 p-6 relative overflow-hidden">
+      <div className="flex-1 ml-80 p-8 relative overflow-hidden">
         {/* Background */}
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-20 right-20 w-64 h-64 bg-gradient-to-br from-violet-500/15 via-fuchsia-500/8 to-transparent rounded-full blur-3xl"></div>
