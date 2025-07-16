@@ -129,8 +129,8 @@ export default function DashboardPage() {
 
   if (loading || authLoading) {
     return (
-      <div className="flex min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 items-center justify-center">
-        <div className="text-gray-900 dark:text-white text-xl">Loading...</div>
+      <div className="flex min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 items-center justify-center">
+        <div className="text-gray-900 text-xl">Loading...</div>
       </div>
     )
   }
@@ -176,7 +176,7 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
+    <div className="flex min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <DJSidebar />
       <div className="flex-1 ml-96 p-16 relative overflow-hidden">
         {/* Sophisticated Background Illustration */}
@@ -214,36 +214,36 @@ export default function DashboardPage() {
               <div className="inline-flex items-center gap-3 mb-8">
                 <div className="relative">
                   <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-violet-500 via-fuchsia-500 to-violet-600 flex items-center justify-center shadow-[0_8px_32px_rgba(139,92,246,0.3),0_3px_16px_rgba(139,92,246,0.2)] border border-white/10">
-                    <TrendingUp className="w-10 h-10 text-gray-900 dark:text-white drop-shadow-sm" />
+                    <TrendingUp className="w-10 h-10 text-white drop-shadow-sm" />
                   </div>
                   <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center shadow-lg">
-                    <Sparkles className="w-3 h-3 text-gray-900 dark:text-white" />
+                    <Sparkles className="w-3 h-3 text-white" />
                   </div>
                 </div>
                 <div>
-                  <h1 className="text-5xl font-black bg-gradient-to-br from-black dark:from-white via-violet-700 dark:via-violet-100 to-violet-500 dark:to-violet-300 text-transparent bg-clip-text leading-none tracking-tight">
+                  <h1 className="text-5xl font-black bg-gradient-to-br from-gray-900 via-violet-700 to-violet-500 text-transparent bg-clip-text leading-none tracking-tight">
                     {profile.dj_name ? `Hey ${profile.dj_name}` : 'Dashboard'}
                   </h1>
                   <div className="h-3 w-24 bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-full mt-2"></div>
                 </div>
               </div>
               
-              <p className="text-2xl text-black/70 dark:text-gray-600 dark:text-white/70 font-light leading-relaxed max-w-2xl">
+              <p className="text-2xl text-gray-700 font-light leading-relaxed max-w-2xl">
                 {profile.bio || 'Manage your career and track your progress in real-time'}
               </p>
               
               {/* Level and information */}
               <div className="mt-6 flex items-center gap-4">
-                <div className={`flex items-center gap-3 px-4 py-2 rounded-full bg-black/10 dark:bg-white/10 border border-black/20 dark:border-white/20 backdrop-blur-sm`}>
+                <div className={`flex items-center gap-3 px-4 py-2 rounded-full bg-white/80 border border-violet-200/50 backdrop-blur-sm`}>
                   <div className={`w-8 h-8 rounded-full bg-gradient-to-br ${getLevelInfo(bookabilityResult.level).colors.gradient} p-0.5`}>
-                    <div className="w-full h-full rounded-full bg-black/20 backdrop-blur-sm flex items-center justify-center">
+                    <div className="w-full h-full rounded-full bg-white/80 backdrop-blur-sm flex items-center justify-center">
                       {(() => {
                         const LevelIcon = getLevelIcon(bookabilityResult.level);
-                        return <LevelIcon className="w-5 h-5 text-gray-900 dark:text-white drop-shadow-sm" />;
+                        return <LevelIcon className="w-5 h-5 text-gray-900 drop-shadow-sm" />;
                       })()}
                     </div>
                   </div>
-                  <span className={`text-sm font-medium text-gray-900 dark:text-white`}>
+                  <span className={`text-sm font-medium text-gray-900`}>
                     {getLevelInfo(bookabilityResult.level).name} • {getLevelInfo(bookabilityResult.level).description}
                   </span>
                 </div>
@@ -253,12 +253,12 @@ export default function DashboardPage() {
             {/* Quick Stats */}
             <div className="flex gap-6">
               <div className="text-center">
-                <div className="text-4xl font-bold text-gray-900 dark:text-white mb-1">{bookabilityScore}</div>
-                <div className="text-sm text-gray-600 dark:text-white/60 font-medium">Score</div>
+                <div className="text-4xl font-bold text-gray-900 mb-1">{bookabilityScore}</div>
+                <div className="text-sm text-gray-600 font-medium">Score</div>
               </div>
               <div className="text-center">
                 <div className="text-4xl font-bold text-gradient mb-1">{globalProgress}%</div>
-                <div className="text-sm text-gray-600 dark:text-white/60 font-medium">Progress</div>
+                <div className="text-sm text-gray-600 font-medium">Progress</div>
               </div>
             </div>
           </div>
@@ -287,9 +287,9 @@ export default function DashboardPage() {
               <GlassContainer className="p-8 backdrop-blur-2xl bg-white/[0.02] border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_16px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_48px_rgba(139,92,246,0.15),0_4px_24px_rgba(0,0,0,0.1)] transition-all duration-500">
                 <div className="flex items-center gap-3 mb-6">
                   <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500 via-fuchsia-500 to-violet-600 flex items-center justify-center shadow-[0_8px_32px_rgba(139,92,246,0.3),0_3px_16px_rgba(139,92,246,0.2)] border border-white/10">
-                    <Trophy className="w-6 h-6 text-gray-900 dark:text-white drop-shadow-sm" />
+                    <Trophy className="w-6 h-6 text-white drop-shadow-sm" />
                   </div>
-                  <h3 className="text-2xl font-semibold text-gray-900 dark:text-white tracking-wide">
+                  <h3 className="text-2xl font-semibold text-gray-900 tracking-wide">
                     Bookability Score
                   </h3>
                 </div>
@@ -307,12 +307,12 @@ export default function DashboardPage() {
                   {/* Score breakdown */}
                   <div className="w-full space-y-3 text-sm">
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 dark:text-white/60">Instagram ({formatNumber(bookabilityData.instagramFollowers)})</span>
-                      <span className="text-gray-900 dark:text-white font-medium">{bookabilityResult.instagramScore} pts</span>
+                      <span className="text-gray-600">Instagram ({formatNumber(bookabilityData.instagramFollowers)})</span>
+                      <span className="text-gray-900 font-medium">{bookabilityResult.instagramScore} pts</span>
                     </div>
                     <div className="flex justify-between items-center">
-                      <span className="text-gray-600 dark:text-white/60">Spotify ({formatNumber(bookabilityData.spotifyListeners)})</span>
-                      <span className="text-gray-900 dark:text-white font-medium">{bookabilityResult.spotifyScore} pts</span>
+                      <span className="text-gray-600">Spotify ({formatNumber(bookabilityData.spotifyListeners)})</span>
+                      <span className="text-gray-900 font-medium">{bookabilityResult.spotifyScore} pts</span>
                     </div>
                   </div>
                 </div>
@@ -320,11 +320,11 @@ export default function DashboardPage() {
               
               {/* Global Progress */}
               <GlassContainer className="p-8 backdrop-blur-2xl bg-white/[0.02] border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_16px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_48px_rgba(139,92,246,0.15),0_4px_24px_rgba(0,0,0,0.1)] transition-all duration-500">
-                <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Global Progress</h3>
+                <h3 className="text-2xl font-semibold text-gray-900 mb-6">Global Progress</h3>
                 <div className="space-y-6">
                   <div className="flex justify-between items-baseline">
-                    <span className="text-gray-600 dark:text-white/60">Total progress</span>
-                    <span className="text-4xl font-bold text-gray-900 dark:text-white">{globalProgress}%</span>
+                    <span className="text-gray-600">Total progress</span>
+                    <span className="text-4xl font-bold text-gray-900">{globalProgress}%</span>
                   </div>
                   <ProgressBar 
                     progress={globalProgress} 
@@ -332,7 +332,7 @@ export default function DashboardPage() {
                     color={getLevelGradient(bookabilityResult.level)}
                     showValue
                   />
-                  <div className="flex justify-between text-sm text-gray-600 dark:text-white/60">
+                  <div className="flex justify-between text-sm text-gray-600">
                     <span>{earnedPoints} points earned</span>
                     <span>{totalPoints} total points</span>
                   </div>
@@ -342,7 +342,7 @@ export default function DashboardPage() {
               {/* Next Mission */}
               <GlassContainer className="p-8 backdrop-blur-2xl bg-white/[0.02] border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_16px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_48px_rgba(139,92,246,0.15),0_4px_24px_rgba(0,0,0,0.1)] transition-all duration-500">
                 <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">Next Mission</h3>
+                  <h3 className="text-2xl font-semibold text-gray-900">Next Mission</h3>
                   <Button variant="ghost" size="sm" rightIcon={<ChevronRight className="w-4 h-4" />} className="hover:scale-105 transition-transform duration-200">
                     View all
                   </Button>
@@ -353,8 +353,8 @@ export default function DashboardPage() {
                       <Trophy className="w-6 h-6 text-violet-400" />
                     </div>
                     <div>
-                      <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">{nextMission.title}</h4>
-                      <p className="text-gray-600 dark:text-white/60 text-sm">{nextMission.description}</p>
+                      <h4 className="text-lg font-semibold text-gray-900 mb-1">{nextMission.title}</h4>
+                      <p className="text-gray-600 text-sm">{nextMission.description}</p>
                     </div>
                   </div>
                   <Button 
