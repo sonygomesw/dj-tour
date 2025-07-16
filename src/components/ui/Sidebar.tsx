@@ -39,18 +39,22 @@ export function Sidebar() {
           <div className="flex items-center gap-3">
             <div className="relative w-12 h-12 rounded-full overflow-hidden ring-2 ring-white/20">
               <Image
-                src={defaultProfile.avatar}
-                alt={defaultProfile.name}
+                src={defaultProfile.avatar_url || '/profile/default-dj.svg'}
+                alt={defaultProfile.dj_name || defaultProfile.full_name || 'DJ'}
                 fill
                 className="object-cover"
               />
             </div>
             <div>
-              <h3 className="text-base font-medium text-gray-900 dark:text-white">{defaultProfile.name}</h3>
+              <h3 className="text-base font-medium text-gray-900 dark:text-white">
+                {defaultProfile.dj_name || defaultProfile.full_name}
+              </h3>
+              {/*
               <p className="text-sm text-gray-600 dark:text-white/60 mt-1">{defaultProfile.level}</p>
               <div className="mt-2 inline-flex items-center px-3 py-1 rounded-full bg-purple-500/20 text-purple-300 text-sm">
                 2750 pts
               </div>
+              */}
             </div>
           </div>
         </div>

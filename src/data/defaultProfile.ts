@@ -1,1 +1,18 @@
-import { DJProfile } from '@/types/dj' export const defaultProfile = { name: 'DJ Dibs', location: 'Paris, France', avatar: '/DJSNAKE.jpg', level: 'Niveau 2 - DJ Confirmé', points: 2750, maxPoints: 3000, stats: { spotify: '12.4K', tiktok: '45.2K', instagram: '12.8K' }, upcomingEvents: [ { name: 'Social Club Night', venue: 'Le Social Club', date: '24 Mars' }, { name: 'Showcase Party', venue: 'Showcase', date: '31 Mars' } ], weeklyGoals: [ { description: 'Publier 3 nouveaux reels', completed: true }, { description: 'Atteindre 50K vues sur TikTok', completed: true }, { description: 'Create a new Spotify playlist', completed: false }, { description: 'Collaborer avec un autre DJ', completed: false } ] } 
+import { DJProfile } from '@/types/dj';
+
+export const defaultProfile: DJProfile = {
+  id: 'default',
+  full_name: 'DJ Dibs',
+  avatar_url: '/DJSNAKE.jpg',
+  dj_name: 'DJ Dibs',
+  bio: 'Paris-based DJ',
+  location: 'Paris, France',
+  website: null,
+  instagram: null,
+  tiktok: null,
+  spotify: null,
+  soundcloud: null,
+  beatport: null,
+  created_at: '',
+  updated_at: ''
+}; 

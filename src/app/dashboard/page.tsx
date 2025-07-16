@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 
-export default function DashboardPage() {
+function DashboardPageContent() {
   const searchParams = useSearchParams();
   const [paymentStatus, setPaymentStatus] = useState<string>("");
 
@@ -12,7 +12,6 @@ export default function DashboardPage() {
     const sessionId = searchParams.get("session_id");
 
     if (success === "true" && sessionId) {
-      // Vérifier le statut du paiement
       verifyPayment(sessionId);
     }
   }, [searchParams]);
@@ -88,5 +87,13 @@ export default function DashboardPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function DashboardPage() {
+  return (
+    <Suspense>
+      <DashboardPageContent />
+    </Suspense>
   );
 }
