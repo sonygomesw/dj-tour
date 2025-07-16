@@ -9,7 +9,6 @@ import {
   BarChart3, 
   Trophy, 
   Settings, 
-  User,
   LogOut,
   Sparkles,
   Users,
@@ -33,7 +32,6 @@ const menuItems = [
   { icon: MessageCircle, label: 'DJ Coach AI', href: '/dj-coach-ai' },
   { icon: BarChart3, label: 'Stats', href: '/stats' },
   { icon: Users, label: 'Contacts', href: '/contacts' },
-  { icon: User, label: 'Profile', href: '/profile' },
   { icon: Settings, label: 'Settings', href: '/settings' },
 ];
 

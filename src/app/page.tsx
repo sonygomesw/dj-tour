@@ -1603,7 +1603,7 @@ export default function LandingPage() {
                 </a>
                 <a href="#" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
                   <Mail className="w-4 h-4" />
-                  <span>support@djtour.com</span>
+                  <span>offgigscontact@gmail.com</span>
                 </a>
                 <a href="#" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
                   <Phone className="w-4 h-4" />
@@ -1620,10 +1620,7 @@ export default function LandingPage() {
                   <Star className="w-4 h-4" />
                   <span>Success Stories</span>
                 </a>
-                <a href="#" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
-                  <ExternalLink className="w-4 h-4" />
-                  <span>Community</span>
-                </a>
+
                 <a href="#" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
                   <Camera className="w-4 h-4" />
                   <span>Free Profile Analysis</span>

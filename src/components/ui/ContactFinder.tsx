@@ -111,12 +111,12 @@ export function ContactFinder({ onComplete, minContacts = 5, clubs = [], region 
   }
 
   return (
-    <GlassContainer className="p-8 backdrop-blur-2xl bg-white/[0.02] border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_16px_rgba(0,0,0,0.08)]">
+    <GlassContainer className="p-8 bg-white border-gray-200 shadow-lg">
       <div className="space-y-8">
         {/* Tutorial */}
-        <div className="bg-white/[0.02] rounded-2xl p-6 text-sm text-gray-700 dark:text-white/80 border border-white/10">
-          <p className="font-semibold mb-3 text-violet-400">💡 How to find the right contacts:</p>
-          <ul className="list-disc list-inside space-y-2 leading-relaxed">
+        <div className="bg-gray-50 rounded-2xl p-6 text-sm text-gray-700 border border-gray-200">
+          <p className="font-semibold mb-3 text-violet-500">💡 How to find the right contacts:</p>
+          <ul className="list-disc list-inside space-y-2 leading-relaxed text-gray-800">
             <li>Search club followers (keywords: "Booker", "Talent", "Music Director")</li>
             <li>Google "[Club name] + talent buyer" or "booking"</li>
             <li>Search on LinkedIn with the same keywords</li>
@@ -128,22 +128,22 @@ export function ContactFinder({ onComplete, minContacts = 5, clubs = [], region 
         <div className="space-y-6">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             <div>
-              <label className="block text-sm font-medium text-white mb-3">
+              <label className="block text-base font-semibold text-gray-900 mb-3">
                 First Name
               </label>
               <div className="relative">
-                <User className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60 w-4 h-4" />
+                <User className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <input
                   type="text"
                   value={newContact.firstName}
                   onChange={(e) => setNewContact({ ...newContact, firstName: e.target.value })}
                   placeholder="Ex: John"
-                  className="w-full bg-white/10 border border-white/30 rounded-2xl py-4 pl-12 pr-4 text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all duration-200 backdrop-blur-xl"
+                  className="w-full bg-white border border-gray-300 rounded-2xl py-4 pl-12 pr-4 text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all duration-200"
                 />
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-white mb-3">
+              <label className="block text-base font-semibold text-gray-900 mb-3">
                 Last Name
               </label>
               <input
@@ -151,52 +151,52 @@ export function ContactFinder({ onComplete, minContacts = 5, clubs = [], region 
                 value={newContact.lastName}
                 onChange={(e) => setNewContact({ ...newContact, lastName: e.target.value })}
                 placeholder="Ex: Smith"
-                className="w-full bg-white/10 border border-white/30 rounded-2xl py-4 px-4 text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all duration-200 backdrop-blur-xl"
+                className="w-full bg-white border border-gray-300 rounded-2xl py-4 px-4 text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all duration-200"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-white mb-3">
+              <label className="block text-base font-semibold text-gray-900 mb-3">
                 Role
               </label>
               <select
                 value={newContact.role}
                 onChange={(e) => setNewContact({ ...newContact, role: e.target.value })}
-                className="w-full bg-white/10 border border-white/30 rounded-2xl py-4 px-4 text-white focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all duration-200 backdrop-blur-xl"
+                className="w-full bg-white border border-gray-300 rounded-2xl py-4 px-4 text-gray-900 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all duration-200"
               >
-                <option value="" className="bg-gray-800 text-white">Select a role...</option>
-                <option value="Director" className="bg-gray-800 text-white">Director</option>
-                <option value="Talent buyer" className="bg-gray-800 text-white">Talent buyer</option>
-                <option value="Manager" className="bg-gray-800 text-white">Manager</option>
-                <option value="DJ Resident" className="bg-gray-800 text-white">DJ Resident</option>
+                <option value="" className="bg-white text-gray-900">Select a role...</option>
+                <option value="Director" className="bg-white text-gray-900">Director</option>
+                <option value="Talent buyer" className="bg-white text-gray-900">Talent buyer</option>
+                <option value="Manager" className="bg-white text-gray-900">Manager</option>
+                <option value="DJ Resident" className="bg-white text-gray-900">DJ Resident</option>
               </select>
             </div>
             <div>
-              <label className="block text-sm font-medium text-white mb-3">
+              <label className="block text-base font-semibold text-gray-900 mb-3">
                 Instagram
               </label>
               <div className="relative">
-                <Instagram className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60 w-4 h-4" />
+                <Instagram className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <input
                   type="text"
                   value={newContact.instagram}
                   onChange={(e) => setNewContact({ ...newContact, instagram: e.target.value })}
                   placeholder="@username"
-                  className="w-full bg-white/10 border border-white/30 rounded-2xl py-4 pl-12 pr-4 text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all duration-200 backdrop-blur-xl"
+                  className="w-full bg-white border border-gray-300 rounded-2xl py-4 pl-12 pr-4 text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all duration-200"
                 />
               </div>
             </div>
             <div className="md:col-span-2">
-              <label className="block text-sm font-medium text-white mb-3">
+              <label className="block text-base font-semibold text-gray-900 mb-3">
                 Email
               </label>
               <div className="relative">
-                <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 text-white/60 w-4 h-4" />
+                <Mail className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
                 <input
                   type="email"
                   value={newContact.email}
                   onChange={(e) => setNewContact({ ...newContact, email: e.target.value })}
                   placeholder="email@club.com"
-                  className="w-full bg-white/10 border border-white/30 rounded-2xl py-4 pl-12 pr-4 text-white placeholder:text-white/60 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 transition-all duration-200 backdrop-blur-xl"
+                  className="w-full bg-white border border-gray-300 rounded-2xl py-4 pl-12 pr-4 text-gray-900 placeholder:text-gray-500 focus:outline-none focus:ring-2 focus:ring-violet-500 focus:border-violet-500 transition-all duration-200"
                 />
               </div>
             </div>
@@ -213,22 +213,22 @@ export function ContactFinder({ onComplete, minContacts = 5, clubs = [], region 
         {/* Contact List */}
         {contacts.length > 0 && (
           <div className="space-y-6">
-            <h3 className="text-xl font-semibold text-white">Added Contacts</h3>
+            <h3 className="text-xl font-semibold text-gray-800">Added Contacts</h3>
             <div className="space-y-4">
               {contacts.map((contact) => (
                 <div
                   key={contact.id}
-                  className="flex items-center justify-between bg-white/[0.02] rounded-2xl p-6 border border-white/10"
+                  className="flex items-center justify-between bg-gray-50 rounded-2xl p-6 border border-gray-200"
                 >
                   <div>
                     <div className="flex items-center gap-3 mb-1">
-                      <h4 className="text-white font-semibold text-lg">{contact.name}</h4>
+                      <h4 className="text-gray-900 font-semibold text-lg">{contact.name}</h4>
                       {contact.role && (
-                        <span className="text-sm text-white/60 bg-white/10 px-2 py-1 rounded-full">({contact.role})</span>
+                        <span className="text-sm text-gray-600 bg-gray-200 px-2 py-1 rounded-full">({contact.role})</span>
                       )}
                     </div>
-                    <p className="text-violet-400 font-medium mb-2">{contact.club}</p>
-                    <div className="flex items-center gap-4 text-sm text-white/60">
+                    <p className="text-violet-500 font-medium mb-2">{contact.club}</p>
+                    <div className="flex items-center gap-4 text-sm text-gray-600">
                       {contact.instagram && (
                         <span className="flex items-center gap-1">
                           <Instagram className="w-3 h-3" />
@@ -245,7 +245,7 @@ export function ContactFinder({ onComplete, minContacts = 5, clubs = [], region 
                   </div>
                   <button
                     onClick={() => deleteContact(contact.id)}
-                    className="text-white/40 hover:text-white transition-colors"
+                    className="text-gray-400 hover:text-gray-600 transition-colors"
                   >
                     <Trash2 className="w-5 h-5" />
                   </button>
