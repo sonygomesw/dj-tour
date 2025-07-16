@@ -246,8 +246,8 @@ export default function DashboardPage() {
             </div>
             
             {/* Bookability Score */}
-            <GlassContainer className="pt-6 px-6 pb-4">
-              <div className="flex items-center gap-4 mb-4">
+            <GlassContainer className="pt-5 px-5 pb-2">
+              <div className="flex items-center gap-3 mb-3">
                 <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 flex items-center justify-center">
                   <Sparkles className="w-6 h-6 text-violet-500" />
                 </div>
@@ -261,7 +261,7 @@ export default function DashboardPage() {
                 <div className="text-5xl font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent mb-1">
                   {bookabilityScore}
                 </div>
-                <div className="text-sm text-gray-600 mb-3">out of 100</div>
+                <div className="text-sm text-gray-600 mb-2">out of 100</div>
                 
                 <div className="space-y-1">
                   <div className="flex justify-between text-sm">
