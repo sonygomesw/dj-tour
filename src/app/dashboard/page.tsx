@@ -13,7 +13,7 @@ import { ProgressBar } from '@/components/ui/ProgressBar'
 import { Button } from '@/components/ui/button'
 
 import missions from '@/data/missions'
-import { Trophy, Target, ChevronRight, Play, Sparkles, TrendingUp, CheckCircle } from 'lucide-react'
+import { Trophy, Target, ChevronRight, Play, Sparkles, TrendingUp, CheckCircle, User } from 'lucide-react'
 import { getLevelIcon, getLevelInfo } from '@/components/icons/level-icons'
 import { calculateBookabilityScore, formatNumber, getLevelColor, getLevelGradient } from '@/lib/bookability'
 
@@ -187,206 +187,184 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
+    <div className="flex min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <DJSidebar />
       <div className="flex-1 ml-80 p-8 relative overflow-hidden">
         {/* Sophisticated Background Illustration */}
         <div className="absolute inset-0 pointer-events-none select-none">
           {/* Primary gradient orb */}
-          <div className="absolute top-32 right-32 w-96 h-96 bg-gradient-to-br from-violet-500/20 via-fuchsia-500/10 to-transparent rounded-full blur-3xl"></div>
+          <div className="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-violet-500/20 via-fuchsia-500/15 to-transparent rounded-full blur-3xl animate-pulse"></div>
           {/* Secondary gradient orb */}
-          <div className="absolute top-64 right-64 w-64 h-64 bg-gradient-to-tl from-blue-500/15 via-purple-500/8 to-transparent rounded-full blur-2xl"></div>
-          {/* Tertiary accent */}
-          <div className="absolute top-48 right-48 w-32 h-32 bg-gradient-to-br from-pink-500/25 to-transparent rounded-full blur-xl"></div>
-          {/* Subtle noise texture */}
-          <div className="absolute inset-0 opacity-[0.02] mix-blend-overlay" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")` }}></div>
+          <div className="absolute bottom-20 left-20 w-80 h-80 bg-gradient-to-tr from-blue-500/15 via-violet-500/10 to-transparent rounded-full blur-2xl animate-pulse" style={{animationDelay: '2s'}}></div>
+          {/* Accent gradient */}
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-br from-pink-500/10 to-transparent rounded-full blur-xl animate-pulse" style={{animationDelay: '4s'}}></div>
         </div>
 
-        {/* Payment Success Message */}
-        {paymentVerified && (
-          <div className="relative z-10 mb-8">
-            <div className="bg-gradient-to-r from-green-500 to-emerald-600 text-white p-6 rounded-2xl shadow-lg border border-green-400/20 backdrop-blur-sm">
-              <div className="flex items-center gap-3">
-                <CheckCircle className="w-6 h-6" />
-                <div>
-                  <h3 className="text-lg font-semibold">🎉 Paiement confirmé !</h3>
-                  <p className="text-green-100">Bienvenue dans la communauté offgigs. Tu as maintenant accès à toutes les fonctionnalités premium.</p>
+        {/* Main Content */}
+        <div className="relative z-10">
+          {/* Header */}
+          <div className="mb-12">
+            <div className="flex items-center gap-4 mb-8">
+              <div className="relative">
+                <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-violet-500 via-fuchsia-500 to-violet-600 flex items-center justify-center shadow-[0_8px_32px_rgba(139,92,246,0.3),0_3px_16px_rgba(139,92,246,0.2)] border border-white/10">
+                  <User className="w-10 h-10 text-white drop-shadow-sm" />
                 </div>
+                <div className="absolute -top-2 -right-2 w-6 h-6 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center shadow-lg">
+                  <Sparkles className="w-3 h-3 text-white" />
+                </div>
+              </div>
+              <div>
+                <h1 className="text-5xl font-bold text-gray-900">
+                  Hey {profile?.dj_name || 'DJ'} 👋
+                </h1>
+                <p className="text-xl text-gray-600 font-light mt-2">
+                  Manage your career and track your progress in real-time
+                </p>
+              </div>
+            </div>
+            
+            {/* Status Badge */}
+            <div className="inline-flex items-center gap-3 px-6 py-3 bg-gradient-to-r from-violet-500/10 to-fuchsia-500/10 border border-violet-500/20 rounded-2xl backdrop-blur-sm">
+              <div className="flex items-center gap-2">
+                <div className="w-3 h-3 bg-green-500 rounded-full animate-pulse"></div>
+                <span className="text-sm font-medium text-gray-900">Legend • Recognized DJ, ready to headline</span>
               </div>
             </div>
           </div>
-        )}
 
-        {/* Hero Section */}
-        <div className="relative z-10 mb-20">
-          <div className="flex items-start justify-between">
-            <div className="flex-1">
-              {/* Premium Icon Badge */}
-              <div className="inline-flex items-center gap-3 mb-8">
-                <div className="relative">
-                  <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-violet-500 via-fuchsia-500 to-violet-600 flex items-center justify-center shadow-[0_8px_32px_rgba(139,92,246,0.3),0_3px_16px_rgba(139,92,246,0.2)] border border-white/10">
-                    <TrendingUp className="w-10 h-10 text-gray-900 dark:text-white drop-shadow-sm" />
-                  </div>
-                  <div className="absolute -top-1 -right-1 w-6 h-6 rounded-full bg-gradient-to-br from-pink-400 to-rose-500 flex items-center justify-center shadow-lg">
-                    <Sparkles className="w-3 h-3 text-gray-900 dark:text-white" />
-                  </div>
+          {/* Stats Cards Grid */}
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+            {/* Profile Card */}
+            <div className="lg:row-span-2">
+              <DJProfileCard profile={profile} />
+            </div>
+            
+            {/* Bookability Score */}
+            <GlassContainer className="p-8">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 flex items-center justify-center">
+                  <Sparkles className="w-6 h-6 text-violet-500" />
                 </div>
                 <div>
-                  <h1 className="text-5xl font-black bg-gradient-to-br from-black dark:from-white via-violet-700 dark:via-violet-100 to-violet-500 dark:to-violet-300 text-transparent bg-clip-text leading-none tracking-tight">
-                    {profile.dj_name ? `Hey ${profile.dj_name}` : 'Dashboard'}
-                  </h1>
-                  <div className="h-3 w-24 bg-gradient-to-r from-violet-500 to-fuchsia-500 rounded-full mt-2"></div>
+                  <h3 className="text-lg font-semibold text-gray-900">Bookability Score</h3>
+                  <p className="text-sm text-gray-600">Your booking potential</p>
                 </div>
               </div>
               
-              <p className="text-2xl text-black/70 dark:text-gray-600 dark:text-white/70 font-light leading-relaxed max-w-2xl">
-                {profile.bio || 'Manage your career and track your progress in real-time'}
-              </p>
-              
-              {/* Level and information */}
-              <div className="mt-6 flex items-center gap-4">
-                <div className={`flex items-center gap-3 px-4 py-2 rounded-full bg-black/10 dark:bg-white/10 border border-black/20 dark:border-white/20 backdrop-blur-sm`}>
-                  <div className={`w-8 h-8 rounded-full bg-gradient-to-br ${getLevelInfo(bookabilityResult.level).colors.gradient} p-0.5`}>
-                    <div className="w-full h-full rounded-full bg-black/20 backdrop-blur-sm flex items-center justify-center">
-                      {(() => {
-                        const LevelIcon = getLevelIcon(bookabilityResult.level);
-                        return <LevelIcon className="w-5 h-5 text-gray-900 dark:text-white drop-shadow-sm" />;
-                      })()}
-                    </div>
+              <div className="text-center">
+                <div className="text-6xl font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent mb-2">
+                  {bookabilityScore}
+                </div>
+                <div className="text-sm text-gray-600 mb-4">out of 100</div>
+                
+                <div className="space-y-2">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">Instagram (2.5M)</span>
+                    <span className="text-gray-900">50 pts</span>
                   </div>
-                  <span className={`text-sm font-medium text-gray-900 dark:text-white`}>
-                    {getLevelInfo(bookabilityResult.level).name} • {getLevelInfo(bookabilityResult.level).description}
-                  </span>
+                  <div className="flex justify-between text-sm">
+                    <span className="text-gray-600">Spotify (47,000)</span>
+                    <span className="text-gray-900">30 pts</span>
+                  </div>
                 </div>
               </div>
-            </div>
+            </GlassContainer>
             
-            {/* Quick Stats */}
-            <div className="flex gap-6">
-              <div className="text-center">
-                <div className="text-4xl font-bold text-gray-900 dark:text-white mb-1">{bookabilityScore}</div>
-                <div className="text-sm text-gray-600 dark:text-white/60 font-medium">Score</div>
-              </div>
-              <div className="text-center">
-                <div className="text-4xl font-bold text-gradient mb-1">{globalProgress}%</div>
-                <div className="text-sm text-gray-600 dark:text-white/60 font-medium">Progress</div>
-              </div>
+            {/* Social Stats */}
+            <div>
+              <SocialStats stats={stats} />
             </div>
           </div>
-        </div>
 
-        {/* Main Grid */}
-        <div className="relative z-10 space-y-12">
-          {/* Dashboard Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
-            {/* Left Column - Profile */}
-            <div className="space-y-8">
-              <GlassContainer className="p-0 backdrop-blur-2xl bg-white/[0.02] border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_16px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_48px_rgba(139,92,246,0.15),0_4px_24px_rgba(0,0,0,0.1)] transition-all duration-500">
-                <DJProfileCard
-                  name={profile.dj_name || profile.full_name || 'DJ'}
-                  level={bookabilityResult.level.toString()}
-                  points={earnedPoints}
-                  maxPoints={totalPoints}
-                  imageUrl={profile.avatar_url || '/images/profile/default-dj.svg'}
-                />
-              </GlassContainer>
+          {/* Progress Section */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+            {/* Global Progress */}
+            <GlassContainer className="p-8">
+              <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 flex items-center justify-center">
+                  <Target className="w-6 h-6 text-violet-500" />
+                </div>
+                <div>
+                  <h3 className="text-lg font-semibold text-gray-900">Global Progress</h3>
+                  <p className="text-sm text-gray-600">Your overall advancement</p>
+                </div>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="flex justify-between items-center">
+                  <span className="text-gray-600">Total progress</span>
+                  <span className="text-2xl font-bold text-gray-900">100%</span>
+                </div>
+                <ProgressBar progress={100} className="h-3" />
+                <div className="flex justify-between text-sm">
+                  <span className="text-gray-600">1000 points earned</span>
+                  <span className="text-gray-900">1000 total points</span>
+                </div>
+              </div>
+            </GlassContainer>
+            
+            {/* Next Mission */}
+            <GlassContainer className="p-8">
+              <div className="flex items-center justify-between mb-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 flex items-center justify-center">
+                    <Play className="w-6 h-6 text-violet-500" />
+                  </div>
+                  <div>
+                    <h3 className="text-lg font-semibold text-gray-900">Next Mission</h3>
+                    <p className="text-sm text-gray-600">Continue your journey</p>
+                  </div>
+                </div>
+                <Button
+                  variant="outline"
+                  size="sm"
+                  className="text-violet-600 border-violet-600 hover:bg-violet-50"
+                >
+                  View all <ChevronRight className="w-4 h-4 ml-1" />
+                </Button>
+              </div>
+              
+              <div className="bg-gradient-to-r from-violet-500/10 to-fuchsia-500/10 border border-violet-500/20 rounded-2xl p-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-violet-500 to-fuchsia-500 flex items-center justify-center">
+                    <Sparkles className="w-5 h-5 text-white" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-900">Instagram & TikTok Setup</h4>
+                    <p className="text-sm text-gray-600">Create or optimize your Instagram & TikTok profile with a clear bio, HD profile, and music links.</p>
+                  </div>
+                </div>
+                <Button className="w-full bg-gradient-to-r from-violet-500 to-fuchsia-500 hover:from-violet-600 hover:to-fuchsia-600">
+                  Start Mission
+                </Button>
+              </div>
+            </GlassContainer>
+          </div>
+
+          {/* Recent Missions */}
+          <div className="mb-12">
+            <div className="flex items-center justify-between mb-8">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 flex items-center justify-center">
+                  <Trophy className="w-6 h-6 text-violet-500" />
+                </div>
+                <div>
+                  <h2 className="text-2xl font-bold text-gray-900">Recent Missions</h2>
+                  <p className="text-gray-600">Your latest achievements</p>
+                </div>
+              </div>
+              <Button
+                variant="outline"
+                className="text-violet-600 border-violet-600 hover:bg-violet-50"
+              >
+                View all missions <ChevronRight className="w-4 h-4 ml-1" />
+              </Button>
             </div>
             
-            {/* Middle Column - Stats & Progress */}
-            <div className="space-y-8">
-              {/* Bookability Score */}
-              <GlassContainer className="p-8 backdrop-blur-2xl bg-white/[0.02] border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_16px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_48px_rgba(139,92,246,0.15),0_4px_24px_rgba(0,0,0,0.1)] transition-all duration-500">
-                <div className="flex items-center gap-3 mb-6">
-                  <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500 via-fuchsia-500 to-violet-600 flex items-center justify-center shadow-[0_8px_32px_rgba(139,92,246,0.3),0_3px_16px_rgba(139,92,246,0.2)] border border-white/10">
-                    <Trophy className="w-6 h-6 text-gray-900 dark:text-white drop-shadow-sm" />
-                  </div>
-                  <h3 className="text-2xl font-semibold text-gray-900 dark:text-white tracking-wide">
-                    Bookability Score
-                  </h3>
-                </div>
-                <div className="flex flex-col items-center space-y-6">
-                  <span className="text-6xl md:text-7xl font-bold bg-gradient-to-r from-violet-400 to-fuchsia-400 text-transparent bg-clip-text">
-                    {bookabilityScore}
-                  </span>
-                  <ProgressBar 
-                    progress={bookabilityScore} 
-                    className="h-6 rounded-full"
-                    color={getLevelGradient(bookabilityResult.level)}
-                    showValue
-                  />
-                  
-                  {/* Score breakdown */}
-                  <div className="w-full space-y-3 text-sm">
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-600 dark:text-white/60">Instagram ({formatNumber(bookabilityData.instagramFollowers)})</span>
-                      <span className="text-gray-900 dark:text-white font-medium">{bookabilityResult.instagramScore} pts</span>
-                    </div>
-                    <div className="flex justify-between items-center">
-                      <span className="text-gray-600 dark:text-white/60">Spotify ({formatNumber(bookabilityData.spotifyListeners)})</span>
-                      <span className="text-gray-900 dark:text-white font-medium">{bookabilityResult.spotifyScore} pts</span>
-                    </div>
-                  </div>
-                </div>
-              </GlassContainer>
-              
-              {/* Global Progress */}
-              <GlassContainer className="p-8 backdrop-blur-2xl bg-white/[0.02] border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_16px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_48px_rgba(139,92,246,0.15),0_4px_24px_rgba(0,0,0,0.1)] transition-all duration-500">
-                <h3 className="text-2xl font-semibold text-gray-900 dark:text-white mb-6">Global Progress</h3>
-                <div className="space-y-6">
-                  <div className="flex justify-between items-baseline">
-                    <span className="text-gray-600 dark:text-white/60">Total progress</span>
-                    <span className="text-4xl font-bold text-gray-900 dark:text-white">{globalProgress}%</span>
-                  </div>
-                  <ProgressBar 
-                    progress={globalProgress} 
-                    className="h-5"
-                    color={getLevelGradient(bookabilityResult.level)}
-                    showValue
-                  />
-                  <div className="flex justify-between text-sm text-gray-600 dark:text-white/60">
-                    <span>{earnedPoints} points earned</span>
-                    <span>{totalPoints} total points</span>
-                  </div>
-                </div>
-              </GlassContainer>
-              
-              {/* Next Mission */}
-              <GlassContainer className="p-8 backdrop-blur-2xl bg-white/[0.02] border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_16px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_48px_rgba(139,92,246,0.15),0_4px_24px_rgba(0,0,0,0.1)] transition-all duration-500">
-                <div className="flex items-center justify-between mb-6">
-                  <h3 className="text-2xl font-semibold text-gray-900 dark:text-white">Next Mission</h3>
-                  <Button variant="ghost" size="sm" rightIcon={<ChevronRight className="w-4 h-4" />} className="hover:scale-105 transition-transform duration-200">
-                    View all
-                  </Button>
-                </div>
-                <div className="space-y-4">
-                  <div className="flex items-start gap-4">
-                    <div className="p-3 rounded-xl bg-violet-500/10">
-                      <Trophy className="w-6 h-6 text-violet-400" />
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-semibold text-gray-900 dark:text-white mb-1">{nextMission.title}</h4>
-                      <p className="text-gray-600 dark:text-white/60 text-sm">{nextMission.description}</p>
-                    </div>
-                  </div>
-                  <Button 
-                    variant="gradient"
-                    className="w-full hover:scale-105 transition-transform duration-200"
-                    leftIcon={<ChevronRight className="w-4 h-4" />}
-                  >
-                    Start mission
-                  </Button>
-                </div>
-              </GlassContainer>
-            </div>
-            
-            {/* Right Column - Social Stats */}
-            <div className="space-y-8">
-              <GlassContainer className="p-0 backdrop-blur-2xl bg-white/[0.02] border-white/10 shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_16px_rgba(0,0,0,0.08)] hover:shadow-[0_12px_48px_rgba(139,92,246,0.15),0_4px_24px_rgba(0,0,0,0.1)] transition-all duration-500">
-                <SocialStats 
-                  stats={socialStats} 
-                  onUpdateStats={() => router.push('/stats')}
-                />
-              </GlassContainer>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {missions.slice(0, 3).map((mission) => (
+                <MissionCard key={mission.id} mission={mission} />
+              ))}
             </div>
           </div>
         </div>
