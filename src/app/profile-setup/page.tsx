@@ -35,6 +35,18 @@ export default function ProfileSetupPage() {
         router.push('/auth')
       } else {
         setUser(user)
+        
+        // Vérifier si l'utilisateur a déjà un profil complet
+        const { data: profileData } = await supabase
+          .from('profiles')
+          .select('dj_name, location, avatar_url')
+          .eq('id', user.id)
+          .single()
+        
+        // Si le profil n'est pas complet, rediriger vers onboarding
+        if (!profileData || !profileData.dj_name || !profileData.location || !profileData.avatar_url) {
+          router.push('/onboarding')
+        }
       }
     }
     getUser()
