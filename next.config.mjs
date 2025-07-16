@@ -4,7 +4,12 @@ const nextConfig = {
   experimental: {
     // Optimise les imports pour réduire le temps de compilation
     optimizePackageImports: ['lucide-react', 'framer-motion'],
+    // Exclure les routes API du pré-rendu
+    serverComponentsExternalPackages: ['openai', 'stripe'],
   },
+  
+  // Configuration pour éviter la pré-rendu des routes API
+  output: 'standalone',
   
   // Configuration Webpack optimisée
   webpack: (config, { dev, isServer }) => {
