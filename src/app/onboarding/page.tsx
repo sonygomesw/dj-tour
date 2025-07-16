@@ -113,7 +113,7 @@ export default function OnboardingPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background py-16 px-4">
+    <div className="min-h-screen bg-white py-16 px-4">
       <div className="max-w-2xl mx-auto">
         {/* Payment Success Message */}
         {paymentSuccess && (
@@ -134,14 +134,14 @@ export default function OnboardingPage() {
         <div className="text-center mb-12">
           <div className="inline-flex items-center gap-3 mb-8">
             <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-violet-500 via-fuchsia-500 to-violet-600 flex items-center justify-center shadow-[0_8px_32px_rgba(139,92,246,0.3)] border border-white/10">
-              <Music className="w-8 h-8 text-gray-900 dark:text-white" />
+              <Music className="w-8 h-8 text-white" />
             </div>
           </div>
           
-          <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
+          <h1 className="text-4xl font-bold text-gray-900 mb-4">
             Create your DJ profile
           </h1>
-          <p className="text-xl text-gray-600 dark:text-white/70 font-light">
+          <p className="text-xl text-gray-600 font-light">
             Customize your profile to start your journey
           </p>
         </div>
@@ -160,18 +160,18 @@ export default function OnboardingPage() {
 
             {/* Informations de base */}
             <div className="space-y-6">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Informations de base</h3>
+              <h3 className="text-xl font-semibold text-gray-900">Informations de base</h3>
               
               {/* DJ Name */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-white/80 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Nom de DJ
                 </label>
                 <input
                   type="text"
                   value={formData.dj_name}
                   onChange={(e) => setFormData(prev => ({ ...prev, dj_name: e.target.value }))}
-                  className="w-full px-4 py-3 bg-white/[0.02] border border-white/20 rounded-xl text-gray-900 dark:text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50"
+                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50"
                   placeholder="DJ Snake"
                   required
                 />
@@ -179,16 +179,16 @@ export default function OnboardingPage() {
 
               {/* Location */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-white/80 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Localisation
                 </label>
                 <div className="relative">
-                  <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-white/40 w-5 h-5" />
+                  <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
                   <input
                     type="text"
                     value={formData.location}
                     onChange={(e) => setFormData(prev => ({ ...prev, location: e.target.value }))}
-                    className="w-full pl-12 pr-4 py-3 bg-white/[0.02] border border-white/20 rounded-xl text-gray-900 dark:text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50"
+                    className="w-full pl-12 pr-4 py-3 bg-white border border-gray-300 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50"
                     placeholder="Paris, France"
                     required
                   />
@@ -197,13 +197,13 @@ export default function OnboardingPage() {
 
               {/* Bio */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-white/80 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Bio
                 </label>
                 <textarea
                   value={formData.bio}
                   onChange={(e) => setFormData(prev => ({ ...prev, bio: e.target.value }))}
-                  className="w-full px-4 py-3 bg-white/[0.02] border border-white/20 rounded-xl text-gray-900 dark:text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 min-h-[100px]"
+                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50 min-h-[100px]"
                                       placeholder="Talk about your musical style and experience..."
                   required
                 />
@@ -211,16 +211,16 @@ export default function OnboardingPage() {
 
               {/* Website */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-white/80 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Site web
                 </label>
                 <div className="relative">
-                  <Globe className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-white/40 w-5 h-5" />
+                  <Globe className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
                   <input
                     type="url"
                     value={formData.website}
                     onChange={(e) => setFormData(prev => ({ ...prev, website: e.target.value }))}
-                    className="w-full pl-12 pr-4 py-3 bg-white/[0.02] border border-white/20 rounded-xl text-gray-900 dark:text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50"
+                    className="w-full pl-12 pr-4 py-3 bg-white border border-gray-300 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50"
                     placeholder="https://www.yoursite.com"
                   />
                 </div>
@@ -229,32 +229,32 @@ export default function OnboardingPage() {
 
             {/* Social media */}
             <div className="space-y-6">
-              <h3 className="text-xl font-semibold text-gray-900 dark:text-white">Social Media</h3>
+              <h3 className="text-xl font-semibold text-gray-900">Social Media</h3>
               
               {/* Spotify */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-white/80 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Spotify
                 </label>
                 <div className="relative">
-                  <Music2 className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-white/40 w-5 h-5" />
+                  <Music2 className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
                   <input
                     type="text"
                     value={formData.spotify}
                     onChange={(e) => setFormData(prev => ({ ...prev, spotify: e.target.value }))}
-                    className="w-full pl-12 pr-4 py-3 bg-white/[0.02] border border-white/20 rounded-xl text-gray-900 dark:text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50"
+                    className="w-full pl-12 pr-4 py-3 bg-white border border-gray-300 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50"
                     placeholder="Link to your Spotify profile"
                   />
                 </div>
                 <div className="mt-2">
-                  <label className="block text-sm font-medium text-gray-600 dark:text-white/60 mb-2">
+                  <label className="block text-sm font-medium text-gray-600 mb-2">
                     Monthly listeners
                   </label>
                   <input
                     type="number"
                     value={formData.spotify_listeners}
                     onChange={(e) => setFormData(prev => ({ ...prev, spotify_listeners: parseInt(e.target.value) || 0 }))}
-                    className="w-full px-4 py-3 bg-white/[0.02] border border-white/20 rounded-xl text-gray-900 dark:text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50"
+                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50"
                     placeholder="0"
                   />
                 </div>
@@ -262,28 +262,28 @@ export default function OnboardingPage() {
 
               {/* Instagram */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-white/80 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   Instagram
                 </label>
                 <div className="relative">
-                  <Instagram className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-white/40 w-5 h-5" />
+                  <Instagram className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
                   <input
                     type="text"
                     value={formData.instagram}
                     onChange={(e) => setFormData(prev => ({ ...prev, instagram: e.target.value }))}
-                    className="w-full pl-12 pr-4 py-3 bg-white/[0.02] border border-white/20 rounded-xl text-gray-900 dark:text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50"
+                    className="w-full pl-12 pr-4 py-3 bg-white border border-gray-300 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50"
                     placeholder="@youraccount"
                   />
                 </div>
                 <div className="mt-2">
-                  <label className="block text-sm font-medium text-gray-600 dark:text-white/60 mb-2">
+                  <label className="block text-sm font-medium text-gray-600 mb-2">
                     Number of followers
                   </label>
                   <input
                     type="number"
                     value={formData.instagram_followers}
                     onChange={(e) => setFormData(prev => ({ ...prev, instagram_followers: parseInt(e.target.value) || 0 }))}
-                    className="w-full px-4 py-3 bg-white/[0.02] border border-white/20 rounded-xl text-gray-900 dark:text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50"
+                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50"
                     placeholder="0"
                   />
                 </div>
@@ -291,28 +291,28 @@ export default function OnboardingPage() {
 
               {/* TikTok */}
               <div>
-                <label className="block text-sm font-medium text-gray-700 dark:text-white/80 mb-2">
+                <label className="block text-sm font-medium text-gray-700 mb-2">
                   TikTok
                 </label>
                 <div className="relative">
-                  <Video className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 dark:text-white/40 w-5 h-5" />
+                  <Video className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
                   <input
                     type="text"
                     value={formData.tiktok}
                     onChange={(e) => setFormData(prev => ({ ...prev, tiktok: e.target.value }))}
-                    className="w-full pl-12 pr-4 py-3 bg-white/[0.02] border border-white/20 rounded-xl text-gray-900 dark:text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50"
+                    className="w-full pl-12 pr-4 py-3 bg-white border border-gray-300 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50"
                     placeholder="@youraccount"
                   />
                 </div>
                 <div className="mt-2">
-                  <label className="block text-sm font-medium text-gray-600 dark:text-white/60 mb-2">
+                  <label className="block text-sm font-medium text-gray-600 mb-2">
                     Number of followers
                   </label>
                   <input
                     type="number"
                     value={formData.tiktok_followers}
                     onChange={(e) => setFormData(prev => ({ ...prev, tiktok_followers: parseInt(e.target.value) || 0 }))}
-                    className="w-full px-4 py-3 bg-white/[0.02] border border-white/20 rounded-xl text-gray-900 dark:text-white placeholder-white/40 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50"
+                    className="w-full px-4 py-3 bg-white border border-gray-300 rounded-xl text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-violet-500/50 focus:border-violet-500/50"
                     placeholder="0"
                   />
                 </div>
