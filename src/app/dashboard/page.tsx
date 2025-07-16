@@ -187,9 +187,9 @@ export default function DashboardPage() {
   }
 
   return (
-    <div className="flex min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800 scale-75 origin-top-left">
+    <div className="flex min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 dark:bg-gradient-to-br dark:from-gray-900 dark:to-gray-800">
       <DJSidebar />
-      <div className="flex-1 ml-96 p-16 relative overflow-hidden">
+      <div className="flex-1 ml-80 p-8 relative overflow-hidden">
         {/* Sophisticated Background Illustration */}
         <div className="absolute inset-0 pointer-events-none select-none">
           {/* Primary gradient orb */}
