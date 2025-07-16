@@ -140,7 +140,7 @@ export default function LandingPage() {
             <div className="max-w-4xl mx-auto">
               <div className="relative rounded-3xl overflow-hidden shadow-2xl">
                 <video
-                  className="w-full aspect-video object-cover"
+                  className="w-full aspect-video object-contain bg-black"
                   autoPlay
                   muted
                   loop
