@@ -246,29 +246,29 @@ export default function DashboardPage() {
             </div>
             
             {/* Bookability Score */}
-            <GlassContainer className="pt-5 px-5 pb-2">
-              <div className="flex items-center gap-3 mb-3">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 flex items-center justify-center">
-                  <Sparkles className="w-6 h-6 text-violet-500" />
+            <GlassContainer className="p-4">
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 flex items-center justify-center">
+                  <Sparkles className="w-4 h-4 text-violet-500" />
                 </div>
                 <div>
-                  <h3 className="text-lg font-semibold text-gray-900">Bookability Score</h3>
-                  <p className="text-sm text-gray-600">Your booking potential</p>
+                  <h3 className="text-sm font-semibold text-gray-900">Bookability Score</h3>
+                  <p className="text-xs text-gray-600">Your booking potential</p>
                 </div>
               </div>
               
               <div className="text-center">
-                <div className="text-5xl font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent mb-1">
+                <div className="text-3xl font-bold bg-gradient-to-r from-violet-500 to-fuchsia-500 bg-clip-text text-transparent mb-1">
                   {bookabilityScore}
                 </div>
-                <div className="text-sm text-gray-600 mb-2">out of 100</div>
+                <div className="text-xs text-gray-600 mb-2">out of 100</div>
                 
                 <div className="space-y-1">
-                  <div className="flex justify-between text-sm">
+                  <div className="flex justify-between text-xs">
                     <span className="text-gray-600">Instagram (2.5M)</span>
                     <span className="text-gray-900">50 pts</span>
                   </div>
-                  <div className="flex justify-between text-sm">
+                  <div className="flex justify-between text-xs">
                     <span className="text-gray-600">Spotify (47,000)</span>
                     <span className="text-gray-900">30 pts</span>
                   </div>
