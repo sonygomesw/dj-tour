@@ -1,6 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import OpenAI from "openai";
 
+// Force dynamic rendering
+export const dynamic = 'force-dynamic';
+
 // Configuration OpenAI (conditionnelle)
 const openai = process.env.OPENAI_API_KEY
   ? new OpenAI({
