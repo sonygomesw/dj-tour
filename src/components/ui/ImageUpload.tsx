@@ -70,6 +70,7 @@ export function ImageUpload({ onUpload, value, size = 150 }: ImageUploadProps) {
     >
       <input
         ref={inputRef}
+        id="avatar-input"
         type="file"
         className="hidden"
         accept="image/*"

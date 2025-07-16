@@ -6,7 +6,7 @@ import { supabase } from '@/lib/supabase'
 import { GlassContainer } from '@/components/ui/GlassContainer'
 import { Button } from '@/components/ui/button'
 import { ImageUpload } from '@/components/ui/ImageUpload'
-import { Music, MapPin, Globe, Instagram, Video, Loader, Music2, Users, CheckCircle } from 'lucide-react'
+import { Music, MapPin, Globe, Instagram, Video, Loader, Music2, Users, CheckCircle, Upload } from 'lucide-react'
 
 export default function OnboardingPage() {
   const router = useRouter()
@@ -122,8 +122,8 @@ export default function OnboardingPage() {
               <div className="flex items-center gap-3">
                 <CheckCircle className="w-6 h-6" />
                 <div>
-                  <h3 className="text-lg font-semibold">🎉 Paiement confirmé !</h3>
-                  <p className="text-green-100">Bienvenue dans la communauté offgigs. Configure maintenant ton profil pour commencer ton parcours DJ.</p>
+                  <h3 className="text-lg font-semibold">🎉 Payment confirmed!</h3>
+                  <p className="text-green-100">Welcome to the offgigs community. Now configure your profile to start your DJ journey.</p>
                 </div>
               </div>
             </div>
@@ -150,22 +150,43 @@ export default function OnboardingPage() {
         <GlassContainer className="p-8">
           <form onSubmit={handleSubmit} className="space-y-8">
             {/* Avatar Upload */}
-            <div className="flex justify-center">
+            <div className="flex flex-col items-center space-y-4">
               <ImageUpload
                 onUpload={handleImageUpload}
                 value={formData.avatar_url}
                 size={150}
               />
+              <input
+                id="photo-upload"
+                type="file"
+                accept="image/*"
+                onChange={(e) => {
+                  const file = e.target.files?.[0]
+                  if (file) {
+                    handleImageUpload(file)
+                  }
+                }}
+                className="hidden"
+              />
+              <Button
+                type="button"
+                variant="outline"
+                onClick={() => document.getElementById('photo-upload')?.click()}
+                className="flex items-center gap-2"
+              >
+                <Upload className="w-4 h-4" />
+                Upload your photo
+              </Button>
             </div>
 
             {/* Informations de base */}
             <div className="space-y-6">
-              <h3 className="text-xl font-semibold text-gray-900">Informations de base</h3>
+              <h3 className="text-xl font-semibold text-gray-900">Basic Information</h3>
               
               {/* DJ Name */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Nom de DJ
+                  DJ Name
                 </label>
                 <input
                   type="text"
@@ -180,7 +201,7 @@ export default function OnboardingPage() {
               {/* Location */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Localisation
+                  Location
                 </label>
                 <div className="relative">
                   <MapPin className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
@@ -212,7 +233,7 @@ export default function OnboardingPage() {
               {/* Website */}
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Site web
+                  Website
                 </label>
                 <div className="relative">
                   <Globe className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 w-5 h-5" />
