@@ -10,10 +10,10 @@ import { SocialStats } from '@/components/ui/SocialStats'
 import { MissionCard } from '@/components/ui/MissionCard'
 import { GlassContainer } from '@/components/ui/GlassContainer'
 import { ProgressBar } from '@/components/ui/ProgressBar'
-import { Button } from '@/components/ui/button'
+
 
 import missions from '@/data/missions'
-import { Trophy, Target, ChevronRight, Play, Sparkles, TrendingUp, CheckCircle, User } from 'lucide-react'
+import { Target, Play, Sparkles, TrendingUp, CheckCircle, User } from 'lucide-react'
 import { getLevelIcon, getLevelInfo } from '@/components/icons/level-icons'
 import { calculateBookabilityScore, formatNumber, getLevelColor, getLevelGradient } from '@/lib/bookability'
 
@@ -310,28 +310,7 @@ export default function DashboardPage() {
             </div>
           </div>
 
-          {/* Recent Missions */}
-          <div className="mb-12">
-            <div className="flex items-center justify-between mb-8">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-gradient-to-br from-violet-500/20 to-fuchsia-500/20 flex items-center justify-center">
-                  <Trophy className="w-6 h-6 text-violet-500" />
-                </div>
-                <div>
-                  <h2 className="text-2xl font-bold text-gray-900">Recent Missions</h2>
-                  <p className="text-gray-600">Your latest achievements</p>
-                </div>
-              </div>
-              <Button
-                variant="outline"
-                className="text-violet-600 border-violet-600 hover:bg-violet-50"
-              >
-                View all missions <ChevronRight className="w-4 h-4 ml-1" />
-              </Button>
-            </div>
-            
 
-          </div>
         </div>
       </div>
     </div>
