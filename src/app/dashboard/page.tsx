@@ -369,7 +369,16 @@ export default function DashboardPage() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {missions.slice(0, 3).map((mission) => (
-                <MissionCard key={mission.id} mission={mission} />
+                <MissionCard 
+                  key={mission.id}
+                  title={mission.title}
+                  description={mission.description}
+                  duration={mission.duration}
+                  points={mission.points}
+                  difficulty={mission.difficulty}
+                  category={mission.category}
+                  isCompleted={mission.status === 'completed'}
+                />
               ))}
             </div>
           </div>
