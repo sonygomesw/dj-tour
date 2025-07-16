@@ -138,9 +138,9 @@ export default function LandingPage() {
           {/* Auto-Play Video Section */}
           <div className="text-center mb-16">
             <div className="max-w-4xl mx-auto">
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+              <div className="relative shadow-2xl">
                 <video
-                  className="w-full aspect-video object-contain bg-black"
+                  className="w-full aspect-video object-contain rounded-3xl"
                   autoPlay
                   muted
                   loop
@@ -152,9 +152,6 @@ export default function LandingPage() {
                 </video>
                 <div className="absolute top-4 left-4 bg-red-500 text-white px-2 py-1 rounded text-xs font-medium">
                   LIVE
-                </div>
-                <div className="absolute bottom-4 right-4 bg-black/50 text-white px-2 py-1 rounded text-xs">
-                  🔊 Click to unmute
                 </div>
               </div>
             </div>
