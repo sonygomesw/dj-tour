@@ -25,8 +25,8 @@ export const OFFGIGS_PRODUCT: Product = {
   id: 'Offgigs-lifetime',
   name: 'DJ Tour Pro - Lifetime Access',
   description: 'Lifetime access to DJ Tour platform with all premium features',
-  price: 100, // 100€ for lifetime access
-  currency: 'eur',
+  price: 7, // 7$ per week
+  currency: 'usd',
   features: [
     'Accès à vie à toutes les missions',
     'Coach IA personnalisé',
@@ -59,11 +59,14 @@ export async function createCheckoutSession(product: Product) {
               description: product.description,
             },
             unit_amount: product.price * 100, // Stripe utilise les centimes
+            recurring: {
+              interval: 'week',
+            },
           },
           quantity: 1,
         },
       ],
-      mode: 'payment',
+      mode: 'subscription',
       success_url: 'https://offgigs.com/dashboard?success=true&session_id={CHECKOUT_SESSION_ID}',
       cancel_url: 'https://offgigs.com/?canceled=true',
       allow_promotion_codes: true, // Active le champ promo code

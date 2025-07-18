@@ -93,8 +93,8 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
       .from('transactions')
       .insert({
         stripe_session_id: session.id,
-        amount: 10000, // 100€ en centimes
-        currency: 'eur',
+        amount: 700, // 7$ en centimes
+        currency: 'usd',
         status: 'completed',
         product_id: productId,
         created_at: new Date().toISOString()
@@ -129,22 +129,90 @@ async function handlePaymentIntentFailed(paymentIntent: Stripe.PaymentIntent) {
   // Par exemple, envoyer un email de récupération, notifier l'utilisateur, etc.
 }
 
-// Gérer la création d'abonnement (pour le futur)
+// Gérer la création d'abonnement
 async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
   console.log('✅ Subscription created:', subscription.id)
-  // Logique pour les abonnements si vous en ajoutez plus tard
+  
+  try {
+    const customerEmail = subscription.customer as string
+    
+    // Enregistrer l'abonnement
+    const { error: subscriptionError } = await supabase
+      .from('subscriptions')
+      .insert({
+        stripe_subscription_id: subscription.id,
+        stripe_customer_id: customerEmail,
+        status: subscription.status,
+        current_period_start: new Date(subscription.current_period_start * 1000).toISOString(),
+        current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
+        amount: 700, // 7$ en centimes
+        currency: 'usd',
+        interval: 'week',
+        created_at: new Date().toISOString()
+      })
+
+    if (subscriptionError) {
+      console.error('Error saving subscription:', subscriptionError)
+    }
+
+    console.log('✅ Subscription saved to database')
+  } catch (error) {
+    console.error('Error handling subscription created:', error)
+    throw error
+  }
 }
 
 // Gérer la mise à jour d'abonnement
 async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
   console.log('📝 Subscription updated:', subscription.id)
-  // Logique pour les mises à jour d'abonnement
+  
+  try {
+    // Mettre à jour l'abonnement dans la base de données
+    const { error: updateError } = await supabase
+      .from('subscriptions')
+      .update({
+        status: subscription.status,
+        current_period_start: new Date(subscription.current_period_start * 1000).toISOString(),
+        current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
+        updated_at: new Date().toISOString()
+      })
+      .eq('stripe_subscription_id', subscription.id)
+
+    if (updateError) {
+      console.error('Error updating subscription:', updateError)
+    }
+
+    console.log('✅ Subscription updated in database')
+  } catch (error) {
+    console.error('Error handling subscription updated:', error)
+    throw error
+  }
 }
 
 // Gérer la suppression d'abonnement
 async function handleSubscriptionDeleted(subscription: Stripe.Subscription) {
   console.log('🗑️ Subscription deleted:', subscription.id)
-  // Logique pour la suppression d'abonnement
+  
+  try {
+    // Marquer l'abonnement comme supprimé
+    const { error: deleteError } = await supabase
+      .from('subscriptions')
+      .update({
+        status: 'canceled',
+        canceled_at: new Date().toISOString(),
+        updated_at: new Date().toISOString()
+      })
+      .eq('stripe_subscription_id', subscription.id)
+
+    if (deleteError) {
+      console.error('Error marking subscription as deleted:', deleteError)
+    }
+
+    console.log('✅ Subscription marked as canceled in database')
+  } catch (error) {
+    console.error('Error handling subscription deleted:', error)
+    throw error
+  }
 }
 
 // Fonction utilitaire pour mettre à jour le statut premium
@@ -169,8 +237,8 @@ async function updateUserPremiumStatus(userId: string, isPremium: boolean, sessi
       .insert({
         user_id: userId,
         stripe_session_id: sessionId,
-        amount: 10000, // 100€ en centimes
-        currency: 'eur',
+        amount: 700, // 7$ en centimes
+        currency: 'usd',
         status: 'completed',
         created_at: new Date().toISOString()
       })
