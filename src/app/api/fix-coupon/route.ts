@@ -65,7 +65,7 @@ export async function GET() {
               name: 'Test Product - Coupon Fix',
               description: 'Test product for coupon validation',
             },
-            unit_amount: 1000, // $10.00
+            unit_amount: 0, // $0.00
           },
           quantity: 1,
         },
