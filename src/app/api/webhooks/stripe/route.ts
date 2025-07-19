@@ -93,7 +93,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
       .from('transactions')
       .insert({
         stripe_session_id: session.id,
-        amount: 700, // 7$ en centimes
+        amount: 10000, // 100$ en centimes
         currency: 'usd',
         status: 'completed',
         product_id: productId,
@@ -143,11 +143,11 @@ async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
         stripe_subscription_id: subscription.id,
         stripe_customer_id: customerEmail,
         status: subscription.status,
-        current_period_start: new Date(subscription.current_period_start * 1000).toISOString(),
-        current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
-        amount: 700, // 7$ en centimes
+        current_period_start: new Date((subscription as any).current_period_start * 1000).toISOString(),
+        current_period_end: new Date((subscription as any).current_period_end * 1000).toISOString(),
+        amount: 10000, // 100$ en centimes
         currency: 'usd',
-        interval: 'week',
+        interval: 'month',
         created_at: new Date().toISOString()
       })
 
@@ -172,8 +172,8 @@ async function handleSubscriptionUpdated(subscription: Stripe.Subscription) {
       .from('subscriptions')
       .update({
         status: subscription.status,
-        current_period_start: new Date(subscription.current_period_start * 1000).toISOString(),
-        current_period_end: new Date(subscription.current_period_end * 1000).toISOString(),
+        current_period_start: new Date((subscription as any).current_period_start * 1000).toISOString(),
+        current_period_end: new Date((subscription as any).current_period_end * 1000).toISOString(),
         updated_at: new Date().toISOString()
       })
       .eq('stripe_subscription_id', subscription.id)
@@ -237,7 +237,7 @@ async function updateUserPremiumStatus(userId: string, isPremium: boolean, sessi
       .insert({
         user_id: userId,
         stripe_session_id: sessionId,
-        amount: 700, // 7$ en centimes
+        amount: 10000, // 100$ en centimes
         currency: 'usd',
         status: 'completed',
         created_at: new Date().toISOString()

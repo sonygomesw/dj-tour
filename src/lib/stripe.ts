@@ -25,7 +25,7 @@ export const OFFGIGS_PRODUCT: Product = {
   id: 'Offgigs-lifetime',
   name: 'DJ Tour Pro - Lifetime Access',
   description: 'Lifetime access to DJ Tour platform with all premium features',
-  price: 7, // 7$ per week
+  price: 100, // 100$ one-time payment
   currency: 'usd',
   features: [
     'Accès à vie à toutes les missions',
@@ -34,7 +34,7 @@ export const OFFGIGS_PRODUCT: Product = {
     'Outils de booking et templates d\'emails',
     'Groupe Telegram privé',
     'Assistant IA 24/7',
-    'Garantie de 90 jours'
+    'Accès permanent'
   ]
 }
 
@@ -59,22 +59,18 @@ export async function createCheckoutSession(product: Product) {
               description: product.description,
             },
             unit_amount: product.price * 100, // Stripe utilise les centimes
-            recurring: {
-              interval: 'week',
-            },
           },
           quantity: 1,
         },
       ],
-      mode: 'subscription',
-      success_url: 'https://offgigs.com/dashboard?success=true&session_id={CHECKOUT_SESSION_ID}',
-      cancel_url: 'https://offgigs.com/?canceled=true',
+      mode: 'payment',
+      success_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://dj-tour-ic4gw0mbl-geoviomgmt-7021s-projects.vercel.app'}/dashboard?success=true&session_id={CHECKOUT_SESSION_ID}`,
+      cancel_url: `${process.env.NEXT_PUBLIC_BASE_URL || 'https://dj-tour-ic4gw0mbl-geoviomgmt-7021s-projects.vercel.app'}/?canceled=true`,
       allow_promotion_codes: true, // Active le champ promo code
       metadata: {
         product_id: product.id,
       },
       billing_address_collection: 'auto',
-      customer_creation: 'always',
     })
 
     console.log('✅ Stripe session created successfully:', session.id)

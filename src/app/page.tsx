@@ -171,10 +171,10 @@ export default function LandingPage() {
               {/* Enhanced Killer Headline - 20/20 Version */}
               <h1 className="text-5xl md:text-6xl font-light text-gray-900 mb-4 leading-[0.9] tracking-tight">
                 <span className="bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent font-medium">
-                  Scale to Consistent Bookings
+                  Build your DJ career
                 </span>
                 <br />
-                — Or We Help You Until You Do.
+                for just 100$ one time payment
               </h1>
               
               {/* Enhanced Subtitle */}
@@ -207,10 +207,6 @@ export default function LandingPage() {
                   <Headphones className="w-5 h-5" />
                   Get My Personalized Plan Now
                 </CheckoutButton>
-                <a href="/ai-profile-analysis" className="inline-flex items-center gap-3 px-8 py-4 bg-gradient-to-r from-green-500 to-blue-500 text-white text-lg font-medium rounded-full hover:from-green-600 hover:to-blue-600 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-[1.02]">
-                  <Camera className="w-5 h-5" />
-                  Analyze My Profile Free
-                </a>
               </div>
               
               <p className="text-sm text-gray-400">
@@ -1065,8 +1061,8 @@ export default function LandingPage() {
             </p>
             
             <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 mb-8">
-              <div className="text-6xl font-light text-gray-900 mb-2">100€</div>
-              <div className="text-gray-500 mb-4">One-time payment • Lifetime access</div>
+              <div className="text-6xl font-light text-gray-900 mb-2">100$</div>
+              <div className="text-gray-500 mb-4">One time payment • Lifetime access</div>
               <div className="text-sm text-gray-600">
                 ✓ AI Profile Analysis<br/>
                 ✓ Personalized Roadmap<br/>
@@ -1463,7 +1459,7 @@ export default function LandingPage() {
           </div>
           
           <div className="space-y-2 text-sm text-gray-500">
-            <p>$97 • One-time payment • Lifetime access</p>
+            <p>$100 • One time payment • Lifetime access</p>
             <p>✓ 90-day guarantee • ✓ 24/7 support • ✓ Exclusive community</p>
           </div>
         </div>
@@ -1512,11 +1508,6 @@ export default function LandingPage() {
                 <a href="#" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
                   <Star className="w-4 h-4" />
                   <span>Success Stories</span>
-                </a>
-
-                <a href="#" className="flex items-center gap-2 text-gray-400 hover:text-white transition-colors">
-                  <Camera className="w-4 h-4" />
-                  <span>Free Profile Analysis</span>
                 </a>
               </div>
             </div>

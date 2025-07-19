@@ -41,15 +41,16 @@ export default function AuthPage() {
       }
 
       // Rediriger vers Stripe Checkout
-      const stripe = await import('@stripe/stripe-js').then(({ loadStripe }) =>
-        loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
-      )
+      const { loadStripe } = await import('@stripe/stripe-js')
+      const stripe = await loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY!)
 
       if (stripe) {
         const { error } = await stripe.redirectToCheckout({ sessionId })
         if (error) {
           throw error
         }
+      } else {
+        throw new Error('Failed to load Stripe')
       }
     } catch (error) {
       console.error('Checkout error:', error)
