@@ -175,7 +175,7 @@ export default function LandingPage() {
                   Build your DJ career
                 </span>
                 <br />
-                for just 100$ one time payment
+                completely free
               </h1>
               
               {/* Enhanced Subtitle */}
@@ -1062,8 +1062,8 @@ export default function LandingPage() {
             </p>
             
             <div className="bg-gradient-to-br from-blue-50 to-purple-50 rounded-2xl p-8 mb-8">
-              <div className="text-6xl font-light text-gray-900 mb-2">100$</div>
-              <div className="text-gray-500 mb-4">One time payment • Lifetime access</div>
+              <div className="text-6xl font-light text-gray-900 mb-2">0$</div>
+              <div className="text-gray-500 mb-4">Free access • Lifetime</div>
               <div className="text-sm text-gray-600">
                 ✓ AI Profile Analysis<br/>
                 ✓ Personalized Roadmap<br/>
@@ -1465,7 +1465,7 @@ export default function LandingPage() {
           </div>
           
           <div className="space-y-2 text-sm text-gray-500">
-            <p>$100 • One time payment • Lifetime access</p>
+            <p>Free • Lifetime access</p>
             <p>✓ 90-day guarantee • ✓ 24/7 support • ✓ Exclusive community</p>
           </div>
         </div>

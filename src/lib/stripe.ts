@@ -25,7 +25,7 @@ export const OFFGIGS_PRODUCT: Product = {
   id: 'Offgigs-lifetime',
   name: 'DJ Tour Pro - Lifetime Access',
   description: 'Lifetime access to DJ Tour platform with all premium features',
-  price: 100, // 100$ one-time payment
+  price: 0, // Free access
   currency: 'usd',
   features: [
     'Accès à vie à toutes les missions',

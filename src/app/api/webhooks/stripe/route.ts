@@ -93,7 +93,7 @@ async function handleCheckoutSessionCompleted(session: Stripe.Checkout.Session) 
       .from('transactions')
       .insert({
         stripe_session_id: session.id,
-        amount: 10000, // 100$ en centimes
+        amount: 0, // Free access
         currency: 'usd',
         status: 'completed',
         product_id: productId,
@@ -145,7 +145,7 @@ async function handleSubscriptionCreated(subscription: Stripe.Subscription) {
         status: subscription.status,
         current_period_start: new Date((subscription as any).current_period_start * 1000).toISOString(),
         current_period_end: new Date((subscription as any).current_period_end * 1000).toISOString(),
-        amount: 10000, // 100$ en centimes
+        amount: 0, // Free access
         currency: 'usd',
         interval: 'month',
         created_at: new Date().toISOString()
@@ -237,7 +237,7 @@ async function updateUserPremiumStatus(userId: string, isPremium: boolean, sessi
       .insert({
         user_id: userId,
         stripe_session_id: sessionId,
-        amount: 10000, // 100$ en centimes
+        amount: 0, // Free access
         currency: 'usd',
         status: 'completed',
         created_at: new Date().toISOString()
