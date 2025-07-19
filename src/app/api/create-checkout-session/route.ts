@@ -24,17 +24,23 @@ export async function POST(request: NextRequest) {
     
     console.log('✅ Stripe keys found')
 
-    const { productId } = await request.json()
+    const { productId, couponCode } = await request.json()
     console.log('📦 Product ID:', productId)
+    console.log('🎫 Coupon Code:', couponCode)
 
     // Pour l'instant, on utilise toujours le produit offgigs
     const product = OFFGIGS_PRODUCT
     console.log('🎯 Using product:', product)
 
-    const session = await createCheckoutSession(product)
+    // Créer la session avec le coupon pré-appliqué si fourni
+    const session = await createCheckoutSession(product, couponCode)
     console.log('✅ Checkout session created:', session.id)
 
-    return NextResponse.json({ sessionId: session.id })
+    return NextResponse.json({ 
+      sessionId: session.id,
+      allowPromotionCodes: session.allow_promotion_codes,
+      availableCoupons: ['OFFGIGS1'] // Liste des coupons disponibles
+    })
   } catch (error: any) {
     console.error('❌ Error in create-checkout-session:', error)
     console.error('❌ Error details:', {

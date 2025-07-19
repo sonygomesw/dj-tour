@@ -57,7 +57,36 @@ Les webhooks sont essentiels pour la sécurité et la gestion automatique des pa
 
 5. **Copier le webhook secret** (commence par `whsec_`) et l'ajouter à `.env.local`
 
-### 5. Configurer la base de données
+### 5. Configurer les coupons (RECOMMANDÉ)
+
+Pour activer les codes de réduction :
+
+1. Dans le dashboard Stripe, aller dans **Produits** > **Coupons**
+2. Cliquer sur "Créer un coupon"
+3. Configurer les coupons recommandés :
+
+#### Coupon "EARLYBIRD" (20% de réduction)
+- **Code** : `EARLYBIRD`
+- **Type** : Pourcentage
+- **Valeur** : 20%
+- **Durée** : Sans limite
+- **Utilisations** : Illimité
+
+#### Coupon "WELCOME" (10$ de réduction)
+- **Code** : `WELCOME`
+- **Type** : Montant fixe
+- **Valeur** : 10$ (ou 10€ selon votre devise)
+- **Durée** : Sans limite
+- **Utilisations** : Illimité
+
+#### Coupon "LAUNCH" (50% de réduction)
+- **Code** : `LAUNCH`
+- **Type** : Pourcentage
+- **Valeur** : 50%
+- **Durée** : Limité (ex: 30 jours)
+- **Utilisations** : Limité (ex: 100 utilisations)
+
+### 6. Configurer la base de données
 
 Exécuter le script SQL dans Supabase pour créer les tables nécessaires :
 
@@ -66,13 +95,14 @@ Exécuter le script SQL dans Supabase pour créer les tables nécessaires :
 3. Copier-coller le contenu du fichier `stripe-database-setup.sql`
 4. Exécuter la query
 
-### 6. Tester les paiements
+### 7. Tester les paiements
 
 #### Mode Test
 - Utiliser les cartes de test Stripe
 - Numéro : `4242 4242 4242 4242`
 - Date : n'importe quelle date future
 - CVC : n'importe quels 3 chiffres
+- **Tester les coupons** : Entrer les codes créés dans le champ promo
 
 #### Mode Production
 - Changer les clés `sk_test_` vers `sk_live_`
@@ -85,6 +115,7 @@ Le produit offgigs est configuré avec :
 - **Prix** : 97€ (one-time payment)
 - **Devise** : EUR
 - **Mode** : Payment (pas d'abonnement)
+- **Codes promo** : Activés ✅
 
 ## 🔄 Fonctionnalités des webhooks
 
@@ -118,6 +149,7 @@ Le produit offgigs est configuré avec :
 - Suivi des paiements en temps réel
 - Rapports détaillés
 - Gestion des remboursements
+- **Suivi des coupons utilisés**
 
 ### Intégration avec Supabase
 - Stockage des informations de paiement
@@ -139,6 +171,12 @@ Le produit offgigs est configuré avec :
 - Vérifier `NEXT_PUBLIC_BASE_URL`
 - Contrôler les URLs de succès/annulation
 
+### Codes promo ne fonctionnent pas
+- ✅ Vérifier que `allow_promotion_codes: true` est dans le code
+- ✅ Créer des coupons dans le dashboard Stripe
+- ✅ Tester avec des codes valides
+- ✅ Vérifier que les coupons ne sont pas expirés
+
 ## 📊 Monitoring
 
 ### Métriques importantes
@@ -146,6 +184,7 @@ Le produit offgigs est configuré avec :
 - Taux d'abandon du panier
 - Erreurs de paiement
 - Revenus par jour/mois
+- **Utilisation des coupons**
 
 ### Alertes
 - Configurer des alertes pour les échecs de paiement
@@ -175,4 +214,4 @@ Pour toute question :
 
 **Configuration terminée !** 🎉
 
-Votre site offgigs est maintenant prêt à accepter les paiements via Stripe. 
+Votre site offgigs est maintenant prêt à accepter les paiements via Stripe avec codes de réduction. 

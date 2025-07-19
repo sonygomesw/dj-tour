@@ -39,7 +39,7 @@ export const OFFGIGS_PRODUCT: Product = {
 }
 
 // Fonction pour créer une session de paiement
-export async function createCheckoutSession(product: Product) {
+export async function createCheckoutSession(product: Product, couponCode?: string) {
   try {
     console.log('🟡 Creating Stripe checkout session...')
     console.log('💰 Product details:', {
@@ -47,8 +47,9 @@ export async function createCheckoutSession(product: Product) {
       price: product.price,
       currency: product.currency
     })
+    console.log('🎫 Coupon code:', couponCode || 'None')
     
-    const session = await stripe.checkout.sessions.create({
+    const sessionConfig: any = {
       payment_method_types: ['card'],
       line_items: [
         {
@@ -69,11 +70,28 @@ export async function createCheckoutSession(product: Product) {
       allow_promotion_codes: true, // Active le champ promo code
       metadata: {
         product_id: product.id,
+        coupon_used: couponCode || 'none'
       },
       billing_address_collection: 'auto',
-    })
+    }
+
+    // Si un coupon est fourni, l'appliquer directement
+    if (couponCode) {
+      sessionConfig.discounts = [
+        {
+          coupon: couponCode,
+        },
+      ]
+      console.log('🎫 Applying coupon directly:', couponCode)
+    }
+
+    const session = await stripe.checkout.sessions.create(sessionConfig)
 
     console.log('✅ Stripe session created successfully:', session.id)
+    console.log('🎫 Promotion codes enabled:', session.allow_promotion_codes)
+    console.log('💰 Amount total:', session.amount_total)
+    console.log('💰 Amount subtotal:', session.amount_subtotal)
+    
     return session
   } catch (error: any) {
     console.error('❌ Error creating checkout session:', error)

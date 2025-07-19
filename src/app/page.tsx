@@ -4,6 +4,7 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { Music, Star, Users, ArrowRight, Shield, Clock, CheckCircle, TrendingUp, ChevronDown, ChevronUp, Target, Globe, Play, Zap, Award, Heart, Camera, Headphones, Mic, Volume2, Radio, MessageCircle, Instagram, Smartphone, X, Calendar, BarChart3, Trophy, Mail, Phone, ExternalLink, Gift, Sparkles, ChevronLeft, ChevronRight } from 'lucide-react'
 import { CheckoutButton } from '@/components/ui/CheckoutButton'
+import { CouponDisplay } from '@/components/ui/CouponDisplay'
 
 export default function LandingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null)
@@ -1080,6 +1081,11 @@ export default function LandingPage() {
               <div className="text-sm text-gray-500">
                 🔒 90-day money-back guarantee • Start analyzing in 2 minutes
               </div>
+            </div>
+            
+            {/* Coupon Display */}
+            <div className="mb-8">
+              <CouponDisplay />
             </div>
             
             <div className="border-t border-gray-200 pt-6">
