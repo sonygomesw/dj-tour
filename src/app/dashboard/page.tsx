@@ -189,22 +189,22 @@ export default function DashboardPage() {
   return (
     <div className="flex min-h-screen bg-gradient-to-br from-gray-50 to-gray-100">
       <DJSidebar />
-      <div className="flex-1 ml-80 p-8 relative overflow-hidden">
+      <div className="flex-1 lg:ml-80 p-4 lg:p-8 relative overflow-hidden">
         {/* Sophisticated Background Illustration */}
         <div className="absolute inset-0 pointer-events-none select-none">
           {/* Primary gradient orb */}
-          <div className="absolute top-20 right-20 w-96 h-96 bg-gradient-to-br from-violet-500/20 via-fuchsia-500/15 to-transparent rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute top-20 right-4 lg:right-20 w-48 h-48 lg:w-96 lg:h-96 bg-gradient-to-br from-violet-500/20 via-fuchsia-500/15 to-transparent rounded-full blur-3xl animate-pulse"></div>
           {/* Secondary gradient orb */}
-          <div className="absolute bottom-20 left-20 w-80 h-80 bg-gradient-to-tr from-blue-500/15 via-violet-500/10 to-transparent rounded-full blur-2xl animate-pulse" style={{animationDelay: '2s'}}></div>
+          <div className="absolute bottom-20 left-4 lg:left-20 w-40 h-40 lg:w-80 lg:h-80 bg-gradient-to-tr from-blue-500/15 via-violet-500/10 to-transparent rounded-full blur-2xl animate-pulse" style={{animationDelay: '2s'}}></div>
           {/* Accent gradient */}
-          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-64 h-64 bg-gradient-to-br from-pink-500/10 to-transparent rounded-full blur-xl animate-pulse" style={{animationDelay: '4s'}}></div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 lg:w-64 lg:h-64 bg-gradient-to-br from-pink-500/10 to-transparent rounded-full blur-xl animate-pulse" style={{animationDelay: '4s'}}></div>
         </div>
 
         {/* Main Content */}
         <div className="relative z-10">
           {/* Header */}
-          <div className="mb-12">
-            <div className="flex items-center gap-4 mb-8">
+          <div className="mb-8 lg:mb-12 mt-16 lg:mt-0">
+            <div className="flex flex-col sm:flex-row items-start sm:items-center gap-4 mb-6 lg:mb-8">
               <div className="relative">
                 <div className="w-20 h-20 rounded-3xl bg-gradient-to-br from-violet-500 via-fuchsia-500 to-violet-600 flex items-center justify-center shadow-[0_8px_32px_rgba(139,92,246,0.3),0_3px_16px_rgba(139,92,246,0.2)] border border-white/10">
                   <User className="w-10 h-10 text-white drop-shadow-sm" />
@@ -214,10 +214,10 @@ export default function DashboardPage() {
                 </div>
               </div>
               <div>
-                <h1 className="text-5xl font-bold text-gray-900">
+                <h1 className="text-3xl lg:text-5xl font-bold text-gray-900">
                   Hey {profile?.dj_name || 'DJ'} 👋
                 </h1>
-                <p className="text-xl text-gray-600 font-light mt-2">
+                <p className="text-lg lg:text-xl text-gray-600 font-light mt-2">
                   Manage your career and track your progress in real-time
                 </p>
               </div>
@@ -233,7 +233,7 @@ export default function DashboardPage() {
           </div>
 
           {/* Stats Cards Grid */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-12">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8 mb-8 lg:mb-12">
             {/* Profile Card */}
             <div className="lg:row-span-2">
               <DJProfileCard 
@@ -246,7 +246,7 @@ export default function DashboardPage() {
             </div>
             
             {/* Bookability Score and Global Progress Column */}
-            <div className="space-y-1">
+            <div className="space-y-4 lg:space-y-1">
               {/* Bookability Score */}
               <GlassContainer className="pt-5 px-5 pb-3 h-fit">
                 <div className="flex items-center gap-3 mb-2">

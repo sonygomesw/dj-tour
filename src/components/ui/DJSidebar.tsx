@@ -21,7 +21,9 @@ import {
   Brain,
   MessageCircle,
   Play,
-  Calendar
+  Calendar,
+  Menu,
+  X
 } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
@@ -41,6 +43,7 @@ export function DJSidebar() {
   const { signOut } = useAuth();
   const [theme, setTheme] = useState<'light' | 'dark'>('light');
   const [mounted, setMounted] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   // Gestion simple du thème sans contexte externe
   useEffect(() => {
@@ -81,7 +84,30 @@ export function DJSidebar() {
   }
 
   return (
-    <div className="fixed left-0 top-0 h-full w-80 backdrop-blur-2xl bg-black/[0.02] border-r border-black/10 z-50 shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_16px_rgba(0,0,0,0.08)]">
+    <>
+      {/* Mobile hamburger button */}
+      <button
+        onClick={() => setIsOpen(!isOpen)}
+        className="lg:hidden fixed top-4 left-4 z-[60] p-3 rounded-xl backdrop-blur-2xl bg-black/[0.02] border border-black/10 shadow-lg"
+      >
+        {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+      </button>
+
+      {/* Mobile overlay */}
+      {isOpen && (
+        <div 
+          className="lg:hidden fixed inset-0 bg-black/50 z-40"
+          onClick={() => setIsOpen(false)}
+        />
+      )}
+
+      {/* Sidebar */}
+      <div className={cn(
+        "fixed left-0 top-0 h-full w-80 backdrop-blur-2xl bg-black/[0.02] border-r border-black/10 z-50 shadow-[0_8px_32px_rgba(0,0,0,0.12),0_2px_16px_rgba(0,0,0,0.08)] transition-transform duration-300",
+        // Hide on mobile by default, show when open
+        "lg:translate-x-0",
+        isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"
+      )}>
       {/* Logo Section */}
               <div className="p-6 border-b border-black/10">
         <div className="flex items-center gap-4">
@@ -108,6 +134,7 @@ export function DJSidebar() {
             <Link
               key={item.href}
               href={item.href}
+              onClick={() => setIsOpen(false)} // Close mobile menu on navigation
               className={cn(
                 "group flex items-center gap-4 px-6 py-4 rounded-2xl transition-all duration-300 font-medium text-base hover:scale-105 active:scale-95",
                 isActive
@@ -146,6 +173,7 @@ export function DJSidebar() {
           <span>Logout</span>
         </button>
       </div>
-    </div>
+      </div>
+    </>
   );
 } 
